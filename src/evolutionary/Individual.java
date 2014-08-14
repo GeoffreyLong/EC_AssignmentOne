@@ -13,4 +13,6 @@ public class Individual {
 	public Individual(){
 		// Uniform random linear time initialization
 	}
+	public Individual(int size) {
+	}
 }
