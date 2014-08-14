@@ -8,6 +8,8 @@ package evolutionary;
 
 // If we don't want to use a globally accessible object we will have to find
 // Another way to instantiate the mutation, crossover
+
+// A bunch of final statics
 public class Config {
 	
 }
