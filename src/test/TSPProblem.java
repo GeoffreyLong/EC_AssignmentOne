@@ -51,7 +51,7 @@ public class TSPProblem {
 	
 	private String getFileName(TestOptions testName){
 		// fileName is the path to the file where the TSP is saved
-		String fileName = "Lib/" + testName.getName() + ".tsp";
+		String fileName = "lib/" + testName.getName() + ".tsp";
 		return fileName;
 	}
 	
