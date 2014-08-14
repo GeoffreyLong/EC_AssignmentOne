@@ -36,4 +36,8 @@ public class Population {
 	public void incrementGenerationNumber(){
 		generationNumber += 1;
 	}
+	
+	public int size(){
+		return population.length;
+	}
 }
