@@ -68,7 +68,20 @@ package test;
 
 public class TestRunner {
 	public enum TestOptions{
-		// Has all the different test options so you can just do a case switch function
+		EIL51, 
+		EIL76, 
+		EIL101, 
+		ST70, 
+		KROA100, 
+		KROC100, 
+		KROD100, 
+		LIN105,
+		PCB442, 
+		PR2392;
+		
+		public String getName(){
+			return this.name();
+		}
 	}
 	
 	public static void main(String[] args){
@@ -82,12 +95,13 @@ public class TestRunner {
 		String testName = "";
 		int numberOfGenerations = 0;
 		
-		
+		// Putting this here for now, will probably be moved later
+		TSPProblem tsp = new TSPProblem(TestOptions.EIL101);
 		
 	}
 	
 	// Should probs be the enum testOption, but don't want to change it yet
-	private void printData(String testName){
+	private void printData(TestOptions testName){
 		System.out.println("Running test:" + testName);
 		System.out.println("");
 	}
