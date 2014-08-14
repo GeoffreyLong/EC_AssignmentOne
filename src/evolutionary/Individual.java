@@ -8,11 +8,15 @@ public class Individual {
 	// Class method calculate fitness?
 	
 	// Make a generic linked list to hold the allele so that it can take many different types of arguments
-	List<Object> genotype = new LinkedList<Object>();
+	public List<Object> genotype = new LinkedList<Object>();
 	
 	public Individual(){
 		// Uniform random linear time initialization
 	}
 	public Individual(int size) {
+	}
+	
+	public String toString() {
+		return genotype.toString();
 	}
 }
