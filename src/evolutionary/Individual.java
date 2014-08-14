@@ -36,6 +36,7 @@ public class Individual {
 			}
 		}
 		
+		
 	}
 	
 	public String toString() {
