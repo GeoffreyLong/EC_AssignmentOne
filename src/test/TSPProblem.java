@@ -34,7 +34,7 @@ import test.TestRunner.TestOptions;
 
 public class TSPProblem {
 	private List<String> data;
-	private final int NODE_DATA_OFFSET = 7;
+	private final int NODE_DATA_OFFSET = 6;
 	
 	public TSPProblem(TestOptions testName){
 		// Reads in the problem version to use, pipes out the necessary information
@@ -74,7 +74,7 @@ public class TSPProblem {
 			String[] nodeValues = data.get(i).split(" ");
 			
 			// Add in the data gotten by splitting the node line
-			String nodeName = nodeValues[1];
+			String nodeName = nodeValues[0];
 			int xCoordinate = Integer.valueOf(nodeValues[1]);
 			int yCoordinate = Integer.valueOf(nodeValues[2]);
 			

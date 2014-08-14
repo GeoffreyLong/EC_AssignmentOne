@@ -66,6 +66,10 @@
  */
 package test;
 
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TestRunner {
 	public enum TestOptions{
 		EIL51, 
@@ -94,10 +98,23 @@ public class TestRunner {
 		
 		String testName = "";
 		int numberOfGenerations = 0;
-		
-		// Putting this here for now, will probably be moved later
+	}
+	
+	// Small test for file reader, move into testing suite later
+	private void tspReaderTest(){
 		TSPProblem tsp = new TSPProblem(TestOptions.EIL101);
+		int numberOfNodes = tsp.getNumberOfNodes();
+		Map<String, Point> nodeMap = tsp.getNodes();
 		
+		// Check to see if all the numbers are there
+		for (int i = 1; i <= numberOfNodes; i++){
+			if (!nodeMap.containsKey(String.valueOf(i))){
+				System.out.println("Missing " + i);
+			}
+			else{
+				System.out.println(nodeMap.get(String.valueOf(i)));
+			}
+		}
 	}
 	
 	// Should probs be the enum testOption, but don't want to change it yet
