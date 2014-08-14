@@ -9,7 +9,16 @@ package evolutionary;
 // If we don't want to use a globally accessible object we will have to find
 // Another way to instantiate the mutation, crossover
 
-// A bunch of final statics
 public class Config {
+	private static int numberOfNodes = -1;
 	
+	// Setter that insures field is only set once
+	public void setNumberOfNodes(int numberOfNodes)  {
+        this.numberOfNodes = this.numberOfNodes == -1 ? numberOfNodes : throw_();
+    }
+
+	// Throw error if already set
+    public int throw_() {
+        throw new RuntimeException("id is already set");
+    }
 }
