@@ -13,7 +13,6 @@ public class Individual {
 	
 	// Make a generic linked list to hold the allele so that it can take many different types of arguments
 	private static final Random rand = new Random(System.currentTimeMillis());
-	private int maxID;
 	public List<Object> genotype;
 	
 	public Individual(){
@@ -21,10 +20,13 @@ public class Individual {
 		genotype = new ArrayList<Object>();
 	}
 	public Individual(int size, int maxID) {
-		this.maxID = maxID;
+		if (!(maxID + 1 >= size)) {
+			throw new IllegalArgumentException("maxID + 1 must be >= size");
+		}
 		genotype = new ArrayList<Object>(size);
-		// randomly initialise
+		// randomly initialize
 		// Assumes numChromosomes is significantly smaller than numID's
+		// Otherwise inefficient
 		Set<Integer> used = new HashSet<Integer>();
 		int count = 0;
 		while (count < size) {
@@ -34,10 +36,10 @@ public class Individual {
 				used.add(i);
 				count++;
 			}
-		}
-		
-		
-		
+		}		
+	}
+	public Individual(List<Object> genotype) {
+		this.genotype = genotype;
 	}
 	
 	public String toString() {
