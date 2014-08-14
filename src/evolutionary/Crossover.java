@@ -7,15 +7,17 @@ import java.util.Random;
 
 public class Crossover {
 
+	private int maxID = 5; //TODO
 	public void cross(Population p){
 		
 	}
 	
 	public List<Individual> orderCross(Individual a, Individual b) {
 		int numChromosomes = a.genotype.size();
+		System.out.println(numChromosomes);
 		
-		Individual newA = new Individual(numChromosomes);
-		Individual newB = new Individual(numChromosomes);
+		Individual newA = new Individual(numChromosomes, maxID);
+		Individual newB = new Individual(numChromosomes, maxID);
 		
 		// Generate random cut interval		
 		Random rand = new Random(System.currentTimeMillis());
