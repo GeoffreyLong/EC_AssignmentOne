@@ -7,8 +7,8 @@ import evolutionary.Population;
 public class TestMutation {
 
 	public static void main(String[] args) {
-		Individual iA = new Individual(10,10);
-		Individual iB = new Individual(5,5);
+		Individual iA = new Individual(50,50);
+		Individual iB = new Individual(25,25);
 		//Population p = new Population(3);
 
 		Mutation m = new Mutation();

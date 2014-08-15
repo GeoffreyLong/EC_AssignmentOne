@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-// Crossover and Selection will have a similar setup
 public class Mutation {
 	private MutationType mutationType;
 	private int mutationParam;
+	private static Random rand = new Random(System.currentTimeMillis());
 	
 	enum MutationType{
 		INSERT,SWAP,INVERSION,SCRAMBLE
@@ -47,7 +47,6 @@ public class Mutation {
 	public Individual insert(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int indexA = rand.nextInt(numChromosomes);
 		int indexB = rand.nextInt(numChromosomes);
 		
@@ -56,7 +55,7 @@ public class Mutation {
 			indexA = indexB;
 			indexB = tmp;
 		}
-		//System.out.println(indexA+", "+indexB);//testing
+		System.out.println(indexA+", "+indexB);//testing
 		
 		for (int j = indexA+1; j < indexB; j++) {
 			Object temp = i.genotype.get(j);
@@ -70,7 +69,6 @@ public class Mutation {
 	public Individual swap(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int indexA = rand.nextInt(numChromosomes);
 		int indexB = rand.nextInt(numChromosomes);
 		//System.out.println(indexA+", "+indexB);//testing
@@ -85,7 +83,6 @@ public class Mutation {
 	public Individual inversion(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int indexA = rand.nextInt(numChromosomes);
 		int indexB = rand.nextInt(numChromosomes);
 		if (indexA > indexB) {//make sure indexes in ascending order
@@ -108,7 +105,6 @@ public class Mutation {
 	public Individual scramble(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int numberOfScrambles = rand.nextInt(numChromosomes);				// Number of chromosomes to scramble
 		int [] indexes = new int[numberOfScrambles];						// Random array of indexes to scramble
 		int [] sortedIndexes = new int[numberOfScrambles];					// The same indexes sorted
