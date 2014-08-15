@@ -1,13 +1,11 @@
 package evolutionary;
 
-import java.util.LinkedList;
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Individual {
-	// Perhaps class object of fitness?
-	// Class method calculate fitness?
-	
-	// Make a generic linked list to hold the allele so that it can take many different types of arguments
-	LinkedList<Object> genotype = new LinkedList<>();
+	Map<String, Point> genotype = new HashMap<String,Point>();
 	
 	public Individual(){
 		// Uniform random linear time initialization
