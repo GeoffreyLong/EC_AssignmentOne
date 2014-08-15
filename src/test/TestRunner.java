@@ -81,5 +81,6 @@ public class TestRunner {
 		// Could probably make all of these above enums
 		
 		TestConfigure test = new TestConfigure(args);
+		test.run();
 	}
 }

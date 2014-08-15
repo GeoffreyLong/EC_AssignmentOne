@@ -3,7 +3,8 @@ package test;
 import java.awt.Point;
 import java.util.Map;
 
-// TODO add simple error messages before inputError() called to make messages more clear
+// Perhaps should run from this class as well?
+// If so should rename the class?
 public class TestConfigure {
 	private TestOptions testOption;
 	private int numberOfGenerations;
@@ -20,7 +21,8 @@ public class TestConfigure {
 		KROD100, 
 		LIN105,
 		PCB442, 
-		PR2392;
+		PR2392,
+		ALL_TESTS;
 		
 		public String getName(){
 			return this.name();
@@ -106,14 +108,34 @@ public class TestConfigure {
 	// They will instantiate a population and call population.evolve, will be if statements to control when the algorithm terminates
 	// By controlling termination here we can make it modular to say, if a population doesn't change for a while... makes it easier to switch prob to prob
 	// At the end or when you want to print, simply call some sort of .getFitness, or could have fitness eval in here
+	
+	// TODO add param information print
 	private void setUpAlgOne(){
-		System.out.println("Running Alg One");
+		System.out.println("Running Algorithm One");
 	}
 	private void setUpAlgTwo(){
-		System.out.println("Running Alg Two");
+		System.out.println("Running Algorithm Two");
 	}
 	private void setUpAlgThree(){
-		System.out.println("Running Alg Three");
+		System.out.println("Running Algorithm Three");
+	}
+	
+	public void run(){
+		if (testOption == TestOptions.ALL_TESTS){
+			for (TestOptions option : TestOptions.values()){
+				if (option != TestOptions.ALL_TESTS){
+					runTestingInstance(option);
+				}
+			}
+		}
+		else{
+			runTestingInstance(testOption);
+		}
+	}
+	
+	private void runTestingInstance(TestOptions test){
+		// Do running stuff
+		printData(test);
 	}
 	
 	private void inputError(){
@@ -139,8 +161,7 @@ public class TestConfigure {
 		}
 	}
 	
-	// Should probs be the enum testOption, but don't want to change it yet
-	// This should probably go in a different class
+	// Print for each run
 	private void printData(TestOptions testName){
 		System.out.println("Running test:" + testName);
 		System.out.println("");
