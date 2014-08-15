@@ -17,6 +17,14 @@ public class Population {
 			population[i] = new Individual();
 		}
 	}
+	
+	// OverLoad in case want a different setup
+	public Population(int popSize, int indLength){
+		population = new Individual[popSize];
+		for (int i = 0; i < popSize; i++){
+			population[i] = new Individual(indLength,indLength);
+		}
+	}
 
 	public Population(int populationSize, Object object) {
 		// TODO Auto-generated constructor stub
@@ -32,5 +40,14 @@ public class Population {
 	
 	public int size(){
 		return population.length;
+	}
+	
+	public String toString(){
+		String temp = "";
+		for (int i = 0; i < population.length; i++){
+			temp += population[i].toString();
+			temp += System.getProperty("line.separator");
+		}
+		return temp;
 	}
 }
