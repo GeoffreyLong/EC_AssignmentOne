@@ -5,31 +5,20 @@ package evolutionary;
 
 public class EvolutionDriver {
 	private int maxNumberOfGenerations;
-	//private array rep of genotype
-	//crossover method
-	//crossover params
-	//mutation method
-	//mutation params
 	private int populationSize;
-	//fitness function
-	//selection function
 	Population population;
 	Mutation mutation;
 	
 	
-	public EvolutionDriver(){
+	public EvolutionDriver(int maxNumberOfGenerations, int populationSize){
 		this.maxNumberOfGenerations = maxNumberOfGenerations;
 		this.populationSize = populationSize;
 		
-		// Perhaps could instantiate population and pass it a lambda expression for mutation/crossover/selection
-		// Mutation mutation = new Mutation();
-		Crossover crossover = new Crossover();
-		Selection selection = new Selection();
 		population = new Population(populationSize);
 	}
 	
 	public void evolve(){
-		if (population.getGenerationNumber() < maxNumberOfGenerations){
+		while (population.getGenerationNumber() < maxNumberOfGenerations){
 			// TODO Could pass the crossover::cross and mutation::mutate in this population::evolve.  That might be good?!?!?!
 			// Would have to pass the whole population to these methods though right? 
 			// Else might be able to pass the population.pop and set the pop to the return from these methods
@@ -37,7 +26,7 @@ public class EvolutionDriver {
 			
 			// Would it be an option just to have the function objects read from the problem json?
 			// This way the function objects can simply read out of the file on their instantiation which will set the objects up
-			population.evolve();
+			population.incrementGenerationNumber();
 		}
 	}
 }

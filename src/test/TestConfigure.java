@@ -3,6 +3,9 @@ package test;
 import java.awt.Point;
 import java.util.Map;
 
+import evolutionary.EvolutionDriver;
+import evolutionary.Mutation;
+
 // Perhaps should run from this class as well?
 // If so should rename the class?
 public class TestConfigure {
@@ -10,6 +13,9 @@ public class TestConfigure {
 	private int numberOfGenerations;
 	private final int SMALLEST_GEN_SIZE = 1;
 	private final int LARGEST_GEN_SIZE = 20000;
+	
+	// Default... this should be instantiated in the algorithm configuration
+	private int populationSize = 100;
 	
 	public enum TestOptions{
 		EIL51, 
@@ -110,6 +116,7 @@ public class TestConfigure {
 	// At the end or when you want to print, simply call some sort of .getFitness, or could have fitness eval in here
 	
 	// TODO add param information print
+	// Set the mutation, crossover, and selection types and params
 	private void setUpAlgOne(){
 		System.out.println("Running Algorithm One");
 	}
@@ -136,6 +143,8 @@ public class TestConfigure {
 	private void runTestingInstance(TestOptions test){
 		// Do running stuff
 		printData(test);
+		EvolutionDriver evolutionDriver = new EvolutionDriver(numberOfGenerations, populationSize);
+		evolutionDriver.evolve();
 	}
 	
 	private void inputError(){

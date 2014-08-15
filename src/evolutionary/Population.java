@@ -22,13 +22,6 @@ public class Population {
 		// TODO Auto-generated constructor stub
 	}
 	
-	// Perhaps should put evolve in EvolutionDriver?
-	public void evolve(){
-		// TODO how to make the mutation and crossover as modular as possible
-		// on each evolve increment the generation number, mutate, crossover, and select new generation
-		generationNumber += 1;
-	}
-	
 	public int getGenerationNumber(){
 		return generationNumber;
 	}
