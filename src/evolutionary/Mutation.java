@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Mutation {
-	private MutationType mutationType;
+	private static MutationType mutationType;
 	private static Random rand = new Random(System.currentTimeMillis());
 	
 	public enum MutationType{
