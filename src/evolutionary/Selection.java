@@ -1,5 +1,9 @@
 package evolutionary;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 public class Selection {
 	public int param = -1;
 	
@@ -15,5 +19,39 @@ public class Selection {
 	// Throw error if already set
     public int throw_() {
         throw new RuntimeException("field is already set");
+    }
+    
+    public Population fitnessProportional(Population pop){
+    	
+    	return pop;
+    }
+    
+    public Population tournamentSelection(Population pop, int outSize, int tourSize, double prob){
+    	int popSize = pop.size();
+    	int [] indexes = new int[tourSize];
+    	Map<Integer, Integer> indexesB = new HashMap<Integer, Integer>();
+    	
+    	
+    	int outCount = 0;
+    	while (outCount<outSize){//until we have the output population size
+    		int tourCount=0;
+    		Random rand = new Random(System.currentTimeMillis());
+    		while (tourCount<tourSize){//until we have the specified tour size
+    			int index = rand.nextInt(popSize);
+    			if (!indexesB.containsKey(index)){			// If index hasn't yet been selected add it
+    				indexesB.put(index, index);
+    				indexes[tourCount]=index;
+    				tourCount++;
+    			}
+    		}
+    		outCount=0;
+    	} 
+    	return pop;
+    }
+    
+    public Population elitism(Population pop, int cutOff){//cut off number or percent?
+    	//sort by fitness
+    	//cut off
+    	return pop;
     }
 }
