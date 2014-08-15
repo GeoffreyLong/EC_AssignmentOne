@@ -70,24 +70,8 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO rename to something better
 public class TestRunner {
-	public enum TestOptions{
-		EIL51, 
-		EIL76, 
-		EIL101, 
-		ST70, 
-		KROA100, 
-		KROC100, 
-		KROD100, 
-		LIN105,
-		PCB442, 
-		PR2392;
-		
-		public String getName(){
-			return this.name();
-		}
-	}
-	
 	public static void main(String[] args){
 		// Start off asking what test option to run
 		// This is a choice of one of the TestOptions enums
@@ -96,45 +80,6 @@ public class TestRunner {
 		// This will pipe the TestOption and generation information to one of the runAlg___ methods
 		// Could probably make all of these above enums
 		
-		String testName = "";
-		int numberOfGenerations = 0;
-	}
-	
-	// Small test for file reader, move into testing suite later
-	private void tspReaderTest(){
-		TSPProblem tsp = new TSPProblem(TestOptions.EIL101);
-		int numberOfNodes = tsp.getNumberOfNodes();
-		Map<String, Point> nodeMap = tsp.getNodes();
-		
-		// Check to see if all the numbers are there
-		for (int i = 1; i <= numberOfNodes; i++){
-			if (!nodeMap.containsKey(String.valueOf(i))){
-				System.out.println("Missing " + i);
-			}
-			else{
-				System.out.println(nodeMap.get(String.valueOf(i)));
-			}
-		}
-	}
-	
-	// Should probs be the enum testOption, but don't want to change it yet
-	private void printData(TestOptions testName){
-		System.out.println("Running test:" + testName);
-		System.out.println("");
-	}
-	
-	// Each one of these will have set mutation/crossover/selections functions and params that will be used to set the EvolutionDriver object
-	// Right now they will either return a fitness level that is put to print, or they could just run print within which might be better
-	// They will instantiate a population and call population.evolve, will be if statements to control when the algorithm terminates
-	// By controlling termination here we can make it modular to say, if a population doesn't change for a while... makes it easier to switch prob to prob
-	// At the end or when you want to print, simply call some sort of .getFitness, or could have fitness eval in here
-	private void runAlgOne(){
-		
-	}
-	private void runAlgTwo(){
-		
-	}
-	private void runAlgThree(){
-		
+		TestConfigure test = new TestConfigure(args);
 	}
 }
