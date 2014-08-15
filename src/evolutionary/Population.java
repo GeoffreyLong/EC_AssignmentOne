@@ -18,7 +18,7 @@ public class Population {
 		}
 	}
 	
-	// OverLoad in case want a different setup?
+	// OverLoad in case want a different setup
 	public Population(int popSize, int indLength){
 		population = new Individual[popSize];
 		for (int i = 0; i < popSize; i++){
