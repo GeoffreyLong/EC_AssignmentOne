@@ -60,7 +60,6 @@ public class Crossover {
 	
 	public Individual pmxCross(Individual a, Individual b) {
 		int numChromosomes = a.genotype.size();
-		System.out.println(numChromosomes);
 		
 		List<Object> offspringGenotype = new ArrayList<Object>(Collections.nCopies(numChromosomes, -1));
 		
@@ -96,21 +95,31 @@ public class Crossover {
 			if (!offspringGenotype.contains(el1)) {
 				boolean placeFound = false;
 				int index = i;
-				while (!placeFound) {
-					Object el2 = offspringGenotype.get(index);
+				Object el2 = offspringGenotype.get(index);
+				while (!placeFound) {					
 					// find index of el2 in b
 					index = bLookup.get(el2);
-					placeFound = ((int)offspringGenotype.get(index) == -1);					
+					el2 = offspringGenotype.get(index);
+					placeFound = (el2 instanceof Integer) ? ((int)el2 == -1) : false;
 				}
 				offspringGenotype.set(index,el1);
 			}
 		}
 		
+		System.out.println("after pmx");
+		System.out.println(offspringGenotype);
+		
 		for (int i = 0; i < offspringGenotype.size(); i++) {
-			if ((int)offspringGenotype.get(i) == -1) {
+			Object el = offspringGenotype.get(i);
+			boolean placeFilled = (el instanceof Integer) ? ((int)el != -1) : true;
+			System.out.printf("index: %d, placeFilled:%s, integer:%s\n", i, placeFilled, el instanceof Integer);
+			if (!placeFilled) {
 				offspringGenotype.set(i, b.genotype.get(i));
 			}
 		}
+		
+		System.out.println("after direct mapping");
+		System.out.println(offspringGenotype);
 		return new Individual(offspringGenotype);
 		
 	}
