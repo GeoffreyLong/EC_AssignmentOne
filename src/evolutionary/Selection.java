@@ -21,7 +21,7 @@ public class Selection {
         throw new RuntimeException("field is already set");
     }
     
-    public Population fitnessProportional(Population pop){
+    public Population fitnessProportional(Population pop, int outSize){
     	
     	return pop;
     }
@@ -29,8 +29,7 @@ public class Selection {
     public Population tournamentSelection(Population pop, int outSize, int tourSize, double prob){
     	int popSize = pop.size();
     	int [] indexes = new int[tourSize];
-    	Map<Integer, Integer> indexesB = new HashMap<Integer, Integer>();
-    	
+    	Map<Integer, Integer> indexesB = new HashMap<Integer, Integer>();    	
     	
     	int outCount = 0;
     	while (outCount<outSize){//until we have the output population size
@@ -42,14 +41,17 @@ public class Selection {
     				indexesB.put(index, index);
     				indexes[tourCount]=index;
     				tourCount++;
+    				//need to decide if need to implement take best of as wiki suggests with a particular probability (if takes best then can just check fitness here and keep index and fitness of best rather than putting in tournament array
     			}
     		}
-    		outCount=0;
+    		
+    		//
+    		outCount++;
     	} 
     	return pop;
     }
     
-    public Population elitism(Population pop, int cutOff){//cut off number or percent?
+    public Population elitism(Population pop, int outSize, int cutOff){//cut off number or percent?
     	//sort by fitness
     	//cut off
     	return pop;
