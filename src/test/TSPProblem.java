@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import test.TestRunner.TestOptions;
+import test.TestConfigure.TestOptions;
 
 public class TSPProblem {
 	private List<String> data;

@@ -21,6 +21,7 @@ public class TestCrossover {
 		Individual offspringB = cross.orderCross(b, a);
 		System.out.println("After orderCrossover b a");		
 		System.out.println(offspringB);
+		
 	
 		
 	}

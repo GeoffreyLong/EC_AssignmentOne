@@ -19,6 +19,6 @@ public class Config {
 
 	// Throw error if already set
     public int throw_() {
-        throw new RuntimeException("id is already set");
+        throw new RuntimeException("field is already set");
     }
 }

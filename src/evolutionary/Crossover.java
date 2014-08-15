@@ -112,6 +112,7 @@ public class Crossover {
 			}
 		}
 		return new Individual(offspringGenotype);
+		
 	}
 }
 

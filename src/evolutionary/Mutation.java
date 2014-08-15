@@ -5,21 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-// Crossover and Selection will have a similar setup
 public class Mutation {
 	private MutationType mutationType;
-	private int mutationParam;
+	private static Random rand = new Random(System.currentTimeMillis());
 	
-	enum MutationType{
+	public enum MutationType{
 		INSERT,SWAP,INVERSION,SCRAMBLE
 	}
-	/*
-	public Mutation(MutationType mutationType, int mutationParam){
+	
+	public Mutation(MutationType mutationType){
 		this.mutationType = mutationType;
-		this.mutationParam = mutationParam;
 	}
-	*/
-	public void mutate(Population population){
+	
+	public Population mutate(Population population){
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){
@@ -42,12 +40,12 @@ public class Mutation {
 				}
 				break;
 		}
+		return population;
 	}
 	
 	public Individual insert(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int indexA = rand.nextInt(numChromosomes);
 		int indexB = rand.nextInt(numChromosomes);
 		
@@ -70,7 +68,6 @@ public class Mutation {
 	public Individual swap(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int indexA = rand.nextInt(numChromosomes);
 		int indexB = rand.nextInt(numChromosomes);
 		//System.out.println(indexA+", "+indexB);//testing
@@ -85,7 +82,6 @@ public class Mutation {
 	public Individual inversion(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int indexA = rand.nextInt(numChromosomes);
 		int indexB = rand.nextInt(numChromosomes);
 		if (indexA > indexB) {//make sure indexes in ascending order
@@ -108,7 +104,6 @@ public class Mutation {
 	public Individual scramble(Individual i){
 		int numChromosomes=i.genotype.size();
 		
-		Random rand = new Random(System.currentTimeMillis());
 		int numberOfScrambles = rand.nextInt(numChromosomes);				// Number of chromosomes to scramble
 		int [] indexes = new int[numberOfScrambles];						// Random array of indexes to scramble
 		int [] sortedIndexes = new int[numberOfScrambles];					// The same indexes sorted
