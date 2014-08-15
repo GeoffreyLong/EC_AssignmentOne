@@ -3,6 +3,7 @@ package test;
 import java.awt.Point;
 import java.util.Map;
 
+import evolutionary.Config;
 import evolutionary.EvolutionDriver;
 import evolutionary.Mutation;
 
@@ -33,21 +34,6 @@ public class TestConfigure {
 		public String getName(){
 			return this.name();
 		}
-		
-		/*
-		// Option for returning enum from integer
-	    public static TestOptions fromInteger(int x) {
-	    	// TODO the rest of this
-	        switch(x) {
-		        case 1:
-		            return EIL51;
-		        case 2:
-		            return EIL76;
-	        }
-	        
-	        return null;
-	    }
-	    */
 	}
 	
 	public TestConfigure(String[] args){
@@ -142,6 +128,12 @@ public class TestConfigure {
 	
 	private void runTestingInstance(TestOptions test){
 		// Do running stuff
+		TSPProblem tsp = new TSPProblem(TestOptions.EIL101);
+		Map<String, Point> nodeMap = tsp.getNodes();
+		
+		Config.setAlleleMap(nodeMap);
+		System.out.println(Config.getAlleleMap());
+		
 		printData(test);
 		EvolutionDriver evolutionDriver = new EvolutionDriver(numberOfGenerations, populationSize);
 		evolutionDriver.evolve();
