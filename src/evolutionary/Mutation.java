@@ -7,19 +7,17 @@ import java.util.Random;
 
 public class Mutation {
 	private MutationType mutationType;
-	private int mutationParam;
 	private static Random rand = new Random(System.currentTimeMillis());
 	
-	enum MutationType{
+	public enum MutationType{
 		INSERT,SWAP,INVERSION,SCRAMBLE
 	}
-	/*
-	public Mutation(MutationType mutationType, int mutationParam){
+	
+	public Mutation(MutationType mutationType){
 		this.mutationType = mutationType;
-		this.mutationParam = mutationParam;
 	}
-	*/
-	public void mutate(Population population){
+	
+	public Population mutate(Population population){
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){
@@ -42,6 +40,7 @@ public class Mutation {
 				}
 				break;
 		}
+		return population;
 	}
 	
 	public Individual insert(Individual i){
@@ -55,7 +54,7 @@ public class Mutation {
 			indexA = indexB;
 			indexB = tmp;
 		}
-		System.out.println(indexA+", "+indexB);//testing
+		//System.out.println(indexA+", "+indexB);//testing
 		
 		for (int j = indexA+1; j < indexB; j++) {
 			Object temp = i.genotype.get(j);
