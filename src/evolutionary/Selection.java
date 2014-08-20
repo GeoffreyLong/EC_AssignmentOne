@@ -33,9 +33,9 @@ public class Selection {
     	
     	for (int i = 0; i<pop.population.length; i++){
     		if(i==0){
-    			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}    		
     	}
     	
@@ -60,9 +60,9 @@ public class Selection {
     	
     	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
-    			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}    		
     	}
     	
@@ -100,7 +100,7 @@ public class Selection {
     				indexesB.add(index);// only need if using probability
     				indexes[tourCount]=index;
     				tourCount++;
-    				double fitness=Config.calculateFitness(pop.population[index]);
+    				double fitness=Config.getInstance().calculateFitness(pop.population[index]);
     				if(fitness>bestFitness){// fitness of this individual is best
     					bestFitness=fitness;
     					bestIndex=index;

@@ -15,51 +15,61 @@ import evolutionary.Mutation.MutationType;
 // If we don't want to use a globally accessible object we will have to find
 // Another way to instantiate the mutation, crossover
 
-public class Config {
-	private static int individualLength = -1;
-	private static Map possibleAlleles;
-	private static MutationType mutationType;
+public class Config{
+	public int individualLength = -1;
+	public Map possibleAlleles;
+	public MutationType mutationType;
 	
 	// Need to instantiate in TestConfigure
-	private static int populationSize = 100;
-	private static int numberOfGenerations;
+	public int populationSize = 100;
+	public int numberOfGenerations;
 	
-	public static void setNumberOfGenerations(int generations){
-		numberOfGenerations  = generations;
+	private static Config instance = null;
+	public static Config getInstance(){
+		if(instance == null){
+			instance = new Config();
+		}
+		return instance;
 	}
 	
-	public static int getNumberOfGenerations(){
+	private void Config(){}
+	
+	public void setNumberOfGenerations(int generations){
+		numberOfGenerations = generations;
+	}
+	
+	public int getNumberOfGenerations(){
 		return numberOfGenerations;
 	}
 	
-	public static void setPopulationSize(int size){
+	public void setPopulationSize(int size){
 		populationSize = size;
 	}
 	
-	public static int getPopulationSize(){
+	public int getPopulationSize(){
 		return populationSize;
 	}
 	
 	// Setter that insures field is only set once
 	// Don't really need if we have the alleleMap
-	public static void setIndividualLength(int length)  {
-        individualLength = length;
-    }
+	public void setIndividualLength(int length) {
+		individualLength = length;
+	}
 
-	public static int getIndividualLength(){
+	public int getIndividualLength(){
 		return individualLength;
 	}
 	
-	public static void setAlleleMap(Map alleleMap){
+	public void setAlleleMap(Map alleleMap){
 		possibleAlleles = alleleMap;
 	}
 	
-	public static Map getAlleleMap(){
+	public Map getAlleleMap(){
 		return possibleAlleles;
 	}
 	
 	// Definitely test this to ensure it works
-	public static double calculateFitness(Individual individual){
+	public double calculateFitness(Individual individual){
 		double fitness = 0;
 		List<Object> chromosomes = individual.genotype;
 		
@@ -76,18 +86,18 @@ public class Config {
 		return fitness;
 	}
 	
-	public static void setMutationType(MutationType type){
+	public void setMutationType(MutationType type){
 		mutationType = type;
 	}
-	public static MutationType getMutationType(){
+	public MutationType getMutationType(){
 		return mutationType;
 	}
 	/*
-	public static void setCrossoverType(CrossoverType type){
+	public void setCrossoverType(CrossoverType type){
 		crossoverType = type;
 	}
 	
-	public static void setSelectionType(SelectionType type){
+	public void setSelectionType(SelectionType type){
 		selectionType = type;
 	}*/
 }

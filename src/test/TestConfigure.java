@@ -4,20 +4,13 @@ import java.awt.Point;
 import java.util.Map;
 
 import evolutionary.Config;
-import evolutionary.EvolutionDriver;
-import evolutionary.Mutation;
 import evolutionary.Mutation.MutationType;
-import evolutionary.Population;
 
-// Perhaps should run from this class as well?
-// If so should rename the class?
+// TODO rename class
 public class TestConfigure {
 	private TestOptions testOption;
 	private final int SMALLEST_GEN_SIZE = 1;
 	private final int LARGEST_GEN_SIZE = 20000;
-	
-	// Default... this should be instantiated in the algorithm configuration
-	private int populationSize = 100;
 	
 	public enum TestOptions{
 		EIL51, 
@@ -71,7 +64,7 @@ public class TestConfigure {
 			inputError();
 		}
 		
-		Config.setNumberOfGenerations(numberOfGenerations);
+		Config.getInstance().setNumberOfGenerations(numberOfGenerations);
 	}
 	private void readAlgorithmNumber(String arg){
 		switch(readInt(arg)){
@@ -108,7 +101,7 @@ public class TestConfigure {
 	// Set the mutation, crossover, and selection types and params
 	private void setUpAlgOne(){
 		System.out.println("Running Algorithm One");
-		Config.setMutationType(MutationType.INSERT);
+		Config.getInstance().setMutationType(MutationType.INSERT);
 	}
 	private void setUpAlgTwo(){
 		System.out.println("Running Algorithm Two");
