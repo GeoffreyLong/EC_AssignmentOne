@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -191,9 +192,110 @@ public class Crossover {
 	}
 	
 	public Individual edgeRecombination(Individual a, Individual b) {
+		List<Object> offspringGenotype = new ArrayList<Object>();
 		
+		Map<Object, List<Object>> edgeTable = new HashMap<Object, List<Object>>();
+		for (Object el : a.genotype){
+			edgeTable.put(el, new ArrayList<Object>(4));
+		}
 		
-		return null;
+		// Populate edge table
+		for (int i = 0; i < a.genotype.size(); i++) {
+			int idxFwd = (i+1 >= a.genotype.size()) ? 0 : i+1;
+			int idxBwd = (i-1 < 0) ? a.genotype.size() - 1 : i-1;
+		
+			edgeTable.get(a.genotype.get(i)).add(a.genotype.get(idxFwd));
+			edgeTable.get(a.genotype.get(i)).add(a.genotype.get(idxBwd));
+			edgeTable.get(b.genotype.get(i)).add(b.genotype.get(idxFwd));
+			edgeTable.get(b.genotype.get(i)).add(b.genotype.get(idxBwd));
+		}
+		
+		//debug print
+		System.out.println("Edge Table");
+		for (Map.Entry<Object, List<Object>> entry : edgeTable.entrySet()) {
+		    Object key = entry.getKey();
+		    List<Object> value = entry.getValue();
+		    System.out.println(key + ": " + value);
+		}
+		
+		Object startEdge = a.genotype.get(0);
+		Set<Object> doneEdges = new HashSet<Object>();
+		while (doneEdges.size() < a.genotype.size()) {
+			System.out.println("ITERATION");
+			if (edgeTable.get(startEdge).size() <= 0) {
+				// TODO FIND NEW EDGE
+				boolean found = false;
+				for (Object edge : a.genotype) {
+					if (!doneEdges.contains(edge)) {
+						startEdge = edge;
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					System.out.println("WHAT THIS SHOULDNT HAPPEN");
+				}
+			}
+			// Count the double edges
+			List<Object> currentList = edgeTable.get(startEdge);
+			Map<Object,Integer> numOccurences = new HashMap<Object,Integer>();
+			for (Object edge : currentList) {
+				if (numOccurences.get(edge) == null) {					
+					numOccurences.put(edge,1);
+				} else {
+					numOccurences.put(edge, 2); // MAX is 2
+				}
+			}
+			// Get the double edges
+			List<Object> doubleEdges = new ArrayList<Object>();
+			for (Object edge : currentList) {
+				if (numOccurences.get(edge) >= 2) {
+					doubleEdges.add(edge);
+				}
+			}
+			
+			Object chosenEdge = null;
+			if (doubleEdges.size() == 0) {
+				// Compare based on list size
+				chosenEdge = currentList.get(0);
+				int listSize = edgeTable.get(chosenEdge).size();
+				for (Object edge : currentList) {
+					int newListSize = edgeTable.get(edge).size();
+					System.out.println(newListSize);
+					if (newListSize < listSize) {
+						chosenEdge = edge;
+						listSize = newListSize;
+					}
+				}				
+			} else if (doubleEdges.size() >= 2) {
+				// chose one randomly				
+				chosenEdge = doubleEdges.get(rand.nextInt(2));
+				
+			} else {
+				// only one double edge
+				chosenEdge = doubleEdges.get(0);
+			}
+			
+			// Remove chosen edge from all lists
+			for (List<Object> edgeList : edgeTable.values()) {
+				while (edgeList.remove(chosenEdge));
+			}
+			
+			offspringGenotype.add(chosenEdge);
+			doneEdges.add(chosenEdge);
+			startEdge = chosenEdge;
+			//debug print			
+			System.out.println("Current Solution: " + offspringGenotype);
+			System.out.println("Edge Table");
+			for (Map.Entry<Object, List<Object>> entry : edgeTable.entrySet()) {
+			    Object key = entry.getKey();
+			    List<Object> value = entry.getValue();
+			    System.out.println(key + ": " + value);
+			}
+			
+		}
+		
+		return new Individual(offspringGenotype);
 	}
 }
 

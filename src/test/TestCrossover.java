@@ -14,7 +14,8 @@ public class TestCrossover {
 		System.out.println("m8");
 		//runOrderCross(a, b);
 		//runPmxCross(a, b);
-		runCycleCross(a,b);
+		//runCycleCross(a,b);
+		runEdgeRecombination(a,b);
 	
 		
 	}
@@ -54,6 +55,19 @@ public class TestCrossover {
 		System.out.println(offspringA);
 		Individual offspringB = cross.cycleCross(b, a);
 		System.out.println("After orderCrossover b a");		
+		System.out.println(offspringB);		
+	}
+	
+	private static void runEdgeRecombination(Individual a, Individual b) {
+		System.out.println("Before edgeRecombination");
+		System.out.println(a);
+		System.out.println(b);
+		Crossover cross = new Crossover();
+		Individual offspringA = cross.edgeRecombination(a, b);
+		System.out.println("After edgeRecombination a b");
+		System.out.println(offspringA);
+		Individual offspringB = cross.edgeRecombination(b, a);
+		System.out.println("After edgeRecombination b a");		
 		System.out.println(offspringB);		
 	}
 	
