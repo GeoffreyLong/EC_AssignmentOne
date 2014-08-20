@@ -98,7 +98,7 @@ public class Mutation {
 			Object temp = i.genotype.get(indexA+j);//store temp
 			i.genotype.set(indexA+j,i.genotype.get(indexB-j));
 			i.genotype.set(indexB-j,temp);
-		}
+		}	
 		
 		return i;	
 	}

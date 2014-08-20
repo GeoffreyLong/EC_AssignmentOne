@@ -36,7 +36,7 @@ public class Individual {
 				used.add(i);
 				count++;
 			}
-		}		
+		}
 	}
 	public Individual(List<Object> genotype) {
 		this.genotype = genotype;

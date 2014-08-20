@@ -10,6 +10,11 @@ public class Population {
 		// Need array of individuals that is the size of the pop size
 	}
 	
+	// OverLoad in case want a different setup? used in selection
+	public Population(Individual[] individualArray){
+		population = individualArray;
+	}
+	
 	// OverLoad in case want a different setup?
 	public Population(int popSize){
 		population = new Individual[popSize];
@@ -52,10 +57,14 @@ public class Population {
 	}
 	
 	public double calculateMeanFitness(){
-		double populationFitness = 0;
+		return calculateTotalFitness() / population.length;
+	}
+	
+	public double calculateTotalFitness(){
+		double totalFitness = 0;
 		for (Individual i : population){
-			populationFitness += Config.calculateFitness(i);
+			totalFitness += Config.calculateFitness(i);
 		}
-		return populationFitness / population.length;
+		return totalFitness;
 	}
 }

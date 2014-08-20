@@ -1,8 +1,10 @@
 package evolutionary;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class Selection {
 	public int param = -1;
@@ -26,29 +28,91 @@ public class Selection {
     	return pop;
     }
     
+    public Population rouletteWheel(Population pop, int outSize){
+    	Individual [] subset = new Individual[outSize];
+    	double[] maxFitScores = new double[pop.population.length];
+    	Random rand = new Random(System.currentTimeMillis());
+    	
+    	for (int i = 0; i<pop.population.length; i++){
+    		if(i==0){
+    			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    		}else{
+    			maxFitScores[i]=maxFitScores[i-1]+Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    		}    		
+    	}
+    	
+    	int outCount=0;
+    	while (outCount<outSize){
+    		double index = rand.nextDouble()*pop.getTotalFitness();
+    		for (int i = 0; i<pop.population.length; i++){
+    			if(index<=maxFitScores[i]){
+    				subset[outCount]=pop.population[i];
+    				outCount++;
+    				break;
+    			}
+    		}
+    	}
+    	return new Population(subset);
+    }
+    
+    public Population stochasticUniversalSampling(Population pop, int outSize){
+    	Individual [] subset = new Individual[outSize];
+    	double[] maxFitScores = new double[pop.population.length];
+    	Random rand = new Random(System.currentTimeMillis());
+    	
+    	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
+    		if(i==0){
+    			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    		}else{
+    			maxFitScores[i]=maxFitScores[i-1]+Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    		}    		
+    	}
+    	
+    	double index = rand.nextDouble()*pop.getTotalFitness()*(1.0/outSize);//get random start index between 0 and 1/outSize
+    	int i = 0;
+    	int outCount=0;
+    	while (i<pop.population.length){
+    		if (index<=maxFitScores[i]){
+    			subset[outCount]=pop.population[i];
+    			outCount++;
+    			index+=1.0/outSize;
+    		}else{
+    			i++;
+    		}
+    	}
+    	
+    	return new Population(subset);
+    }
+    
     public Population tournamentSelection(Population pop, int outSize, int tourSize, double prob){
+    	Individual [] subset = new Individual[outSize];
     	int popSize = pop.size();
     	int [] indexes = new int[tourSize];
-    	Map<Integer, Integer> indexesB = new HashMap<Integer, Integer>();    	
+    	Set<Integer> indexesB = new HashSet<Integer>();    	
     	
     	int outCount = 0;
-    	while (outCount<outSize){//until we have the output population size
+    	while (outCount<outSize){//until we have the output subset population size
     		int tourCount=0;
+    		double bestFitness = 0;
+    		int bestIndex = -1;
     		Random rand = new Random(System.currentTimeMillis());
     		while (tourCount<tourSize){//until we have the specified tour size
     			int index = rand.nextInt(popSize);
-    			if (!indexesB.containsKey(index)){			// If index hasn't yet been selected add it
-    				indexesB.put(index, index);
+    			if (!indexesB.contains(index)){			// If index hasn't yet been selected add it
+    				indexesB.add(index);// only need if using probability
     				indexes[tourCount]=index;
     				tourCount++;
-    				//need to decide if need to implement take best of as wiki suggests with a particular probability (if takes best then can just check fitness here and keep index and fitness of best rather than putting in tournament array
+    				double fitness=Config.calculateFitness(pop.population[index]);
+    				if(fitness>bestFitness){// fitness of this individual is best
+    					bestFitness=fitness;
+    					bestIndex=index;
+    				}// take best one? or take best one with probability prob (as wiki suggests)
     			}
     		}
-    		
-    		//
+    		subset[outCount]=pop.population[bestIndex];
     		outCount++;
     	} 
-    	return pop;
+    	return new Population(subset);
     }
     
     public Population elitism(Population pop, int outSize, double cutOff){//cut percent (rather than number)

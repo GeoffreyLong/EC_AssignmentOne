@@ -6,13 +6,13 @@ import java.util.Map;
 import evolutionary.Config;
 import evolutionary.EvolutionDriver;
 import evolutionary.Mutation;
+import evolutionary.Mutation.MutationType;
 import evolutionary.Population;
 
 // Perhaps should run from this class as well?
 // If so should rename the class?
 public class TestConfigure {
 	private TestOptions testOption;
-	private int numberOfGenerations;
 	private final int SMALLEST_GEN_SIZE = 1;
 	private final int LARGEST_GEN_SIZE = 20000;
 	
@@ -61,7 +61,7 @@ public class TestConfigure {
 		}
 	}
 	private void readNumberOfGenerations(String arg){
-		numberOfGenerations = readInt(arg);
+		int numberOfGenerations = readInt(arg);
 		if (numberOfGenerations < SMALLEST_GEN_SIZE){
 			System.out.println("Too few generations");
 			inputError();
@@ -70,6 +70,8 @@ public class TestConfigure {
 			System.out.println("Too many generations");
 			inputError();
 		}
+		
+		Config.setNumberOfGenerations(numberOfGenerations);
 	}
 	private void readAlgorithmNumber(String arg){
 		switch(readInt(arg)){
@@ -106,6 +108,7 @@ public class TestConfigure {
 	// Set the mutation, crossover, and selection types and params
 	private void setUpAlgOne(){
 		System.out.println("Running Algorithm One");
+		Config.setMutationType(MutationType.INSERT);
 	}
 	private void setUpAlgTwo(){
 		System.out.println("Running Algorithm Two");
@@ -114,30 +117,7 @@ public class TestConfigure {
 		System.out.println("Running Algorithm Three");
 	}
 	
-	public void run(){
-		if (testOption == TestOptions.ALL_TESTS){
-			for (TestOptions option : TestOptions.values()){
-				if (option != TestOptions.ALL_TESTS){
-					runTestingInstance(option);
-				}
-			}
-		}
-		else{
-			runTestingInstance(testOption);
-		}
-	}
 	
-	private void runTestingInstance(TestOptions test){
-		// Do running stuff
-		TSPProblem tsp = new TSPProblem(test);
-		
-		Config.setAlleleMap(tsp.getNodes());
-		Config.setIndividualLength(tsp.getNumberOfNodes());
-		
-		printData(test);
-		EvolutionDriver evolutionDriver = new EvolutionDriver(numberOfGenerations, populationSize);
-		evolutionDriver.evolve();
-	}
 	
 	private void inputError(){
 		System.out.println("Lol, wrong arguments... sucks to suck");
@@ -166,7 +146,9 @@ public class TestConfigure {
 	private void printData(TestOptions testName){
 		System.out.println("Running test:" + testName);
 		System.out.println("");
-		Population population = new Population(populationSize, Config.getIndividualLength());
-		System.out.println(population.calculateMeanFitness());
+	}
+	
+	TestOptions getTestOption(){
+		return this.testOption;
 	}
 }

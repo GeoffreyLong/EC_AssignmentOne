@@ -14,12 +14,16 @@ public class EvolutionDriver {
 		this.maxNumberOfGenerations = maxNumberOfGenerations;
 		this.populationSize = populationSize;
 		
-		population = new Population(populationSize);
+		population = new Population(populationSize, Config.getIndividualLength());
+		mutation = new Mutation(Config.getMutationType());
 	}
 	
 	public void evolve(){
 		while (population.getGenerationNumber() < maxNumberOfGenerations){
 			population.incrementGenerationNumber();
+			mutation.mutate(population);
+			//crossover.cross(population);
+			//selection.select(population);
 		}
 	}
 }

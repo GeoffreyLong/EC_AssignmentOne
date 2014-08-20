@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import evolutionary.Mutation.MutationType;
+
 // Make this immutable after instantiating each field
 // Needs to be globally accessible else we will be passing it to every class
 // Will be an object containing the functions for fitness,
@@ -16,11 +18,32 @@ import java.util.Map;
 public class Config {
 	private static int individualLength = -1;
 	private static Map possibleAlleles;
+	private static MutationType mutationType;
+	
+	// Need to instantiate in TestConfigure
+	private static int populationSize = 100;
+	private static int numberOfGenerations;
+	
+	public static void setNumberOfGenerations(int generations){
+		numberOfGenerations  = generations;
+	}
+	
+	public static int getNumberOfGenerations(){
+		return numberOfGenerations;
+	}
+	
+	public static void setPopulationSize(int size){
+		populationSize = size;
+	}
+	
+	public static int getPopulationSize(){
+		return populationSize;
+	}
 	
 	// Setter that insures field is only set once
 	// Don't really need if we have the alleleMap
 	public static void setIndividualLength(int length)  {
-        individualLength = individualLength == -1 ? length : throw_();
+        individualLength = length;
     }
 
 	public static int getIndividualLength(){
@@ -53,8 +76,18 @@ public class Config {
 		return fitness;
 	}
 	
-	// Throw error if already set
-    private static int throw_() {
-        throw new RuntimeException("field is already set");
-    }
+	public static void setMutationType(MutationType type){
+		mutationType = type;
+	}
+	public static MutationType getMutationType(){
+		return mutationType;
+	}
+	/*
+	public static void setCrossoverType(CrossoverType type){
+		crossoverType = type;
+	}
+	
+	public static void setSelectionType(SelectionType type){
+		selectionType = type;
+	}*/
 }
