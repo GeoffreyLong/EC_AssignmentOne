@@ -50,4 +50,12 @@ public class Population {
 		}
 		return temp;
 	}
+	
+	public double calculateMeanFitness(){
+		double populationFitness = 0;
+		for (Individual i : population){
+			populationFitness += Config.calculateFitness(i);
+		}
+		return populationFitness / population.length;
+	}
 }

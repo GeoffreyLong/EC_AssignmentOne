@@ -14,15 +14,19 @@ import java.util.Map;
 // Another way to instantiate the mutation, crossover
 
 public class Config {
-	private static int numberOfNodes = -1;
+	private static int individualLength = -1;
 	private static Map possibleAlleles;
 	
 	// Setter that insures field is only set once
 	// Don't really need if we have the alleleMap
-	public void setNumberOfNodes(int numberOfNodes)  {
-        this.numberOfNodes = this.numberOfNodes == -1 ? numberOfNodes : throw_();
+	public static void setIndividualLength(int length)  {
+        individualLength = individualLength == -1 ? length : throw_();
     }
 
+	public static int getIndividualLength(){
+		return individualLength;
+	}
+	
 	public static void setAlleleMap(Map alleleMap){
 		possibleAlleles = alleleMap;
 	}
@@ -50,7 +54,7 @@ public class Config {
 	}
 	
 	// Throw error if already set
-    public int throw_() {
+    private static int throw_() {
         throw new RuntimeException("field is already set");
     }
 }

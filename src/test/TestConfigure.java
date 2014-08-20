@@ -6,6 +6,7 @@ import java.util.Map;
 import evolutionary.Config;
 import evolutionary.EvolutionDriver;
 import evolutionary.Mutation;
+import evolutionary.Population;
 
 // Perhaps should run from this class as well?
 // If so should rename the class?
@@ -128,11 +129,10 @@ public class TestConfigure {
 	
 	private void runTestingInstance(TestOptions test){
 		// Do running stuff
-		TSPProblem tsp = new TSPProblem(TestOptions.EIL101);
-		Map<String, Point> nodeMap = tsp.getNodes();
+		TSPProblem tsp = new TSPProblem(test);
 		
-		Config.setAlleleMap(nodeMap);
-		System.out.println(Config.getAlleleMap());
+		Config.setAlleleMap(tsp.getNodes());
+		Config.setIndividualLength(tsp.getNumberOfNodes());
 		
 		printData(test);
 		EvolutionDriver evolutionDriver = new EvolutionDriver(numberOfGenerations, populationSize);
@@ -166,5 +166,7 @@ public class TestConfigure {
 	private void printData(TestOptions testName){
 		System.out.println("Running test:" + testName);
 		System.out.println("");
+		Population population = new Population(populationSize, Config.getIndividualLength());
+		System.out.println(population.calculateMeanFitness());
 	}
 }

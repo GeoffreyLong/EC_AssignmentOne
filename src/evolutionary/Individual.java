@@ -30,7 +30,7 @@ public class Individual {
 		Set<Integer> used = new HashSet<Integer>();
 		int count = 0;
 		while (count < size) {
-			int i = rand.nextInt(maxID + 1);
+			int i = rand.nextInt(maxID);
 			if (!used.contains(i)) {
 				genotype.add(Integer.toString(i));
 				used.add(i);
