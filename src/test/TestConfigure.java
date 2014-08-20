@@ -6,6 +6,7 @@ import java.util.Map;
 import evolutionary.Config;
 import evolutionary.EvolutionDriver;
 import evolutionary.Mutation;
+import evolutionary.Mutation.MutationType;
 import evolutionary.Population;
 
 // Perhaps should run from this class as well?
@@ -15,6 +16,7 @@ public class TestConfigure {
 	private int numberOfGenerations;
 	private final int SMALLEST_GEN_SIZE = 1;
 	private final int LARGEST_GEN_SIZE = 20000;
+	private Mutation mutation;
 	
 	// Default... this should be instantiated in the algorithm configuration
 	private int populationSize = 100;
@@ -106,6 +108,7 @@ public class TestConfigure {
 	// Set the mutation, crossover, and selection types and params
 	private void setUpAlgOne(){
 		System.out.println("Running Algorithm One");
+		Config.setMutationType(MutationType.INSERT);
 	}
 	private void setUpAlgTwo(){
 		System.out.println("Running Algorithm Two");
@@ -166,7 +169,5 @@ public class TestConfigure {
 	private void printData(TestOptions testName){
 		System.out.println("Running test:" + testName);
 		System.out.println("");
-		Population population = new Population(populationSize, Config.getIndividualLength());
-		System.out.println(population.calculateMeanFitness());
 	}
 }
