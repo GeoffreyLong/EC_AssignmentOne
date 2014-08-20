@@ -20,6 +20,26 @@ public class Config {
 	private static Map possibleAlleles;
 	private static MutationType mutationType;
 	
+	// Need to instantiate in TestConfigure
+	private static int populationSize = 100;
+	private static int numberOfGenerations;
+	
+	public static void setNumberOfGenerations(int generations){
+		numberOfGenerations  = generations;
+	}
+	
+	public static int getNumberOfGenerations(){
+		return numberOfGenerations;
+	}
+	
+	public static void setPopulationSize(int size){
+		populationSize = size;
+	}
+	
+	public static int getPopulationSize(){
+		return populationSize;
+	}
+	
 	// Setter that insures field is only set once
 	// Don't really need if we have the alleleMap
 	public static void setIndividualLength(int length)  {

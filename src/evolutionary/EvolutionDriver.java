@@ -22,6 +22,8 @@ public class EvolutionDriver {
 		while (population.getGenerationNumber() < maxNumberOfGenerations){
 			population.incrementGenerationNumber();
 			mutation.mutate(population);
+			//crossover.cross(population);
+			//selection.select(population);
 		}
 	}
 }

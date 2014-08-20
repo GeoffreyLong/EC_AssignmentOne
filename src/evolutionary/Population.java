@@ -57,10 +57,14 @@ public class Population {
 	}
 	
 	public double calculateMeanFitness(){
-		double populationFitness = 0;
+		return calculateTotalFitness() / population.length;
+	}
+	
+	public double calculateTotalFitness(){
+		double totalFitness = 0;
 		for (Individual i : population){
-			populationFitness += Config.calculateFitness(i);
+			totalFitness += Config.calculateFitness(i);
 		}
-		return populationFitness / population.length;
+		return totalFitness;
 	}
 }

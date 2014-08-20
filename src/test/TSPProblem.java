@@ -74,7 +74,7 @@ public class TSPProblem {
 			String[] nodeValues = data.get(i).split(" ");
 			
 			// Add in the data gotten by splitting the node line
-			String nodeName = String.valueOf(i - NODE_DATA_OFFSET);
+			String nodeName = nodeValues[0];
 			int xCoordinate = Integer.valueOf(nodeValues[1]);
 			int yCoordinate = Integer.valueOf(nodeValues[2]);
 			

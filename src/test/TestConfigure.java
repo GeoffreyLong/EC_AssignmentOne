@@ -13,10 +13,8 @@ import evolutionary.Population;
 // If so should rename the class?
 public class TestConfigure {
 	private TestOptions testOption;
-	private int numberOfGenerations;
 	private final int SMALLEST_GEN_SIZE = 1;
 	private final int LARGEST_GEN_SIZE = 20000;
-	private Mutation mutation;
 	
 	// Default... this should be instantiated in the algorithm configuration
 	private int populationSize = 100;
@@ -63,7 +61,7 @@ public class TestConfigure {
 		}
 	}
 	private void readNumberOfGenerations(String arg){
-		numberOfGenerations = readInt(arg);
+		int numberOfGenerations = readInt(arg);
 		if (numberOfGenerations < SMALLEST_GEN_SIZE){
 			System.out.println("Too few generations");
 			inputError();
@@ -72,6 +70,8 @@ public class TestConfigure {
 			System.out.println("Too many generations");
 			inputError();
 		}
+		
+		Config.setNumberOfGenerations(numberOfGenerations);
 	}
 	private void readAlgorithmNumber(String arg){
 		switch(readInt(arg)){
@@ -117,30 +117,7 @@ public class TestConfigure {
 		System.out.println("Running Algorithm Three");
 	}
 	
-	public void run(){
-		if (testOption == TestOptions.ALL_TESTS){
-			for (TestOptions option : TestOptions.values()){
-				if (option != TestOptions.ALL_TESTS){
-					runTestingInstance(option);
-				}
-			}
-		}
-		else{
-			runTestingInstance(testOption);
-		}
-	}
 	
-	private void runTestingInstance(TestOptions test){
-		// Do running stuff
-		TSPProblem tsp = new TSPProblem(test);
-		
-		Config.setAlleleMap(tsp.getNodes());
-		Config.setIndividualLength(tsp.getNumberOfNodes());
-		
-		printData(test);
-		EvolutionDriver evolutionDriver = new EvolutionDriver(numberOfGenerations, populationSize);
-		evolutionDriver.evolve();
-	}
 	
 	private void inputError(){
 		System.out.println("Lol, wrong arguments... sucks to suck");
@@ -169,5 +146,9 @@ public class TestConfigure {
 	private void printData(TestOptions testName){
 		System.out.println("Running test:" + testName);
 		System.out.println("");
+	}
+	
+	TestOptions getTestOption(){
+		return this.testOption;
 	}
 }
