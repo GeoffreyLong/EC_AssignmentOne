@@ -2,8 +2,10 @@ package evolutionary;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class Mutation {
 	private MutationType mutationType;
@@ -107,15 +109,15 @@ public class Mutation {
 		int numberOfScrambles = rand.nextInt(numChromosomes);				// Number of chromosomes to scramble
 		int [] indexes = new int[numberOfScrambles];						// Random array of indexes to scramble
 		int [] sortedIndexes = new int[numberOfScrambles];					// The same indexes sorted
-		Map<Integer, Integer> indexesB = new HashMap<Integer, Integer>();	// HashMap of the indexes to ensure all are unique
+		Set<Integer> indexesB = new HashSet<Integer>();	// HashSet of the indexes to ensure all are unique
 		
 		//System.out.println(numberOfScrambles);//testing
 		
 		int count=0;
 		while (count < numberOfScrambles){
 			int index = rand.nextInt(numChromosomes);
-			if (!indexesB.containsKey(index)){			// If index hasn't yet been selected add it
-				indexesB.put(index, index);
+			if (!indexesB.contains(index)){			// If index hasn't yet been selected add it
+				indexesB.add(index);
 				indexes[count]=index;
 				sortedIndexes[count]=index;
 				count++;

@@ -51,7 +51,7 @@ public class Selection {
     	return pop;
     }
     
-    public Population elitism(Population pop, int outSize, int cutOff){//cut off number or percent?
+    public Population elitism(Population pop, int outSize, double cutOff){//cut percent (rather than number)
     	//sort by fitness
     	//cut off
     	return pop;
