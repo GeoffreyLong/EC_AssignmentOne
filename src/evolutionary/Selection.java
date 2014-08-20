@@ -46,7 +46,7 @@ public class Selection {
     				indexesB.add(index);// only need if using probability
     				indexes[tourCount]=index;
     				tourCount++;
-    				double fitness=Config.calculateFitness(pop.population[index]);
+    				double fitness=Config.getInstance().calculateFitness(pop.population[index]);
     				if(fitness>bestFitness){// fitness of this individual is best
     					bestFitness=fitness;
     					bestIndex=index;

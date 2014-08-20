@@ -63,7 +63,7 @@ public class Population {
 	public double calculateTotalFitness(){
 		double totalFitness = 0;
 		for (Individual i : population){
-			totalFitness += Config.calculateFitness(i);
+			totalFitness += Config.getInstance().calculateFitness(i);
 		}
 		return totalFitness;
 	}

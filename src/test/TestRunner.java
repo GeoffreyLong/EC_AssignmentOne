@@ -66,10 +66,6 @@
  */
 package test;
 
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
-
 import test.TestConfigure.TestOptions;
 import evolutionary.Config;
 import evolutionary.EvolutionDriver;
@@ -77,13 +73,6 @@ import evolutionary.EvolutionDriver;
 // TODO rename to something better
 public class TestRunner {
 	public static void main(String[] args){
-		// Start off asking what test option to run
-		// This is a choice of one of the TestOptions enums
-		// Then ask how many generations (should we limit the choices for this?
-		// Then ask which one of the three test setups
-		// This will pipe the TestOption and generation information to one of the runAlg___ methods
-		// Could probably make all of these above enums
-		
 		TestConfigure test = new TestConfigure(args);
 		run(test.getTestOption());
 	}
@@ -105,10 +94,12 @@ public class TestRunner {
 		// Do running stuff
 		TSPProblem tsp = new TSPProblem(test);
 		
-		Config.setAlleleMap(tsp.getNodes());
-		Config.setIndividualLength(tsp.getNumberOfNodes());
+		Config config = Config.getInstance();
 		
-		EvolutionDriver evolutionDriver = new EvolutionDriver(Config.getNumberOfGenerations(), Config.getPopulationSize());
+		config.setAlleleMap(tsp.getNodes());
+		config.setIndividualLength(tsp.getNumberOfNodes());
+		
+		EvolutionDriver evolutionDriver = new EvolutionDriver(config.getNumberOfGenerations(), config.getPopulationSize());
 		evolutionDriver.evolve();
 	}
 }

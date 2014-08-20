@@ -14,8 +14,8 @@ public class EvolutionDriver {
 		this.maxNumberOfGenerations = maxNumberOfGenerations;
 		this.populationSize = populationSize;
 		
-		population = new Population(populationSize, Config.getIndividualLength());
-		mutation = new Mutation(Config.getMutationType());
+		population = new Population(populationSize, Config.getInstance().getIndividualLength());
+		mutation = new Mutation(Config.getInstance().getMutationType());
 	}
 	
 	public void evolve(){
