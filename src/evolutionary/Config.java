@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import evolutionary.Mutation.MutationType;
+import evolutionary.Selection.SelectionType;
 
 // Make this immutable after instantiating each field
 // Needs to be globally accessible else we will be passing it to every class
@@ -19,6 +20,7 @@ public class Config{
 	public int individualLength = -1;
 	public Map possibleAlleles;
 	public MutationType mutationType;
+	public SelectionType selectionType;
 	
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
@@ -69,6 +71,7 @@ public class Config{
 	}
 	
 	// Definitely test this to ensure it works
+	/* THINK THIS IS INCORRECT (UPDATED ONE BELOW)
 	public double calculateFitness(Individual individual){
 		double fitness = 0;
 		List<Object> chromosomes = individual.genotype;
@@ -85,6 +88,27 @@ public class Config{
 		
 		return fitness;
 	}
+	*/
+	
+	public double calculateFitness(Individual individual){
+		double fitness = 0;
+		List<Object> chromosomes = individual.genotype;
+		
+		for (int i=0; i<individual.genotype.size(); i++){
+			String chromosome = (String) chromosomes.get(i);
+			Point currentPoint = (Point) possibleAlleles.get(chromosome);
+			if(i==0){//finish to start case
+				String lastChromosome = (String) chromosomes.get(chromosomes.size() - 1);
+				Point lastPoint = (Point) possibleAlleles.get(lastChromosome);
+				fitness += currentPoint.distance(lastPoint);
+			}else{//other cases
+				String lastChromosome = (String) chromosomes.get(i - 1);
+				Point lastPoint = (Point) possibleAlleles.get(lastChromosome);
+				fitness += currentPoint.distance(lastPoint);
+			}
+		}		
+		return fitness;
+	}
 	
 	public void setMutationType(MutationType type){
 		mutationType = type;
@@ -96,8 +120,8 @@ public class Config{
 	public void setCrossoverType(CrossoverType type){
 		crossoverType = type;
 	}
-	
+	*/
 	public void setSelectionType(SelectionType type){
 		selectionType = type;
-	}*/
+	}
 }

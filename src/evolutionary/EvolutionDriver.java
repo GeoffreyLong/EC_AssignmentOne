@@ -7,6 +7,7 @@ public class EvolutionDriver {
 	private int maxNumberOfGenerations;
 	Population population;
 	Mutation mutation;
+	Selection selection;
 	
 	
 	public EvolutionDriver(){
@@ -14,6 +15,7 @@ public class EvolutionDriver {
 		
 		population = new Population(Config.getInstance().getPopulationSize(), Config.getInstance().getIndividualLength());
 		mutation = new Mutation(Config.getInstance().getMutationType());
+		//selection = new Selection(Config.getInstance().getSelectionType());
 	}
 	
 	public void evolve(){
@@ -22,7 +24,6 @@ public class EvolutionDriver {
 			population.incrementGenerationNumber();
 			mutation.mutate(population);
 			//crossover.cross(population);
-			//selection.select(population);
 		}
 	}
 }

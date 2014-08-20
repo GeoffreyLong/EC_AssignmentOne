@@ -2,33 +2,37 @@ package evolutionary;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+
 public class Selection {
-	public int param = -1;
 	
-	public void select(){
-		
+	private SelectionType selectionType;
+	
+	public enum SelectionType{
+		ROULETTE,TOURNAMENT,SUS,ELITISM
 	}
 	
-	// Setter that insures field is only set once
-	public void setparam(int param)  {
-        this.param = this.param == -1 ? param : throw_();
-    }
-
-	// Throw error if already set
-    public int throw_() {
-        throw new RuntimeException("field is already set");
-    }
-    
-    public Population fitnessProportional(Population pop, int outSize){
-    	
-    	return pop;
-    }
+	public Selection(SelectionType selectionType){
+		this.selectionType = selectionType;
+	}
+	
+	public Population select(Population population,int n,int t){
+		switch(selectionType){
+			case ROULETTE:
+				return rouletteWheel(population,n);
+			case SUS:
+				return stochasticUniversalSampling(population,n);
+			case TOURNAMENT:
+				return tournamentSelection(population,n,t);		
+			case ELITISM:
+				return elitism(population,n);
+			default:
+				return population;
+		}
+	}
     
     public Population rouletteWheel(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
@@ -86,7 +90,7 @@ public class Selection {
     	return new Population(subset);
     }
     
-    public Population tournamentSelection(Population pop, int outSize, int tourSize, double prob){
+    public Population tournamentSelection(Population pop, int outSize, int tourSize){
     	Individual [] subset = new Individual[outSize];
     	int popSize = pop.size();
     	int [] indexes = new int[tourSize];
@@ -117,7 +121,8 @@ public class Selection {
     	return new Population(subset);
     }
     
-    public Population elitism(Population pop, int outSize, double cutOff){//cut percent (rather than number)
+    public Population elitism(Population pop, int outSize){//cut percent (rather than number)
+    	Individual [] subset = new Individual[outSize];
     	//sort by fitness
     	Comparator<Individual> indComp = new Comparator<Individual>() {
     		@Override
@@ -126,8 +131,14 @@ public class Selection {
     			return (diff == 0) ? 0 : ((diff > 0) ? 1 : -1);
     		}
     	};
+    	
     	Arrays.sort(pop.population, indComp);
+
     	//cut off
-    	return pop;
+    	for(int i=0; i<outSize; i++){
+    		subset[i]=pop.population[i];
+    	}
+    	
+    	return new Population(subset);
     }
 }

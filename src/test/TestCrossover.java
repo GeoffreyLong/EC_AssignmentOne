@@ -70,5 +70,4 @@ public class TestCrossover {
 		System.out.println("After edgeRecombination b a");		
 		System.out.println(offspringB);		
 	}
-	
 }
