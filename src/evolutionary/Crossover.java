@@ -189,5 +189,11 @@ public class Crossover {
 		
 		return new Individual(offspringGenotype);
 	}
+	
+	public Individual edgeRecombination(Individual a, Individual b) {
+		
+		
+		return null;
+	}
 }
 
