@@ -7,9 +7,9 @@ import java.util.Random;
 import java.util.Set;
 
 
-public class Selection {
-	
+public class Selection {	
 	private SelectionType selectionType;
+	private static Random rand = new Random(System.currentTimeMillis());
 	
 	public enum SelectionType{
 		ROULETTE,TOURNAMENT,SUS,ELITISM
@@ -37,7 +37,6 @@ public class Selection {
     public Population rouletteWheel(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
     	double[] maxFitScores = new double[pop.population.length];
-    	Random rand = new Random(System.currentTimeMillis());
     	
     	for (int i = 0; i<pop.population.length; i++){
     		if(i==0){
@@ -64,7 +63,6 @@ public class Selection {
     public Population stochasticUniversalSampling(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
     	double[] maxFitScores = new double[pop.population.length];
-    	Random rand = new Random(System.currentTimeMillis());
     	
     	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
@@ -74,7 +72,7 @@ public class Selection {
     		}    		
     	}
     	
-    	double index = rand.nextDouble()*pop.calculateTotalFitness()*(1.0/outSize);//get random start index between 0 and 1/outSize
+    	double index = rand.nextDouble()*(1.0/outSize);//get random start index between 0 and 1/outSize
     	int i = 0;
     	int outCount=0;
     	while (i<pop.population.length){
@@ -101,7 +99,6 @@ public class Selection {
     		int tourCount=0;
     		double bestFitness = 0;
     		int bestIndex = -1;
-    		Random rand = new Random(System.currentTimeMillis());
     		while (tourCount<tourSize){//until we have the specified tour size
     			int index = rand.nextInt(popSize);
     			if (!indexesB.contains(index)){			// If index hasn't yet been selected add it
@@ -117,6 +114,7 @@ public class Selection {
     		}
     		subset[outCount]=pop.population[bestIndex];
     		outCount++;
+    		indexesB.clear();
     	} 
     	return new Population(subset);
     }
@@ -128,7 +126,7 @@ public class Selection {
     		@Override
     		public int compare(Individual a, Individual b) {
     			double diff = Config.getInstance().calculateFitness(a) - Config.getInstance().calculateFitness(b);
-    			return (diff == 0) ? 0 : ((diff > 0) ? 1 : -1);
+    			return (diff == 0) ? 0 : ((diff > 0) ? -1 : 1);
     		}
     	};
     	
