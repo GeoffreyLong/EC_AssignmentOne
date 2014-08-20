@@ -6,27 +6,33 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import evolutionary.Selection.SelectionType;
+
 public class Selection {
-	public int param = -1;
 	
-	public void select(){
-		
+	private SelectionType selectionType;
+	private static Random rand = new Random(System.currentTimeMillis());
+	
+	public enum SelectionType{
+		ROULETTE,SUS,ELITISM
 	}
 	
-	// Setter that insures field is only set once
-	public void setparam(int param)  {
-        this.param = this.param == -1 ? param : throw_();
-    }
-
-	// Throw error if already set
-    public int throw_() {
-        throw new RuntimeException("field is already set");
-    }
-    
-    public Population fitnessProportional(Population pop, int outSize){
-    	
-    	return pop;
-    }
+	public Selection(SelectionType selectionType){
+		this.selectionType = selectionType;
+	}
+	
+	public Population select(Population population,int n){
+		switch(selectionType){
+			case ROULETTE:
+				return rouletteWheel(population,n);
+			case SUS:
+				return stochasticUniversalSampling(population,n);		
+			case ELITISM:
+				return elitism(population,n);
+			default:
+				return population;
+		}
+	}
     
     public Population rouletteWheel(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
@@ -115,7 +121,8 @@ public class Selection {
     	return new Population(subset);
     }
     
-    public Population elitism(Population pop, int outSize, double cutOff){//cut percent (rather than number)
+    public Population elitism(Population pop, int outSize){//cut percent (rather than number)
+    	Individual [] subset = new Individual[outSize];
     	//sort by fitness
     	Comparator<Individual> indComp = new Comparator<Individual>() {
     		@Override
@@ -125,7 +132,12 @@ public class Selection {
     		}
     	};
     	Arrays.sort(pop.population, indComp);
+
     	//cut off
-    	return pop;
+    	for(int i=0; i<outSize; i++){
+    		subset[i]=pop.population[i];
+    	}
+    	
+    	return new Population(subset);
     }
 }
