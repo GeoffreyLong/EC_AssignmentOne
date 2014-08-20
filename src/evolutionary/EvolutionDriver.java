@@ -5,21 +5,20 @@ package evolutionary;
 
 public class EvolutionDriver {
 	private int maxNumberOfGenerations;
-	private int populationSize;
 	Population population;
 	Mutation mutation;
 	
 	
-	public EvolutionDriver(int maxNumberOfGenerations, int populationSize){
-		this.maxNumberOfGenerations = maxNumberOfGenerations;
-		this.populationSize = populationSize;
+	public EvolutionDriver(){
+		this.maxNumberOfGenerations = Config.getInstance().getNumberOfGenerations();
 		
-		population = new Population(populationSize, Config.getInstance().getIndividualLength());
+		population = new Population(Config.getInstance().getPopulationSize(), Config.getInstance().getIndividualLength());
 		mutation = new Mutation(Config.getInstance().getMutationType());
 	}
 	
 	public void evolve(){
 		while (population.getGenerationNumber() < maxNumberOfGenerations){
+			System.out.println(population.calculateMeanFitness());
 			population.incrementGenerationNumber();
 			mutation.mutate(population);
 			//crossover.cross(population);

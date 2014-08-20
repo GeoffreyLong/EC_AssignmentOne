@@ -99,7 +99,7 @@ public class TestRunner {
 		config.setAlleleMap(tsp.getNodes());
 		config.setIndividualLength(tsp.getNumberOfNodes());
 		
-		EvolutionDriver evolutionDriver = new EvolutionDriver(config.getNumberOfGenerations(), config.getPopulationSize());
+		EvolutionDriver evolutionDriver = new EvolutionDriver();
 		evolutionDriver.evolve();
 	}
 }
