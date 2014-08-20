@@ -6,27 +6,27 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import evolutionary.Selection.SelectionType;
 
 public class Selection {
 	
 	private SelectionType selectionType;
-	private static Random rand = new Random(System.currentTimeMillis());
 	
 	public enum SelectionType{
-		ROULETTE,SUS,ELITISM
+		ROULETTE,TOURNAMENT,SUS,ELITISM
 	}
 	
 	public Selection(SelectionType selectionType){
 		this.selectionType = selectionType;
 	}
 	
-	public Population select(Population population,int n){
+	public Population select(Population population,int n,int t){
 		switch(selectionType){
 			case ROULETTE:
 				return rouletteWheel(population,n);
 			case SUS:
-				return stochasticUniversalSampling(population,n);		
+				return stochasticUniversalSampling(population,n);
+			case TOURNAMENT:
+				return tournamentSelection(population,n,t);		
 			case ELITISM:
 				return elitism(population,n);
 			default:
@@ -90,7 +90,7 @@ public class Selection {
     	return new Population(subset);
     }
     
-    public Population tournamentSelection(Population pop, int outSize, int tourSize, double prob){
+    public Population tournamentSelection(Population pop, int outSize, int tourSize){
     	Individual [] subset = new Individual[outSize];
     	int popSize = pop.size();
     	int [] indexes = new int[tourSize];
