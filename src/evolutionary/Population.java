@@ -10,6 +10,11 @@ public class Population {
 		// Need array of individuals that is the size of the pop size
 	}
 	
+	// OverLoad in case want a different setup? used in selection
+	public Population(Individual[] individualArray){
+		population = individualArray;
+	}
+	
 	// OverLoad in case want a different setup?
 	public Population(int popSize){
 		population = new Individual[popSize];
