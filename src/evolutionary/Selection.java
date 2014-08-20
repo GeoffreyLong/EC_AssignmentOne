@@ -35,15 +35,15 @@ public class Selection {
     	
     	for (int i = 0; i<pop.population.length; i++){
     		if(i==0){
-    			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}    		
     	}
     	
     	int outCount=0;
     	while (outCount<outSize){
-    		double index = rand.nextDouble()*pop.getTotalFitness();
+    		double index = rand.nextDouble()*pop.calculateTotalFitness();
     		for (int i = 0; i<pop.population.length; i++){
     			if(index<=maxFitScores[i]){
     				subset[outCount]=pop.population[i];
@@ -62,13 +62,13 @@ public class Selection {
     	
     	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
-    			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
     		}    		
     	}
     	
-    	double index = rand.nextDouble()*pop.getTotalFitness()*(1.0/outSize);//get random start index between 0 and 1/outSize
+    	double index = rand.nextDouble()*pop.calculateTotalFitness()*(1.0/outSize);//get random start index between 0 and 1/outSize
     	int i = 0;
     	int outCount=0;
     	while (i<pop.population.length){
