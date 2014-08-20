@@ -41,9 +41,16 @@ public class Selection {
     		}    		
     	}
     	
-    	double index = rand.nextDouble();
-    	for (int i = 0; i<pop.population.length; i++){
-    		if
+    	int outCount=0;
+    	while (outCount<outSize){
+    		double index = rand.nextDouble()*pop.getTotalFitness();
+    		for (int i = 0; i<pop.population.length; i++){
+    			if(index<=maxFitScores[i]){
+    				subset[outCount]=pop.population[i];
+    				outCount++;
+    				break;
+    			}
+    		}
     	}
     	return new Population(subset);
     }
@@ -53,7 +60,7 @@ public class Selection {
     	double[] maxFitScores = new double[pop.population.length];
     	Random rand = new Random(System.currentTimeMillis());
     	
-    	for (int i = 0; i<pop.population.length; i++){
+    	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
     			maxFitScores[i]=Config.calculateFitness(pop.population[i])/pop.getTotalFitness();
     		}else{
@@ -61,7 +68,7 @@ public class Selection {
     		}    		
     	}
     	
-    	double index = rand.nextDouble()*(1.0/outSize);//get random start index between 0 and 1/outSize
+    	double index = rand.nextDouble()*pop.getTotalFitness()*(1.0/outSize);//get random start index between 0 and 1/outSize
     	int i = 0;
     	int outCount=0;
     	while (i<pop.population.length){
