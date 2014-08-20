@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import evolutionary.Mutation.MutationType;
+import evolutionary.Selection.SelectionType;
 
 // Make this immutable after instantiating each field
 // Needs to be globally accessible else we will be passing it to every class
@@ -19,6 +20,7 @@ public class Config{
 	public int individualLength = -1;
 	public Map possibleAlleles;
 	public MutationType mutationType;
+	public SelectionType selectionType;
 	
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
@@ -96,8 +98,8 @@ public class Config{
 	public void setCrossoverType(CrossoverType type){
 		crossoverType = type;
 	}
-	
+	*/
 	public void setSelectionType(SelectionType type){
 		selectionType = type;
-	}*/
+	}
 }

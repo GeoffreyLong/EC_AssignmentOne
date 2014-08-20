@@ -131,6 +131,7 @@ public class Selection {
     			return (diff == 0) ? 0 : ((diff > 0) ? 1 : -1);
     		}
     	};
+    	
     	Arrays.sort(pop.population, indComp);
 
     	//cut off

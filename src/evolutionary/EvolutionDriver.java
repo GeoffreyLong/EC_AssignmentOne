@@ -24,7 +24,6 @@ public class EvolutionDriver {
 			population.incrementGenerationNumber();
 			mutation.mutate(population);
 			//crossover.cross(population);
-			//selection.elitism(population,5);
 		}
 	}
 }
