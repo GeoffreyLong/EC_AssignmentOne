@@ -1,5 +1,7 @@
 package evolutionary;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -115,6 +117,14 @@ public class Selection {
     
     public Population elitism(Population pop, int outSize, double cutOff){//cut percent (rather than number)
     	//sort by fitness
+    	Comparator<Individual> indComp = new Comparator<Individual>() {
+    		@Override
+    		public int compare(Individual a, Individual b) {
+    			double diff = Config.getInstance().calculateFitness(a) - Config.getInstance().calculateFitness(b);
+    			return (diff == 0) ? 0 : ((diff > 0) ? 1 : -1);
+    		}
+    	};
+    	Arrays.sort(pop.population, indComp);
     	//cut off
     	return pop;
     }
