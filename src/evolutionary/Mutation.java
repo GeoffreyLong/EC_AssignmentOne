@@ -23,22 +23,22 @@ public class Mutation {
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){
-					population.population[i]=insert(population.population[i]);
+					population.population.set(i, insert(population.population.get(i)));
 				}
 				break;
 			case SWAP:
 				for (int i = 0; i<population.size();i++){
-					population.population[i]=swap(population.population[i]);
+					population.population.set(i, swap(population.population.get(i)));
 				}
 				break;		
 			case INVERSION:
-				for (int i = 0; i<population.size();i++){
-					population.population[i]=inversion(population.population[i]);
+				for (int i = 0; i<population.size();i++){					
+					population.population.set(i, inversion(population.population.get(i)));
 				}
 				break;
 			case SCRAMBLE:
 				for (int i = 0; i<population.size();i++){
-					population.population[i]=scramble(population.population[i]);
+					population.population.set(i, scramble(population.population.get(i)));
 				}
 				break;
 		}

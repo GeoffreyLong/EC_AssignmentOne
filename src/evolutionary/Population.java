@@ -1,8 +1,11 @@
 package evolutionary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Population {
-	// Could alternatively use a link list
-	public Individual[] population;
+	// TODO change to a list
+	public List<Individual> population;
 	private int generationNumber;
 	
 	public Population(){
@@ -11,23 +14,31 @@ public class Population {
 	}
 	
 	// OverLoad in case want a different setup? used in selection
+	public Population(List<Individual> individuals){
+		population = individuals;
+	}
+	
 	public Population(Individual[] individualArray){
-		population = individualArray;
+		population = new ArrayList<Individual>();
+		for (Individual i : individualArray){
+			population.add(i);
+		}
 	}
 	
 	// OverLoad in case want a different setup?
 	public Population(int popSize){
-		population = new Individual[popSize];
+		// Should use a list type
+		population = new ArrayList<Individual>();
 		for (int i = 0; i < popSize; i++){
-			population[i] = new Individual();
+			population.add(new Individual());
 		}
 	}
 	
 	// OverLoad in case want a different setup
 	public Population(int popSize, int indLength){
-		population = new Individual[popSize];
+		population = new ArrayList<Individual>();
 		for (int i = 0; i < popSize; i++){
-			population[i] = new Individual(indLength,indLength);
+			population.add(new Individual(indLength,indLength));
 		}
 	}
 
@@ -44,20 +55,20 @@ public class Population {
 	}
 	
 	public int size(){
-		return population.length;
+		return population.size();
 	}
 	
 	public String toString(){
 		String temp = "";
-		for (int i = 0; i < population.length; i++){
-			temp += population[i].toString();
+		for (int i = 0; i < population.size(); i++){
+			temp += population.get(i).toString();
 			temp += System.getProperty("line.separator");
 		}
 		return temp;
 	}
 	
 	public double calculateMeanFitness(){
-		return calculateTotalFitness() / population.length;
+		return calculateTotalFitness() / population.size();
 	}
 	
 	public double calculateTotalFitness(){

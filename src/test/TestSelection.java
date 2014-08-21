@@ -30,16 +30,16 @@ public class TestSelection {
 		System.out.println("ORIGINAL POP");
 		g.setAlleleMap(mapp);
 		
-		for(int i=0; i<p.population.length; i++){
-			System.out.println(p.population[i]+" .. F: "+g.calculateFitness(p.population[i]));
+		for(int i=0; i<p.population.size(); i++){
+			System.out.println(p.population.get(i)+" .. F: "+g.calculateFitness(p.population.get(i)));
 		}
 		
 		System.out.println("ROULETTE");
 		Config.getInstance().setPopulationSize(2);
 		Config.getInstance().setTournamentSize(3);
 		Population n = roulette.select(p);
-		for(int i=0; i<n.population.length; i++){
-			System.out.println(n.population[i]+" .. F: "+g.calculateFitness(n.population[i]));
+		for(int i=0; i<n.population.size(); i++){
+			System.out.println(n.population.get(i)+" .. F: "+g.calculateFitness(n.population.get(i)));
 		}
 		
 		System.out.println("SUS");
@@ -47,8 +47,8 @@ public class TestSelection {
 		Config.getInstance().setTournamentSize(3);
 		n = sus.select(p);
 
-		for(int i=0; i<n.population.length; i++){
-			System.out.println(n.population[i]+" .. F: "+g.calculateFitness(n.population[i]));
+		for(int i=0; i<n.population.size(); i++){
+			System.out.println(n.population.get(i)+" .. F: "+g.calculateFitness(n.population.get(i)));
 		}
 		
 		System.out.println("TOURNAMENT");
@@ -56,8 +56,8 @@ public class TestSelection {
 		Config.getInstance().setTournamentSize(3);
 		n = tournament.select(p);
 
-		for(int i=0; i<n.population.length; i++){
-			System.out.println(n.population[i]+" .. F: "+g.calculateFitness(n.population[i]));
+		for(int i=0; i<n.population.size(); i++){
+			System.out.println(n.population.get(i)+" .. F: "+g.calculateFitness(n.population.get(i)));
 		}
 		
 		System.out.println("ELITISM");
@@ -65,8 +65,8 @@ public class TestSelection {
 		Config.getInstance().setTournamentSize(3);
 		n = elitism.select(p);
 
-		for(int i=0; i<n.population.length; i++){
-			System.out.println(n.population[i]+" .. F: "+g.calculateFitness(n.population[i]));
+		for(int i=0; i<n.population.size(); i++){
+			System.out.println(n.population.get(i)+" .. F: "+g.calculateFitness(n.population.get(i)));
 		}
 		
 	}

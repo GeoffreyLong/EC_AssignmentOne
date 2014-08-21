@@ -38,6 +38,7 @@ public class EvolutionDriver {
 			if (rand < config.crossoverChance){
 				//crossover.cross(population);
 			}
+			
 
 			selection.select(population);
 		}

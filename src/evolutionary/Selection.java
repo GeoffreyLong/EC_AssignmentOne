@@ -3,6 +3,7 @@ package evolutionary;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -37,22 +38,22 @@ public class Selection {
     
     public Population rouletteWheel(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
-    	double[] maxFitScores = new double[pop.population.length];
+    	double[] maxFitScores = new double[pop.population.size()];
     	
-    	for (int i = 0; i<pop.population.length; i++){
+    	for (int i = 0; i<pop.population.size(); i++){
     		if(i==0){
-    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
     		}    		
     	}
     	
     	int outCount=0;
     	while (outCount<outSize){
     		double index = rand.nextDouble()*pop.calculateTotalFitness();
-    		for (int i = 0; i<pop.population.length; i++){
+    		for (int i = 0; i<pop.population.size(); i++){
     			if(index<=maxFitScores[i]){
-    				subset[outCount]=pop.population[i];
+    				subset[outCount]=pop.population.get(i);
     				outCount++;
     				break;
     			}
@@ -63,22 +64,22 @@ public class Selection {
     
     public Population stochasticUniversalSampling(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
-    	double[] maxFitScores = new double[pop.population.length];
+    	double[] maxFitScores = new double[pop.population.size()];
     	
-    	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
+    	for (int i = 0; i<pop.population.size(); i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
-    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population[i])/pop.calculateTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
     		}    		
     	}
     	
     	double index = rand.nextDouble()*(1.0/outSize);//get random start index between 0 and 1/outSize
     	int i = 0;
     	int outCount=0;
-    	while (i<pop.population.length){
+    	while (i<pop.population.size()){
     		if (index<=maxFitScores[i]){
-    			subset[outCount]=pop.population[i];
+    			subset[outCount]=pop.population.get(i);
     			outCount++;
     			index+=1.0/outSize;
     		}else{
@@ -106,14 +107,14 @@ public class Selection {
     				indexesB.add(index);// only need if using probability
     				indexes[tourCount]=index;
     				tourCount++;
-    				double fitness=Config.getInstance().calculateFitness(pop.population[index]);
+    				double fitness=Config.getInstance().calculateFitness(pop.population.get(index));
     				if(fitness>bestFitness){// fitness of this individual is best
     					bestFitness=fitness;
     					bestIndex=index;
     				}// take best one? or take best one with probability prob (as wiki suggests)
     			}
     		}
-    		subset[outCount]=pop.population[bestIndex];
+    		subset[outCount]=pop.population.get(bestIndex);
     		outCount++;
     		indexesB.clear();
     	} 
@@ -131,11 +132,11 @@ public class Selection {
     		}
     	};
     	
-    	Arrays.sort(pop.population, indComp);
+    	pop.population.sort(indComp);
 
     	//cut off
     	for(int i=0; i<outSize; i++){
-    		subset[i]=pop.population[i];
+    		subset[i]=pop.population.get(i);
     	}
     	
     	return new Population(subset);
