@@ -1,37 +1,42 @@
 package evolutionary;
 
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-public class Selection {
-	public int param = -1;
+
+public class Selection {	
+	private SelectionType selectionType;
+	private static Random rand = new Random(System.currentTimeMillis());
 	
-	public void select(){
-		
+	public enum SelectionType{
+		ROULETTE,TOURNAMENT,SUS,ELITISM
 	}
 	
-	// Setter that insures field is only set once
-	public void setparam(int param)  {
-        this.param = this.param == -1 ? param : throw_();
-    }
-
-	// Throw error if already set
-    public int throw_() {
-        throw new RuntimeException("field is already set");
-    }
-    
-    public Population fitnessProportional(Population pop, int outSize){
-    	
-    	return pop;
-    }
+	public Selection(SelectionType selectionType){
+		this.selectionType = selectionType;
+	}
+	
+	public Population select(Population population,int n,int t){
+		switch(selectionType){
+			case ROULETTE:
+				return rouletteWheel(population,n);
+			case SUS:
+				return stochasticUniversalSampling(population,n);
+			case TOURNAMENT:
+				return tournamentSelection(population,n,t);		
+			case ELITISM:
+				return elitism(population,n);
+			default:
+				return population;
+		}
+	}
     
     public Population rouletteWheel(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
     	double[] maxFitScores = new double[pop.population.length];
-    	Random rand = new Random(System.currentTimeMillis());
     	
     	for (int i = 0; i<pop.population.length; i++){
     		if(i==0){
@@ -58,7 +63,6 @@ public class Selection {
     public Population stochasticUniversalSampling(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
     	double[] maxFitScores = new double[pop.population.length];
-    	Random rand = new Random(System.currentTimeMillis());
     	
     	for (int i = 0; i<pop.population.length; i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
@@ -68,7 +72,7 @@ public class Selection {
     		}    		
     	}
     	
-    	double index = rand.nextDouble()*pop.calculateTotalFitness()*(1.0/outSize);//get random start index between 0 and 1/outSize
+    	double index = rand.nextDouble()*(1.0/outSize);//get random start index between 0 and 1/outSize
     	int i = 0;
     	int outCount=0;
     	while (i<pop.population.length){
@@ -84,7 +88,7 @@ public class Selection {
     	return new Population(subset);
     }
     
-    public Population tournamentSelection(Population pop, int outSize, int tourSize, double prob){
+    public Population tournamentSelection(Population pop, int outSize, int tourSize){
     	Individual [] subset = new Individual[outSize];
     	int popSize = pop.size();
     	int [] indexes = new int[tourSize];
@@ -95,7 +99,6 @@ public class Selection {
     		int tourCount=0;
     		double bestFitness = 0;
     		int bestIndex = -1;
-    		Random rand = new Random(System.currentTimeMillis());
     		while (tourCount<tourSize){//until we have the specified tour size
     			int index = rand.nextInt(popSize);
     			if (!indexesB.contains(index)){			// If index hasn't yet been selected add it
@@ -111,13 +114,29 @@ public class Selection {
     		}
     		subset[outCount]=pop.population[bestIndex];
     		outCount++;
+    		indexesB.clear();
     	} 
     	return new Population(subset);
     }
     
-    public Population elitism(Population pop, int outSize, double cutOff){//cut percent (rather than number)
+    public Population elitism(Population pop, int outSize){//cut percent (rather than number)
+    	Individual [] subset = new Individual[outSize];
     	//sort by fitness
+    	Comparator<Individual> indComp = new Comparator<Individual>() {
+    		@Override
+    		public int compare(Individual a, Individual b) {
+    			double diff = Config.getInstance().calculateFitness(a) - Config.getInstance().calculateFitness(b);
+    			return (diff == 0) ? 0 : ((diff > 0) ? -1 : 1);
+    		}
+    	};
+    	
+    	Arrays.sort(pop.population, indComp);
+
     	//cut off
-    	return pop;
+    	for(int i=0; i<outSize; i++){
+    		subset[i]=pop.population[i];
+    	}
+    	
+    	return new Population(subset);
     }
 }

@@ -2,7 +2,7 @@ package evolutionary;
 
 public class Population {
 	// Could alternatively use a link list
-	Individual[] population;
+	public Individual[] population;
 	private int generationNumber;
 	
 	public Population(){
