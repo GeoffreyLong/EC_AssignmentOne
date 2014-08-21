@@ -78,4 +78,13 @@ public class Population {
 		}
 		return totalFitness;
 	}
+	
+	@Override
+	public Population clone() {
+		List<Individual> newPopList = new ArrayList<Individual>();
+		for (Individual i : this.population) {
+			newPopList.add(i.clone());
+		}
+		return new Population(newPopList);
+	}
 }
