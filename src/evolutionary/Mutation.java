@@ -19,30 +19,22 @@ public class Mutation {
 		this.mutationType = mutationType;
 	}
 	
-	public Population mutate(Population population){
+	public Individual mutate(Individual individual){
 		switch(mutationType){
 			case INSERT:
-				for (int i = 0; i<population.size();i++){
-					population.population[i]=insert(population.population[i]);
-				}
+					individual=insert(individual);
 				break;
 			case SWAP:
-				for (int i = 0; i<population.size();i++){
-					population.population[i]=swap(population.population[i]);
-				}
+					individual=swap(individual);
 				break;		
 			case INVERSION:
-				for (int i = 0; i<population.size();i++){
-					population.population[i]=inversion(population.population[i]);
-				}
+					individual=inversion(individual);
 				break;
 			case SCRAMBLE:
-				for (int i = 0; i<population.size();i++){
-					population.population[i]=scramble(population.population[i]);
-				}
+					individual=scramble(individual);
 				break;
 		}
-		return population;
+		return individual;
 	}
 	
 	public Individual insert(Individual i){

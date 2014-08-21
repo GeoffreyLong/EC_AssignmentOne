@@ -23,6 +23,8 @@ public class Config{
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
 	public int numberOfGenerations;
+	public double crossoverChance;
+	public double mutationChance;
 	
 	private static Config instance = null;
 	public static Config getInstance(){
@@ -100,4 +102,10 @@ public class Config{
 	public void setSelectionType(SelectionType type){
 		selectionType = type;
 	}*/
+	public void setMutationChance(double chance){
+		mutationChance = chance;
+	}
+	public void setCrossoverChance(double chance){
+		crossoverChance = chance;
+	}
 }
