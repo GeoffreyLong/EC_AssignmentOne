@@ -134,7 +134,6 @@ public class Selection {
     	
     	pop.population.sort(indComp);
     	
-
     	//cut off
     	for(int i=0; i<outSize; i++){
     		subset[i]=pop.population.get(i);
