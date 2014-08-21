@@ -9,15 +9,19 @@ public class EvolutionDriver {
 	private int maxNumberOfGenerations;
 	Population population;
 	Mutation mutation;
+	Crossover crossover;
 	Selection selection;
 	
 	
 	public EvolutionDriver(){
-		this.maxNumberOfGenerations = Config.getInstance().getNumberOfGenerations();
+		Config config = Config.getInstance();
 		
-		population = new Population(Config.getInstance().getPopulationSize(), Config.getInstance().getIndividualLength());
-		mutation = new Mutation(Config.getInstance().getMutationType());
-		//selection = new Selection(Config.getInstance().getSelectionType());
+		this.maxNumberOfGenerations = config.getNumberOfGenerations();
+		
+		population = new Population(config.getPopulationSize(), Config.getInstance().getIndividualLength());
+		mutation = new Mutation(config.getMutationType());
+		//crossover = new Crossover(config.getCrossoverType());
+		selection = new Selection(config.getSelectionType());
 	}
 	
 	public void evolve(){
@@ -31,11 +35,11 @@ public class EvolutionDriver {
 			if (rand < config.mutationChance){
 				mutation.mutate(population);
 			}
-			if (rand >= config.crossoverChance){
+			if (rand < config.crossoverChance){
 				//crossover.cross(population);
 			}
 
-			//selection.select(population);
+			selection.select(population);
 		}
 	}
 	

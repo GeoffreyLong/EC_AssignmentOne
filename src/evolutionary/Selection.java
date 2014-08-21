@@ -19,16 +19,17 @@ public class Selection {
 		this.selectionType = selectionType;
 	}
 	
-	public Population select(Population population,int n,int t){
+	public Population select(Population population){
+		Config config = Config.getInstance();
 		switch(selectionType){
 			case ROULETTE:
-				return rouletteWheel(population,n);
+				return rouletteWheel(population, config.populationSize);
 			case SUS:
-				return stochasticUniversalSampling(population,n);
+				return stochasticUniversalSampling(population, config.populationSize);
 			case TOURNAMENT:
-				return tournamentSelection(population,n,t);		
+				return tournamentSelection(population, config.populationSize, config.tournamentSize);		
 			case ELITISM:
-				return elitism(population,n);
+				return elitism(population, config.populationSize);
 			default:
 				return population;
 		}
