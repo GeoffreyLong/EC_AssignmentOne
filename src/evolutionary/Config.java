@@ -25,6 +25,9 @@ public class Config{
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
 	public int numberOfGenerations;
+	public double crossoverChance;
+	public double mutationChance;
+	public int tournamentSize;
 	
 	private static Config instance = null;
 	public static Config getInstance(){
@@ -121,7 +124,20 @@ public class Config{
 		crossoverType = type;
 	}
 	*/
+	public void setTournamentSize(int tournamentSize){
+		this.tournamentSize = tournamentSize;
+	}
+	
 	public void setSelectionType(SelectionType type){
 		selectionType = type;
+	}
+	public SelectionType getSelectionType(){
+		return this.selectionType;
+	}
+	public void setMutationChance(double chance){
+		mutationChance = chance;
+	}
+	public void setCrossoverChance(double chance){
+		crossoverChance = chance;
 	}
 }

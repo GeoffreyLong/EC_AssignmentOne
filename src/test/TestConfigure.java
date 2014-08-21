@@ -5,6 +5,7 @@ import java.util.Map;
 
 import evolutionary.Config;
 import evolutionary.Mutation.MutationType;
+import evolutionary.Selection.SelectionType;
 
 // TODO rename class
 public class TestConfigure {
@@ -74,6 +75,8 @@ public class TestConfigure {
 				break;
 		case 3: setUpAlgThree();
 				break;
+		case 4: setUpInverOver();
+				break;
 		default: System.out.println("Not a valid algorithm number");
 				inputError();
 		}
@@ -100,14 +103,26 @@ public class TestConfigure {
 	// TODO add param information print
 	// Set the mutation, crossover, and selection types and params
 	private void setUpAlgOne(){
+		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		Config.getInstance().setMutationType(MutationType.INSERT);
+		config.setMutationType(MutationType.INSERT);
+		config.setSelectionType(SelectionType.TOURNAMENT);
+		config.setTournamentSize(5);
+		config.setMutationChance(1);
+		config.setCrossoverChance(1);
 	}
 	private void setUpAlgTwo(){
 		System.out.println("Running Algorithm Two");
 	}
 	private void setUpAlgThree(){
 		System.out.println("Running Algorithm Three");
+	}
+	private void setUpInverOver(){
+		Config config = Config.getInstance();
+		System.out.println("Running Inver-over");
+		//config.setMutationType(MutationType.INVEROVER);
+		config.setMutationChance(1);
+		config.setCrossoverChance(0);
 	}
 	
 	

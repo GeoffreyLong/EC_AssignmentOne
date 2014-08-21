@@ -23,22 +23,22 @@ public class Mutation {
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){
-					population.population[i]=insert(population.population[i]);
+					population.population.set(i, insert(population.population.get(i)));
 				}
 				break;
 			case SWAP:
 				for (int i = 0; i<population.size();i++){
-					population.population[i]=swap(population.population[i]);
+					population.population.set(i, swap(population.population.get(i)));
 				}
 				break;		
 			case INVERSION:
-				for (int i = 0; i<population.size();i++){
-					population.population[i]=inversion(population.population[i]);
+				for (int i = 0; i<population.size();i++){					
+					population.population.set(i, inversion(population.population.get(i)));
 				}
 				break;
 			case SCRAMBLE:
 				for (int i = 0; i<population.size();i++){
-					population.population[i]=scramble(population.population[i]);
+					population.population.set(i, scramble(population.population.get(i)));
 				}
 				break;
 		}
@@ -151,8 +151,8 @@ public class Mutation {
 			String c = (String) iTemp.genotype.get(cInd);//c name
 			
 			while(true){
-				String cb;
-				int cbInd;
+				String cb="";
+				int cbInd=-1;
 				if(rand.nextDouble()<=prob){
 					cbInd=rand.nextInt(numChromosomes);
 					while (cbInd==cInd){//ensure non-duplicate choice
@@ -160,10 +160,10 @@ public class Mutation {
 						cb=(String) iTemp.genotype.get(cbInd);//c' name
 					}
 				}else{
-					int ibInd=rand.nextInt(p.population.length);//can be same individual?
+					int ibInd=rand.nextInt(p.population.size());//can be same individual?
 					String label = (String) iTemp.genotype.get(cInd);
-					for(int t=0; t<p.population[ibInd].genotype.size();t++){
-						String labelb = (String) p.population[ibInd].genotype.get(t);
+					for(int t=0; t<p.population.get(ibInd).genotype.size();t++){
+						String labelb = (String) p.population.get(ibInd).genotype.get(t);
 						if(label.equals(labelb)){
 							cbInd=t+1;//c' index (index of p.population[ibInd] (separate individual))
 							cb=(String) iTemp.genotype.get(cbInd);//c' name

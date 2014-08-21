@@ -45,4 +45,15 @@ public class Individual {
 	public String toString() {
 		return genotype.toString();
 	}
+	
+	@Override
+	public Individual clone() {
+		Individual i = new Individual();
+		List<Object> newGenotype = new ArrayList<Object>();
+		for (Object o : this.genotype) {
+			newGenotype.add(new String((String)o)); // Assumption that genotype only contains strings
+		}
+		i.genotype = newGenotype;
+		return i;
+	}
 }
