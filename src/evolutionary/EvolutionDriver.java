@@ -23,19 +23,16 @@ public class EvolutionDriver {
 			System.out.println(population.calculateMeanFitness());
 			population.incrementGenerationNumber();
 			
-			for (int i = 0; i<population.size();i++){
-				Config config = Config.getInstance();
-				double rand = Math.random();
-				if (rand < config.mutationChance){
-					population.population[i] = mutation.mutate(population.population[i]);
-				}
-				if (rand >= config.crossoverChance){
-					//population.population[i] = crossover.cross(population.population[i]);
-				}
-			}
+			double rand = Math.random();
+			Config config = Config.getInstance();
 			
-			//mutation.mutate(population);
-			//crossover.cross(population);
+			if (rand < config.mutationChance){
+				mutation.mutate(population);
+			}
+			if (rand >= config.crossoverChance){
+				//crossover.cross(population);
+			}
+
 			//selection.select(population);
 		}
 	}
