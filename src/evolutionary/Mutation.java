@@ -140,4 +140,90 @@ public class Mutation {
 		
 		return i;	
 	}
+	
+	public Population inverOver(Population p){
+		double prob = 0.2;//TO-DO need to put this in config
+		for(Individual i: p.population){
+			Individual iTemp= (Individual) i.clone();//deep clone of individual
+			
+			int numChromosomes=iTemp.genotype.size();
+			int cInd = rand.nextInt(numChromosomes); //c index (index of iTemp (S'))
+			String c = (String) iTemp.genotype.get(cInd);//c name
+			
+			while(true){
+				String cb;
+				int cbInd;
+				if(rand.nextDouble()<=prob){
+					cbInd=rand.nextInt(numChromosomes);
+					while (cbInd==cInd){//ensure non-duplicate choice
+						cbInd=rand.nextInt(numChromosomes);//c' index
+						cb=(String) iTemp.genotype.get(cbInd);//c' name
+					}
+				}else{
+					int ibInd=rand.nextInt(p.population.length);//can be same individual?
+					String label = (String) iTemp.genotype.get(cInd);
+					for(int t=0; t<p.population[ibInd].genotype.size();t++){
+						String labelb = (String) p.population[ibInd].genotype.get(t);
+						if(label.equals(labelb)){
+							cbInd=t+1;//c' index (index of p.population[ibInd] (separate individual))
+							cb=(String) iTemp.genotype.get(cbInd);//c' name
+							break;
+						}
+					}
+				}
+				
+				if(cInd==0){
+					String next = (String)iTemp.genotype.get(cInd+1);
+					if(cb.equals(next)){
+						break;
+					}					
+				}else if(cInd==numChromosomes-1){
+					String previous = (String)iTemp.genotype.get(cInd-1);
+					if(cb.equals(previous)){
+						break;
+					}
+				}else{
+					String next = (String)iTemp.genotype.get(cInd+1);
+					String previous = (String)iTemp.genotype.get(cInd-1);
+					if(cb.equals(next)||cb.equals(previous)){
+						break;
+					}
+				}
+				
+				//fix index for c=c' from index of p.population[ibInd] (separate individual) back to S' (ie. find c' string in iTemp (S'))
+				for(int t=0; t<i.genotype.size();t++){
+					String label = (String) i.genotype.get(t);
+					if(cb.equals(label)){
+						cbInd=t;//c' index (index of c' in S')
+						break;
+					}
+				}
+				
+				//inversion mutation
+				int indexA=cInd+1;
+				int indexB=cbInd;
+				if (indexA > indexB) {//make sure indexes in ascending order
+					int tmp = indexA;
+					indexA = indexB;
+					indexB = tmp;
+				}
+				int swaps = (int) (Math.floor(indexB-indexA+1)/2);//how many swap operations
+				
+				for (int j = 0; j < swaps; j++) {
+					Object temp = i.genotype.get(indexA+j);//store temp
+					i.genotype.set(indexA+j,i.genotype.get(indexB-j));
+					i.genotype.set(indexB-j,temp);
+				}
+				
+				//c=c'
+				c=cb;
+				cInd=cbInd;				
+			}
+			
+			if(Config.getInstance().calculateFitness(iTemp)<=Config.getInstance().calculateFitness(i)){//compare fitness'
+				i=iTemp;
+			}
+		}		
+		return p;
+	}
 }
