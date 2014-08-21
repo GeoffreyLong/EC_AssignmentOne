@@ -13,7 +13,7 @@ import java.util.Set;
 
 
 public class Crossover {
-
+	private static final boolean verbose = false;
 	private static final Random rand = new Random(System.currentTimeMillis());
 	public void cross(Population p){
 		
@@ -34,15 +34,19 @@ public class Crossover {
 			endCut = tmp;
 		}
 		
-		System.out.printf("startCut:%d, endCut:%d\n",startCut,endCut);
-		System.out.println("before copy");
-		System.out.println(offspringGenotype);
+		if (verbose) {
+			System.out.printf("startCut:%d, endCut:%d\n",startCut,endCut);
+			System.out.println("before copy");
+			System.out.println(offspringGenotype);
+		}
 		// Copy the cut sections to the new individuals
 		for (int i = startCut; i < endCut + 1; i++) {
 			offspringGenotype.set(i,a.genotype.get(i));
 		}
-		System.out.println("after copy");
-		System.out.println(offspringGenotype);
+		if (verbose) {
+			System.out.println("after copy");
+			System.out.println(offspringGenotype);
+		}
 		// Copy the remaining chromosomes
 		// TODO: contains in individual probably won't work, need to implement equals etc
 		int chromosomesRemaining = numChromosomes - (endCut - startCut) - 1;
@@ -75,15 +79,19 @@ public class Crossover {
 			endCut = tmp;
 		}
 		
-		System.out.printf("startCut:%d, endCut:%d\n",startCut,endCut);
-		System.out.println("before copy");
-		System.out.println(offspringGenotype);
+		if (verbose) {
+			System.out.printf("startCut:%d, endCut:%d\n",startCut,endCut);
+			System.out.println("before copy");
+			System.out.println(offspringGenotype);
+		}
 		// Copy the cut sections to the new individuals
 		for (int i = startCut; i < endCut + 1; i++) {
 			offspringGenotype.set(i,a.genotype.get(i));
 		}
-		System.out.println("after copy");
-		System.out.println(offspringGenotype);
+		if (verbose) {
+			System.out.println("after copy");
+			System.out.println(offspringGenotype);
+		}
 		
 		// Construct element index lookup table
 		Map<Object, Integer> bLookup = new HashMap<Object, Integer>();
@@ -108,9 +116,10 @@ public class Crossover {
 				offspringGenotype.set(index,el1);
 			}
 		}
-		
-		System.out.println("after pmx");
-		System.out.println(offspringGenotype);
+		if (verbose) {
+			System.out.println("after pmx");
+			System.out.println(offspringGenotype);
+		}
 		
 		for (int i = 0; i < offspringGenotype.size(); i++) {
 			Object el = offspringGenotype.get(i);
@@ -121,8 +130,10 @@ public class Crossover {
 			}
 		}
 		
-		System.out.println("after direct mapping");
-		System.out.println(offspringGenotype);
+		if (verbose) {
+			System.out.println("after direct mapping");
+			System.out.println(offspringGenotype);
+		}
 		return new Individual(offspringGenotype);
 		
 	}
@@ -146,7 +157,7 @@ public class Crossover {
 				startIndex++;
 				continue;
 			}
-			System.out.println(startIndex);
+			if (verbose) System.out.println(startIndex);
 			// loop init
 			List<Integer> cycle = new ArrayList<Integer>();
 			Object cycleStart = a.genotype.get(startIndex);
@@ -164,14 +175,16 @@ public class Crossover {
 		}
 		
 		// Debug cycle indexs
-		System.out.println("#####################");
-		System.out.println("AGenotype: " + a.genotype);
-		System.out.println("BGenotype: " + b.genotype);
-		System.out.println("Generated Cycles");
-		for (List<Integer> cycle : cycleList) {
-			System.out.println(cycle);
+		if (verbose) {
+			System.out.println("#####################");
+			System.out.println("AGenotype: " + a.genotype);
+			System.out.println("BGenotype: " + b.genotype);
+			System.out.println("Generated Cycles");
+			for (List<Integer> cycle : cycleList) {
+				System.out.println(cycle);
+			}
+			System.out.println("#####################");
 		}
-		System.out.println("#####################");
 		
 		
 		// Add cycle elements to offspring. Odd cycles add odd elements, even cycles add even elements.
@@ -211,11 +224,13 @@ public class Crossover {
 		}
 		
 		//debug print
-		System.out.println("Edge Table");
-		for (Map.Entry<Object, List<Object>> entry : edgeTable.entrySet()) {
-		    Object key = entry.getKey();
-		    List<Object> value = entry.getValue();
-		    System.out.println(key + ": " + value);
+		if (verbose) {
+			System.out.println("Edge Table");
+			for (Map.Entry<Object, List<Object>> entry : edgeTable.entrySet()) {
+			    Object key = entry.getKey();
+			    List<Object> value = entry.getValue();
+			    System.out.println(key + ": " + value);
+			}
 		}
 		
 		Object startEdge = a.genotype.get(0);
@@ -233,7 +248,7 @@ public class Crossover {
 					}
 				}
 				if (!found) {
-					System.out.println("WHAT THIS SHOULDNT HAPPEN");
+					if (verbose) System.out.println("WHAT THIS SHOULDNT HAPPEN");
 				}
 			}
 			// Count the double edges
@@ -261,7 +276,7 @@ public class Crossover {
 				int listSize = edgeTable.get(chosenEdge).size();
 				for (Object edge : currentList) {
 					int newListSize = edgeTable.get(edge).size();
-					System.out.println(newListSize);
+					if (verbose) System.out.println(newListSize);
 					if (newListSize < listSize) {
 						chosenEdge = edge;
 						listSize = newListSize;
@@ -284,15 +299,16 @@ public class Crossover {
 			offspringGenotype.add(chosenEdge);
 			doneEdges.add(chosenEdge);
 			startEdge = chosenEdge;
-			//debug print			
-			System.out.println("Current Solution: " + offspringGenotype);
-			System.out.println("Edge Table");
-			for (Map.Entry<Object, List<Object>> entry : edgeTable.entrySet()) {
-			    Object key = entry.getKey();
-			    List<Object> value = entry.getValue();
-			    System.out.println(key + ": " + value);
+			//debug print	
+			if (verbose) {
+				System.out.println("Current Solution: " + offspringGenotype);
+				System.out.println("Edge Table");
+				for (Map.Entry<Object, List<Object>> entry : edgeTable.entrySet()) {
+				    Object key = entry.getKey();
+				    List<Object> value = entry.getValue();
+				    System.out.println(key + ": " + value);
+				}
 			}
-			
 		}
 		
 		return new Individual(offspringGenotype);
