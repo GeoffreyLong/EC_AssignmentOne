@@ -12,7 +12,7 @@ public class Mutation {
 	private static Random rand = new Random(System.currentTimeMillis());
 	
 	public enum MutationType{
-		INSERT,SWAP,INVERSION,SCRAMBLE
+		INSERT,SWAP,INVERSION,SCRAMBLE,INVEROVER
 	}
 	
 	public Mutation(MutationType mutationType){
@@ -40,6 +40,10 @@ public class Mutation {
 				for (int i = 0; i<population.size();i++){
 					population.population.set(i, scramble(population.population.get(i)));
 				}
+				break;
+			case INVEROVER:
+				double prob = 0.2;//TO-DO need to put this in config
+				inverOver(population,prob);
 				break;
 		}
 		return population;
@@ -141,8 +145,7 @@ public class Mutation {
 		return i;	
 	}
 	
-	public Population inverOver(Population p){
-		double prob = 0.2;//TO-DO need to put this in config
+	public Population inverOver(Population p, double prob){
 		for(Individual i: p.population){
 			Individual iTemp= (Individual) i.clone();//deep clone of individual
 			
