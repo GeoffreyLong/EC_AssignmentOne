@@ -11,11 +11,42 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import evolutionary.Selection.SelectionType;
+
 
 public class Crossover {
 	private static final boolean verbose = false;
 	private static final Random rand = new Random(System.currentTimeMillis());
+	private CrossoverType crossoverType;
+	
+	public enum CrossoverType{
+		ORDER, PMX, CYCLE, EDGE;
+	}
+	
+	public Crossover(CrossoverType crossoverType){
+		this.crossoverType = crossoverType;
+	}
 	public void cross(Population p){
+		switch(crossoverType){
+			case ORDER: break;
+			case PMX: break;
+			case CYCLE: break;
+			case EDGE: break;
+		}
+		Config conf = Config.getInstance();
+		
+		// Select mating pool
+		Selection pSelect = new Selection(SelectionType.ELITISM);
+		Population matingPool = pSelect.select(p);
+		
+		// Apply crossover to pairs
+		Population offspring = new Population();
+		//Crossover cross = new Crossover(conf.getCr)
+		for (int i = 0; i < matingPool.size()/2; i++) {
+			Individual p1 = matingPool.population.get(i*2);
+			Individual p2 = matingPool.population.get(i*2+1);
+			
+		}
 	}
 	
 	public Individual orderCross(Individual a, Individual b) {
