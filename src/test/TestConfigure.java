@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Map;
 
 import evolutionary.Config;
+import evolutionary.Crossover.CrossoverType;
 import evolutionary.Mutation.MutationType;
 import evolutionary.Selection.SelectionType;
 
@@ -11,7 +12,7 @@ import evolutionary.Selection.SelectionType;
 public class TestConfigure {
 	private TestOptions testOption;
 	private final int SMALLEST_GEN_SIZE = 1;
-	private final int LARGEST_GEN_SIZE = 20000;
+	private final int LARGEST_GEN_SIZE = 100000;
 	
 	public enum TestOptions{
 		EIL51, 
@@ -105,11 +106,14 @@ public class TestConfigure {
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		config.setMutationType(MutationType.INSERT);
-		config.setSelectionType(SelectionType.TOURNAMENT);
+		config.setMutationType(MutationType.SWAP);
+		config.setCrossoverType(CrossoverType.ORDER);
+		config.setSelectionType(SelectionType.ELITISM);
+		config.setParentSelectionType(SelectionType.TOURNAMENT);
+		config.setGenerationMix(true);
 		config.setTournamentSize(5);
-		config.setMutationChance(1);
-		config.setCrossoverChance(1);
+		config.setMutationChance(.01);
+		config.setCrossoverChance(0);
 	}
 	private void setUpAlgTwo(){
 		System.out.println("Running Algorithm Two");

@@ -26,22 +26,37 @@ public class EvolutionDriver {
 	
 	public void evolve(){
 		int numberOfGenerations = 0;
+		
 		while (numberOfGenerations < maxNumberOfGenerations){
+			Population offspring = null;
 			numberOfGenerations++;
-			System.out.println(population.calculateMeanFitness());
 			
 			double rand = Math.random();
 			Config config = Config.getInstance();
 			
+			System.out.println(config.calculateMeanPathlength(population));
+			System.out.println(population.size());
+			
 			if ((1-rand) < config.crossoverChance){
-				population = crossover.cross(population);
+				offspring = crossover.cross(population);
+			}
+			
+			if (offspring == null){
+				offspring = population.clone();
 			}
 			
 			if (rand < config.mutationChance){
-				mutation.mutate(population);
+				mutation.mutate(offspring);
 			}
 			
-			selection.select(population);
+			if (config.generationMix){
+				population.population.addAll(offspring.population);
+			}
+			else{
+				population.population = offspring.population;
+			}
+			
+			population = selection.select(population);
 		}
 	}
 }
