@@ -110,6 +110,7 @@ public class TestConfigure {
 		config.setCrossoverType(CrossoverType.ORDER);
 		config.setSelectionType(SelectionType.ELITISM);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
+		config.setInverOverProbability(0.5);
 		config.setGenerationMix(false);
 		config.setTournamentSize(5);
 		config.setMutationChance(1);
