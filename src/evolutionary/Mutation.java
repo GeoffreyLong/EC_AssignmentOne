@@ -178,7 +178,7 @@ public class Mutation {
 						if(label.equals(labelb)){
 							//System.out.println("c is at index " + t + " of individual 2");
 							cbInd=(t+1>=p.population.get(ibInd).genotype.size()) ? 0 : t+1;//c' index (index of p.population[ibInd] (separate individual))
-							cb=(String) iTemp.genotype.get(cbInd);//c' name
+							cb=(String) p.population.get(ibInd).genotype.get(cbInd);//c' name
 							//System.out.println("City 2 (c'): Index:" +cbInd +"   ID: "+ cb);
 							break;
 						}
