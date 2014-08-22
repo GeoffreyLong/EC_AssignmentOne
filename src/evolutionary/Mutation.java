@@ -227,9 +227,9 @@ public class Mutation {
 				int swaps = (int) (Math.floor(indexB-indexA)/2);//how many swap operations
 				
 				for (int j = 0; j < swaps; j++) {
-					Object temp = i.genotype.get(indexA+j);//store temp
-					i.genotype.set(indexA+j,i.genotype.get(indexB-j));
-					i.genotype.set(indexB-j,temp);
+					Object temp = iTemp.genotype.get(indexA+j);//store temp
+					iTemp.genotype.set(indexA+j,iTemp.genotype.get(indexB-j));
+					iTemp.genotype.set(indexB-j,temp);
 				}
 				
 				///c=c'
