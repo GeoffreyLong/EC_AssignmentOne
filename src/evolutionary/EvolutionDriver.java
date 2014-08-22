@@ -20,20 +20,21 @@ public class EvolutionDriver {
 		
 		population = new Population(config.getPopulationSize(), Config.getInstance().getIndividualLength());
 		mutation = new Mutation(config.getMutationType());
-		//crossover = new Crossover(config.getCrossoverType());
+		crossover = new Crossover(config.getCrossoverType());
 		selection = new Selection(config.getSelectionType());
 	}
 	
 	public void evolve(){
-		while (population.getGenerationNumber() < maxNumberOfGenerations){
+		int numberOfGenerations = 0;
+		while (numberOfGenerations < maxNumberOfGenerations){
+			numberOfGenerations++;
 			System.out.println(population.calculateMeanFitness());
-			population.incrementGenerationNumber();
 			
 			double rand = Math.random();
 			Config config = Config.getInstance();
 			
 			if ((1-rand) < config.crossoverChance){
-				//crossover.cross(population);
+				population = crossover.cross(population);
 			}
 			
 			if (rand < config.mutationChance){
