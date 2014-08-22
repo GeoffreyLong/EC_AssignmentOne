@@ -133,8 +133,10 @@ public class Selection {
     		}
     	};
     	
+
     	Collections.sort(pop.population,indComp);//java 7
     	//pop.population.sort(indComp);//java 8
+
     	
     	//cut off
     	for(int i=0; i<outSize; i++){
