@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import evolutionary.Crossover.CrossoverType;
 import evolutionary.Mutation.MutationType;
 import evolutionary.Selection.SelectionType;
 
@@ -20,12 +21,14 @@ public class Config{
 	public int individualLength = -1;
 	public Map possibleAlleles;
 	public MutationType mutationType;
+	public CrossoverType crossoverType;
 	public SelectionType selectionType;
 	
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
 	public int numberOfGenerations;
 	public double crossoverChance;
+	public double crossingChance;
 	public double mutationChance;
 	public int tournamentSize;
 	public double inverOverProbability;
@@ -121,11 +124,14 @@ public class Config{
 	public MutationType getMutationType(){
 		return mutationType;
 	}
-	/*
+	
+	public CrossoverType getCrossoverType() {
+		return this.crossoverType;
+	}
 	public void setCrossoverType(CrossoverType type){
 		crossoverType = type;
 	}
-	*/
+	
 	public void setTournamentSize(int tournamentSize){
 		this.tournamentSize = tournamentSize;
 	}
@@ -141,6 +147,9 @@ public class Config{
 	}
 	public void setCrossoverChance(double chance){
 		crossoverChance = chance;
+	}
+	public void setCrossingChance(double chance){
+		crossingChance = chance;
 	}
 	public void setInverOverProbability(double chance){
 		this.inverOverProbability = chance;

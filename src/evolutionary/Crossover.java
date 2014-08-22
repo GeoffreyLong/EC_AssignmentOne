@@ -26,13 +26,8 @@ public class Crossover {
 	public Crossover(CrossoverType crossoverType){
 		this.crossoverType = crossoverType;
 	}
-	public void cross(Population p){
-		switch(crossoverType){
-			case ORDER: break;
-			case PMX: break;
-			case CYCLE: break;
-			case EDGE: break;
-		}
+	public Population cross(Population p){
+	
 		Config conf = Config.getInstance();
 		
 		// Select mating pool
@@ -41,12 +36,41 @@ public class Crossover {
 		
 		// Apply crossover to pairs
 		Population offspring = new Population();
-		//Crossover cross = new Crossover(conf.getCr)
+		Crossover cross = new Crossover(conf.getCrossoverType());
 		for (int i = 0; i < matingPool.size()/2; i++) {
 			Individual p1 = matingPool.population.get(i*2);
-			Individual p2 = matingPool.population.get(i*2+1);
+			Individual p2 = matingPool.population.get(i*2+1);			
 			
+			if (rand.nextDouble() < conf.crossingChance) {
+				offspring.population.add(cross.cross(p1,p2));
+				offspring.population.add(cross.cross(p2, p1));
+			} else {
+				offspring.population.add(p1);
+				offspring.population.add(p2);
+			}			
 		}
+		if ( (matingPool.size() % 2) == 1 ) {
+			Individual ind = matingPool.population.get(matingPool.size()-1);
+			offspring.population.add(ind);
+		}
+			
+		
+		return offspring;
+		
+	}
+	
+	public Individual cross(Individual a, Individual b) {
+		switch(crossoverType) {
+			case ORDER: 
+				return this.orderCross(a, b);
+			case PMX:
+				return this.pmxCross(a, b);				
+			case CYCLE:
+				return this.cycleCross(a, b);
+			case EDGE:
+				return this.edgeRecombination(a, b);
+			default: throw new IllegalArgumentException("Crossover type not specified");				
+		}	
 	}
 	
 	public Individual orderCross(Individual a, Individual b) {
