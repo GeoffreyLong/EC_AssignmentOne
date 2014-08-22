@@ -1,6 +1,7 @@
 package evolutionary;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -132,7 +133,8 @@ public class Selection {
     		}
     	};
     	
-    	pop.population.sort(indComp);
+    	Collections.sort(pop.population,indComp);
+    	//pop.population.sort(indComp);
     	
     	//cut off
     	for(int i=0; i<outSize; i++){
