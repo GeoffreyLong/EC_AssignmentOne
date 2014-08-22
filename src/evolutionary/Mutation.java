@@ -168,7 +168,7 @@ public class Mutation {
 					for(int t=0; t<p.population.get(ibInd).genotype.size();t++){
 						String labelb = (String) p.population.get(ibInd).genotype.get(t);
 						if(label.equals(labelb)){
-							cbInd=t+1;//c' index (index of p.population[ibInd] (separate individual))
+							cbInd=(t+1>=p.population.get(ibInd).genotype.size()) ? 0 : t+1;//c' index (index of p.population[ibInd] (separate individual))
 							cb=(String) iTemp.genotype.get(cbInd);//c' name
 							break;
 						}

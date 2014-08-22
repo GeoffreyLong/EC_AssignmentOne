@@ -33,6 +33,7 @@ public class Config{
 	public int tournamentSize;
 	public double inverOverProbability;
 	public SelectionType parentSelectionType;
+	public boolean generationMix;
 	
 	private static Config instance = null;
 	public static Config getInstance(){
@@ -115,7 +116,11 @@ public class Config{
 				fitness += currentPoint.distance(lastPoint);
 			}
 		}		
-		return fitness;
+		return 1/fitness;
+	}
+	
+	public double calculateMeanPathlength(Population population){
+		return 1/population.calculateMeanFitness();
 	}
 	
 	public void setMutationType(MutationType type){
@@ -131,7 +136,9 @@ public class Config{
 	public void setCrossoverType(CrossoverType type){
 		crossoverType = type;
 	}
-	
+	public void setGenerationMix(boolean mixGenerations){
+		this.generationMix = mixGenerations;
+	}
 	public void setTournamentSize(int tournamentSize){
 		this.tournamentSize = tournamentSize;
 	}

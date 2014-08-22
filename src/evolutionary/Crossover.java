@@ -31,7 +31,7 @@ public class Crossover {
 		Config conf = Config.getInstance();
 		
 		// Select mating pool
-		Selection pSelect = new Selection(SelectionType.ELITISM);
+		Selection pSelect = new Selection(conf.getParentSelectionType());
 		Population matingPool = pSelect.select(p);
 		
 		// Apply crossover to pairs
