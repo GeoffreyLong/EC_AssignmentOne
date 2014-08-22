@@ -42,7 +42,6 @@ public class Mutation {
 				}
 				break;
 			case INVEROVER:
-				double prob = 0.2;//TO-DO need to put this in config
 				inverOver(population, Config.getInstance().inverOverProbability);
 				break;
 		}
@@ -153,6 +152,9 @@ public class Mutation {
 			int cInd = rand.nextInt(numChromosomes); //c index (index of iTemp (S'))
 			String c = (String) iTemp.genotype.get(cInd);//c name
 			
+			System.out.println("Individual (S'): " + i.toString());
+			System.out.println("City (c): Index:" +cInd +"   ID: "+ c);
+			
 			while(true){
 				String cb="";
 				int cbInd=-1;
@@ -162,14 +164,20 @@ public class Mutation {
 						cbInd=rand.nextInt(numChromosomes);//c' index
 						cb=(String) iTemp.genotype.get(cbInd);//c' name
 					}
+					System.out.println("Rand was less than prob, so get c' from S'");
+					System.out.println("City 2 (c'): Index:" +cbInd +"   ID: "+ cb);
 				}else{
+					System.out.println("Rand was NOT less than prob, so get c' from random individual");
 					int ibInd=rand.nextInt(p.population.size());//can be same individual?
 					String label = (String) iTemp.genotype.get(cInd);
+					System.out.println("Individual 2: " + p.population.get(ibInd).toString());
 					for(int t=0; t<p.population.get(ibInd).genotype.size();t++){
 						String labelb = (String) p.population.get(ibInd).genotype.get(t);
 						if(label.equals(labelb)){
+							System.out.println("c is at index " + t + " of individual 2");
 							cbInd=(t+1>=p.population.get(ibInd).genotype.size()) ? 0 : t+1;//c' index (index of p.population[ibInd] (separate individual))
 							cb=(String) iTemp.genotype.get(cbInd);//c' name
+							System.out.println("City 2 (c'): Index:" +cbInd +"   ID: "+ cb);
 							break;
 						}
 					}
@@ -178,17 +186,20 @@ public class Mutation {
 				if(cInd==0){
 					String next = (String)iTemp.genotype.get(cInd+1);
 					if(cb.equals(next)){
+						System.out.println("Same so exit loop");
 						break;
 					}					
 				}else if(cInd==numChromosomes-1){
 					String previous = (String)iTemp.genotype.get(cInd-1);
 					if(cb.equals(previous)){
+						System.out.println("Same so exit loop");
 						break;
 					}
 				}else{
 					String next = (String)iTemp.genotype.get(cInd+1);
 					String previous = (String)iTemp.genotype.get(cInd-1);
 					if(cb.equals(next)||cb.equals(previous)){
+						System.out.println("Same so exit loop");
 						break;
 					}
 				}
@@ -198,6 +209,7 @@ public class Mutation {
 					String label = (String) i.genotype.get(t);
 					if(cb.equals(label)){
 						cbInd=t;//c' index (index of c' in S')
+						System.out.println("City c' is index " +t + " of individual 1: " + i.toString());
 						break;
 					}
 				}
@@ -211,6 +223,7 @@ public class Mutation {
 					indexB = tmp;
 				}
 				
+				System.out.println("Perform inverson on "+ i.toString()+" from index "+indexA+" to index"+indexB);
 				int swaps = (int) (Math.floor(indexB-indexA)/2);//how many swap operations
 				
 				for (int j = 0; j < swaps; j++) {
@@ -220,14 +233,18 @@ public class Mutation {
 				}
 				
 				///c=c'
+				System.out.println("c=c'");
 				c=cb;
 				cInd=cbInd;				
 			}
 			
 			if(Config.getInstance().calculateFitness(iTemp)>=Config.getInstance().calculateFitness(i)){//compare fitness'
 				i=iTemp;
+				System.out.println("Less than");
 			}
+			System.out.println("-----------------------------------------------------");
 		}		
+		
 		return p;
 	}
 }
