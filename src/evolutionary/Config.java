@@ -29,6 +29,7 @@ public class Config{
 	public double mutationChance;
 	public int tournamentSize;
 	public double inverOverProbability;
+	public SelectionType parentSelectionType;
 	
 	private static Config instance = null;
 	public static Config getInstance(){
@@ -143,5 +144,11 @@ public class Config{
 	}
 	public void setInverOverProbability(double chance){
 		this.inverOverProbability = chance;
+	}
+	public void setParentSelectionType(SelectionType parentSelectionType){
+		this.parentSelectionType = parentSelectionType;
+	}
+	public SelectionType getParentSelectionType(){
+		return this.parentSelectionType;
 	}
 }
