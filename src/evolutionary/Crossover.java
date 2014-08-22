@@ -16,7 +16,6 @@ public class Crossover {
 	private static final boolean verbose = false;
 	private static final Random rand = new Random(System.currentTimeMillis());
 	public void cross(Population p){
-		
 	}
 	
 	public Individual orderCross(Individual a, Individual b) {
