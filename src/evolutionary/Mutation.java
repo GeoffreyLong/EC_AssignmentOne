@@ -217,7 +217,6 @@ public class Mutation {
 					i.genotype.set(indexA+j,i.genotype.get(indexB-j));
 					i.genotype.set(indexB-j,temp);
 				}
-				
 				//c=c'
 				c=cb;
 				cInd=cbInd;				
