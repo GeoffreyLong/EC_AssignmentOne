@@ -108,12 +108,12 @@ public class TestConfigure {
 		System.out.println("Running Algorithm One");
 		config.setMutationType(MutationType.SWAP);
 		config.setCrossoverType(CrossoverType.ORDER);
-		config.setSelectionType(SelectionType.ELITISM);
+		config.setSelectionType(SelectionType.TOURNAMENT);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
 		config.setTournamentSize(5);
-		config.setMutationChance(.01);
-		config.setCrossoverChance(0);
+		config.setMutationChance(.1);
+		config.setCrossoverChance(.1);
 	}
 	private void setUpAlgTwo(){
 		System.out.println("Running Algorithm Two");
