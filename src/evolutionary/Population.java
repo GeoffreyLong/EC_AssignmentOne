@@ -6,9 +6,9 @@ import java.util.List;
 public class Population {
 	// TODO change to a list
 	public List<Individual> population;
-	private int generationNumber;
 	
 	public Population(){
+		population = new ArrayList<Individual>();
 		// Make a bunch of Individuals
 		// Need array of individuals that is the size of the pop size
 	}
@@ -44,14 +44,6 @@ public class Population {
 
 	public Population(int populationSize, Object object) {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public int getGenerationNumber(){
-		return generationNumber;
-	}
-	
-	public void incrementGenerationNumber(){
-		generationNumber += 1;
 	}
 	
 	public int size(){
