@@ -77,6 +77,7 @@ public class Crossover {
 		int numChromosomes = a.genotype.size();
 		if (verbose) System.out.println(numChromosomes);
 		
+		
 		List<Object> offspringGenotype = new ArrayList<Object>(Collections.nCopies(numChromosomes, -1));
 		
 		// Generate random cut interval
