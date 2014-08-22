@@ -43,7 +43,7 @@ public class Mutation {
 				break;
 			case INVEROVER:
 				double prob = 0.2;//TO-DO need to put this in config
-				inverOver(population,prob);
+				inverOver(population, Config.getInstance().inverOverProbability);
 				break;
 		}
 		return population;

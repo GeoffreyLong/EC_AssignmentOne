@@ -28,6 +28,7 @@ public class Config{
 	public double crossoverChance;
 	public double mutationChance;
 	public int tournamentSize;
+	public double inverOverProbability;
 	
 	private static Config instance = null;
 	public static Config getInstance(){
@@ -139,5 +140,8 @@ public class Config{
 	}
 	public void setCrossoverChance(double chance){
 		crossoverChance = chance;
+	}
+	public void setInverOverProbability(double chance){
+		this.inverOverProbability = chance;
 	}
 }

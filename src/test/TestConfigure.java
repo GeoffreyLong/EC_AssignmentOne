@@ -123,6 +123,7 @@ public class TestConfigure {
 		//config.setMutationType(MutationType.INVEROVER);
 		config.setMutationChance(1);
 		config.setCrossoverChance(0);
+		config.setInverOverProbability(0.2);
 	}
 	
 	

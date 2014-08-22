@@ -15,8 +15,22 @@ import java.util.Set;
 public class Crossover {
 	private static final boolean verbose = false;
 	private static final Random rand = new Random(System.currentTimeMillis());
+	private CrossoverType crossoverType;
+	
+	public enum CrossoverType{
+		ORDER, PMX, CYCLE, EDGE;
+	}
+	
+	public Crossover(CrossoverType crossoverType){
+		this.crossoverType = crossoverType;
+	}
 	public void cross(Population p){
-		
+		switch(crossoverType){
+			case ORDER: break;
+			case PMX: break;
+			case CYCLE: break;
+			case EDGE: break;
+		}
 	}
 	
 	public Individual orderCross(Individual a, Individual b) {
