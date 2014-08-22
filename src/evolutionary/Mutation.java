@@ -203,8 +203,8 @@ public class Mutation {
 				}
 				
 				//inversion mutation
-				int indexA=cInd+1;
-				int indexB=cbInd;
+				int indexA=(cInd+1)%(numChromosomes-1);
+				int indexB=cbInd%(numChromosomes-1);
 				if (indexA > indexB) {//make sure indexes in ascending order
 					int tmp = indexA;
 					indexA = indexB;
@@ -224,7 +224,7 @@ public class Mutation {
 				cInd=cbInd;				
 			}
 			
-			if(Config.getInstance().calculateFitness(iTemp)<=Config.getInstance().calculateFitness(i)){//compare fitness'
+			if(Config.getInstance().calculateFitness(iTemp)>=Config.getInstance().calculateFitness(i)){//compare fitness'
 				i=iTemp;
 			}
 		}		
