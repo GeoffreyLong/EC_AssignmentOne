@@ -210,7 +210,7 @@ public class Mutation {
 					indexA = indexB;
 					indexB = tmp;
 				}
-				int swaps = (int) (Math.floor(indexB-indexA+1)/2);//how many swap operations
+				int swaps = (int) (Math.floor(indexB-indexA)/2);//how many swap operations
 				
 				for (int j = 0; j < swaps; j++) {
 					Object temp = i.genotype.get(indexA+j);//store temp
