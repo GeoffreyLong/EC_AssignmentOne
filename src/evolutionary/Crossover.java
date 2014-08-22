@@ -75,7 +75,7 @@ public class Crossover {
 	
 	public Individual orderCross(Individual a, Individual b) {
 		int numChromosomes = a.genotype.size();
-		System.out.println(numChromosomes);
+		if (verbose) System.out.println(numChromosomes);
 		
 		List<Object> offspringGenotype = new ArrayList<Object>(Collections.nCopies(numChromosomes, -1));
 		
