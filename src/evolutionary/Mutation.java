@@ -21,25 +21,34 @@ public class Mutation {
 	}
 	
 	public Population mutate(Population population){
+		Config config = Config.getInstance();
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){
-					population.population.set(i, insert(population.population.get(i)));
+					if (rand.nextDouble() > config.mutationChance){
+						population.population.set(i, insert(population.population.get(i)));
+					}
 				}
 				break;
 			case SWAP:
 				for (int i = 0; i<population.size();i++){
-					population.population.set(i, swap(population.population.get(i)));
+					if (rand.nextDouble() > config.mutationChance){
+						population.population.set(i, swap(population.population.get(i)));
+					}
 				}
 				break;		
 			case INVERSION:
 				for (int i = 0; i<population.size();i++){					
-					population.population.set(i, inversion(population.population.get(i)));
+					if (rand.nextDouble() > config.mutationChance){
+						population.population.set(i, inversion(population.population.get(i)));
+					}
 				}
 				break;
 			case SCRAMBLE:
 				for (int i = 0; i<population.size();i++){
-					population.population.set(i, scramble(population.population.get(i)));
+					if (rand.nextDouble() > config.mutationChance){
+						population.population.set(i, scramble(population.population.get(i)));
+					}
 				}
 				break;
 			case INVEROVER:
@@ -266,8 +275,8 @@ public class Mutation {
 			while(true){
 				Object secondCity = firstCity;
 				
-				if(rand.nextDouble() < Config.getInstance().inverOverProbability){
-					while(secondCity == firstCity){
+				if(rand.nextDouble() <= Config.getInstance().inverOverProbability){
+					while(secondCity.equals(firstCity)){
 						secondCity = clonedIndividual.genotype.get(rand.nextInt(genotypeSize));
 					}
 				}

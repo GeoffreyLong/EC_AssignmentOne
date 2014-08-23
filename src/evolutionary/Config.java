@@ -23,17 +23,17 @@ public class Config{
 	public MutationType mutationType;
 	public CrossoverType crossoverType;
 	public SelectionType selectionType;
+	public SelectionType parentSelectionType;
 	
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
-	public int numberOfGenerations;
-	public double crossoverChance;
-	public double crossingChance;
-	public double mutationChance;
-	public int tournamentSize;
-	public double inverOverProbability;
-	public SelectionType parentSelectionType;
-	public boolean generationMix;
+	public int numberOfGenerations = 10000;
+	public double crossoverChance = 1;
+	public double crossingChance = 1;
+	public double mutationChance = 0.02;
+	public int tournamentSize = 5;
+	public double inverOverProbability = 0.02;
+	public boolean generationMix = true;
 	
 	private static Config instance = null;
 	public static Config getInstance(){

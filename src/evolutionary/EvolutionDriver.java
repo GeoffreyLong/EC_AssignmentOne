@@ -27,8 +27,8 @@ public class EvolutionDriver {
 	public void evolve(){
 		int numberOfGenerations = 0;
 		double bestSolution = Double.MAX_VALUE;
-		while (numberOfGenerations < maxNumberOfGenerations){
-			Population offspring = null;
+		while (numberOfGenerations <= maxNumberOfGenerations){
+			Population offspring = population.clone();
 			numberOfGenerations++;
 			
 			Config config = Config.getInstance();
@@ -39,17 +39,8 @@ public class EvolutionDriver {
 			}
 			System.out.println (String.format("%-10.3f", curVal) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
-			if (Math.random() < config.crossoverChance){
-				offspring = crossover.cross(population);
-			}
-			
-			if (offspring == null){
-				offspring = population.clone();
-			}
-			
-			if (Math.random() < config.mutationChance){
-				mutation.mutate(offspring);
-			}
+			offspring = crossover.cross(offspring);
+			mutation.mutate(offspring);
 			
 			if (config.generationMix){
 				population.population.addAll(offspring.population);
@@ -57,7 +48,6 @@ public class EvolutionDriver {
 			else{
 				population.population = offspring.population;
 			}
-			
 			population = selection.select(population);
 		}
 		for(Individual i : population.population){

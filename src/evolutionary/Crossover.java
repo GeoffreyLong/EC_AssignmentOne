@@ -18,6 +18,7 @@ public class Crossover {
 	private static final boolean verbose = false;
 	private static final Random rand = new Random(System.currentTimeMillis());
 	private CrossoverType crossoverType;
+	private Selection pSelect;
 	
 	public enum CrossoverType{
 		ORDER, PMX, CYCLE, EDGE;
@@ -25,25 +26,25 @@ public class Crossover {
 	
 	public Crossover(CrossoverType crossoverType){
 		this.crossoverType = crossoverType;
+		pSelect = new Selection(Config.getInstance().getParentSelectionType());
 	}
 	public Population cross(Population p){
 	
 		Config conf = Config.getInstance();
 		
 		// Select mating pool
-		Selection pSelect = new Selection(conf.getParentSelectionType());
 		Population matingPool = pSelect.select(p);
 		
 		// Apply crossover to pairs
 		Population offspring = new Population();
-		Crossover cross = new Crossover(conf.getCrossoverType());
+
 		for (int i = 0; i < matingPool.size()/2; i++) {
 			Individual p1 = matingPool.population.get(i*2);
 			Individual p2 = matingPool.population.get(i*2+1);			
 			
 			if (rand.nextDouble() < conf.crossingChance) {
-				offspring.population.add(cross.cross(p1,p2));
-				offspring.population.add(cross.cross(p2, p1));
+				offspring.population.add(cross(p1,p2));
+				offspring.population.add(cross(p2, p1));
 			} else {
 				offspring.population.add(p1);
 				offspring.population.add(p2);
@@ -327,6 +328,7 @@ public class Crossover {
 			Object chosenEdge = null;
 			if (doubleEdges.size() == 0) {
 				// Compare based on list size
+				// TODO  This seems broken... Index out of bound here
 				chosenEdge = currentList.get(0);
 				int listSize = edgeTable.get(chosenEdge).size();
 				for (Object edge : currentList) {
