@@ -42,7 +42,7 @@ public class Crossover {
 			Individual p1 = matingPool.population.get(i*2);
 			Individual p2 = matingPool.population.get(i*2+1);			
 			
-			if (rand.nextDouble() < conf.crossingChance) {
+			if (rand.nextDouble() < conf.crossoverChance) {
 				offspring.population.add(cross(p1,p2));
 				offspring.population.add(cross(p2, p1));
 			} else {
