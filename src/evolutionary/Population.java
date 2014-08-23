@@ -66,7 +66,12 @@ public class Population {
 	public double calculateTotalFitness(){
 		double totalFitness = 0;
 		for (Individual i : population){
-			totalFitness += Config.getInstance().calculateFitness(i);
+			double indFitness = Config.getInstance().calculateFitness(i);
+			if (Math.abs(426 - indFitness) <= 1){
+				System.out.println("Success");
+				System.exit(0);
+			}
+			totalFitness += indFitness;
 		}
 		return totalFitness;
 	}

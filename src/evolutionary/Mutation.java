@@ -3,6 +3,7 @@ package evolutionary;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class Mutation {
 				}
 				break;
 			case INVEROVER:
-				inverOver(population, Config.getInstance().inverOverProbability);
+				newInverOver(population);
 				break;
 		}
 		return population;
@@ -217,8 +218,8 @@ public class Mutation {
 				}
 				
 				//inversion mutation
-				int indexA=(cInd+1)%(numChromosomes-1);
-				int indexB=cbInd%(numChromosomes-1);
+				int indexA=(cInd+1)%(numChromosomes);
+				int indexB=cbInd%(numChromosomes);
 				if (indexA > indexB) {//make sure indexes in ascending order
 					int tmp = indexA;
 					indexA = indexB;
@@ -250,5 +251,72 @@ public class Mutation {
 		}		
 		//System.out.println(p.population.toString());
 		return p;
+	}
+	
+	public void newInverOver(Population p){
+		for (int individualIndex = 0; individualIndex < p.size(); individualIndex++){
+			Individual originalIndividual = p.population.get(individualIndex);
+			Individual clonedIndividual = originalIndividual.clone();
+			
+			int genotypeSize = clonedIndividual.genotype.size();
+			
+			int firstCityIndex = rand.nextInt(genotypeSize);
+			Object firstCity = clonedIndividual.genotype.get(firstCityIndex);
+			
+			while(true){
+				Object secondCity = firstCity;
+				
+				if(rand.nextDouble() < Config.getInstance().inverOverProbability){
+					while(secondCity == firstCity){
+						secondCity = clonedIndividual.genotype.get(rand.nextInt(genotypeSize));
+					}
+				}
+				else{
+					Individual randomIndividual = p.population.get(rand.nextInt(p.population.size()));
+					int index = getIndexOfElement(firstCity, randomIndividual.genotype);
+					secondCity = randomIndividual.genotype.get((index + 1) % genotypeSize);
+				}
+				
+				int secondCityIndex = getIndexOfElement(secondCity, clonedIndividual.genotype);
+				int indexDifference = Math.abs(firstCityIndex - secondCityIndex);
+				if (indexDifference == 1 || indexDifference == genotypeSize){
+					break;
+				}
+				
+				//inversion mutation copied straight from other alg
+				int indexA = (firstCityIndex+1) % genotypeSize;
+				int indexB = secondCityIndex % genotypeSize;
+				if (indexA > indexB) {//make sure indexes in ascending order
+					int tmp = indexA;
+					indexA = indexB;
+					indexB = tmp;
+				}
+				
+				int swaps = (int) (Math.floor(indexB-indexA)/2);//how many swap operations
+				
+				for (int j = 0; j < swaps; j++) {
+					Object temp = clonedIndividual.genotype.get(indexA+j);//store temp
+					clonedIndividual.genotype.set(indexA+j, clonedIndividual.genotype.get(indexB-j));
+					clonedIndividual.genotype.set(indexB-j,temp);
+				}
+				
+				firstCity = secondCity;
+				firstCityIndex = secondCityIndex;
+			}
+			
+			if(Config.getInstance().calculateFitness(clonedIndividual)>=Config.getInstance().calculateFitness(originalIndividual)){//compare fitness'
+				p.population.set(individualIndex, clonedIndividual);
+			}
+		}
+	}
+	
+	private int getIndexOfElement(Object element, List<Object> list){
+		int index;
+		for (index = 0; index < list.size(); index++){
+			if (list.get(index).equals(element)){
+				break;
+			}
+		}
+		return index;
 	}
 }

@@ -60,5 +60,9 @@ public class EvolutionDriver {
 			
 			population = selection.select(population);
 		}
+		for(Individual i : population.population){
+			System.out.println(i.genotype);
+			System.out.println(1/Config.getInstance().calculateFitness(i));
+		}
 	}
 }

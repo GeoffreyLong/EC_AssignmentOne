@@ -79,8 +79,8 @@ public class Config{
 		return possibleAlleles;
 	}
 	
-	// Definitely test this to ensure it works
-	/* THINK THIS IS INCORRECT (UPDATED ONE BELOW)
+	// Changed a line, now they are the same...
+	/*
 	public double calculateFitness(Individual individual){
 		double fitness = 0;
 		List<Object> chromosomes = individual.genotype;
@@ -93,11 +93,12 @@ public class Config{
 			chromosome = (String) chromosome;
 			currentPoint = (Point) possibleAlleles.get(chromosome);
 			fitness += currentPoint.distance(lastPoint);
+			lastPoint = currentPoint;
 		}
 		
-		return fitness;
-	}
-	*/
+		return 1/fitness;
+	}*/
+
 	
 	public double calculateFitness(Individual individual){
 		double fitness = 0;
