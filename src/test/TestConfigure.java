@@ -108,15 +108,27 @@ public class TestConfigure {
 		System.out.println("Running Algorithm One");
 		config.setMutationType(MutationType.SWAP);
 		config.setCrossoverType(CrossoverType.ORDER);
-		config.setSelectionType(SelectionType.ROULETTE);
+		config.setSelectionType(SelectionType.ELITISM);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
 		config.setTournamentSize(2);
 		config.setMutationChance(1);
 		config.setCrossoverChance(0.8);
 	}
+	
+	// This one converges rather quickly to around 470 - 540
+	// 470 - 480 seems to be rather average though
 	private void setUpAlgTwo(){
+		Config config = Config.getInstance();
 		System.out.println("Running Algorithm Two");
+		config.setMutationType(MutationType.SWAP);
+		config.setCrossoverType(CrossoverType.ORDER);
+		config.setSelectionType(SelectionType.ELITISM);
+		config.setParentSelectionType(SelectionType.TOURNAMENT);
+		config.setGenerationMix(true);
+		config.setTournamentSize(2);
+		config.setMutationChance(1);
+		config.setCrossoverChance(0.8);
 	}
 	private void setUpAlgThree(){
 		System.out.println("Running Algorithm Three");
