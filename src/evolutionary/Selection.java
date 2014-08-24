@@ -68,12 +68,13 @@ public class Selection {
     public Population stochasticUniversalSampling(Population pop, int outSize){
     	Individual [] subset = new Individual[outSize];
     	double[] maxFitScores = new double[pop.population.size()];
+    	double populationFitness = pop.calculateTotalFitness();
     	
     	for (int i = 0; i<pop.population.size(); i++){//calculate the max fitness proportion space for each individual
     		if(i==0){
-    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/populationFitness;
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population.get(i))/populationFitness;
     		}    		
     	}
     	
