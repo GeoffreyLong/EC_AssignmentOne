@@ -106,13 +106,13 @@ public class TestConfigure {
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		config.setMutationType(MutationType.INVERSION);
-		config.setCrossoverType(CrossoverType.CYCLE);
+		config.setMutationType(MutationType.SWAP);
+		config.setCrossoverType(CrossoverType.ORDER);
 		config.setSelectionType(SelectionType.ELITISM);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
 		config.setTournamentSize(2);
-		config.setMutationChance(0.1);
+		config.setMutationChance(1);
 		config.setCrossoverChance(0.8);
 	}
 	private void setUpAlgTwo(){

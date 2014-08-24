@@ -25,28 +25,28 @@ public class Mutation {
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){
-					if (rand.nextDouble() > config.mutationChance){
+					if (rand.nextDouble() < config.mutationChance){
 						population.population.set(i, insert(population.population.get(i)));
 					}
 				}
 				break;
 			case SWAP:
 				for (int i = 0; i<population.size();i++){
-					if (rand.nextDouble() > config.mutationChance){
+					if (rand.nextDouble() < config.mutationChance){
 						population.population.set(i, swap(population.population.get(i)));
 					}
 				}
 				break;		
 			case INVERSION:
 				for (int i = 0; i<population.size();i++){					
-					if (rand.nextDouble() > config.mutationChance){
+					if (rand.nextDouble() < config.mutationChance){
 						population.population.set(i, inversion(population.population.get(i)));
 					}
 				}
 				break;
 			case SCRAMBLE:
 				for (int i = 0; i<population.size();i++){
-					if (rand.nextDouble() > config.mutationChance){
+					if (rand.nextDouble() < config.mutationChance){
 						population.population.set(i, scramble(population.population.get(i)));
 					}
 				}
