@@ -108,7 +108,7 @@ public class TestConfigure {
 		System.out.println("Running Algorithm One");
 		config.setMutationType(MutationType.SWAP);
 		config.setCrossoverType(CrossoverType.ORDER);
-		config.setSelectionType(SelectionType.ELITISM);
+		config.setSelectionType(SelectionType.ROULETTE);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
 		config.setTournamentSize(2);

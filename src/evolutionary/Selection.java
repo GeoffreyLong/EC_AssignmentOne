@@ -41,17 +41,19 @@ public class Selection {
     	Individual [] subset = new Individual[outSize];
     	double[] maxFitScores = new double[pop.population.size()];
     	
+    	double populationFitness = pop.calculateTotalFitness();
+    	
     	for (int i = 0; i<pop.population.size(); i++){
     		if(i==0){
-    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
+    			maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/populationFitness;
     		}else{
-    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population.get(i))/pop.calculateTotalFitness();
+    			maxFitScores[i]=maxFitScores[i-1]+Config.getInstance().calculateFitness(pop.population.get(i))/populationFitness;
     		}    		
     	}
     	
     	int outCount=0;
     	while (outCount<outSize){
-    		double index = rand.nextDouble()*pop.calculateTotalFitness();
+    		double index = rand.nextDouble()*populationFitness;
     		for (int i = 0; i<pop.population.size(); i++){
     			if(index<=maxFitScores[i]){
     				subset[outCount]=pop.population.get(i);
