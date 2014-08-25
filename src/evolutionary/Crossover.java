@@ -186,7 +186,7 @@ public class Crossover {
 		for (int i = 0; i < offspringGenotype.size(); i++) {
 			Object el = offspringGenotype.get(i);
 			boolean placeFilled = (el instanceof Integer) ? ((int)el != -1) : true;
-			System.out.printf("index: %d, placeFilled:%s, integer:%s\n", i, placeFilled, el instanceof Integer);
+			if (verbose) System.out.printf("index: %d, placeFilled:%s, integer:%s\n", i, placeFilled, el instanceof Integer);
 			if (!placeFilled) {
 				offspringGenotype.set(i, b.genotype.get(i));
 			}
