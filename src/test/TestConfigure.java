@@ -125,7 +125,7 @@ public class TestConfigure {
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
 		config.setSelectionType(SelectionType.TOURNAMENT);
-		config.setParentSelectionType(SelectionType.SUS);
+		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(false);
 		config.setTournamentSize(4);
 		config.setMutationChance(1);
@@ -150,7 +150,7 @@ public class TestConfigure {
 		//config.setMutationType(MutationType.INSERT);
 		//config.setCrossoverType(CrossoverType.ORDER);
 		config.setSelectionType(SelectionType.ELITISM);
-		config.setParentSelectionType(SelectionType.ROULETTE);
+		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
 		config.setTournamentSize(4);
 		config.setMutationChance(1);
