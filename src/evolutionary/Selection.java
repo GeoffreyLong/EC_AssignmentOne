@@ -23,6 +23,9 @@ public class Selection {
 	
 	public Population select(Population population){
 		Config config = Config.getInstance();
+		if (selectionType == null){
+			return population;
+		}
 		switch(selectionType){
 			case ROULETTE:
 				return rouletteWheel(population, config.populationSize);
