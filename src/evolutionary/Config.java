@@ -35,6 +35,7 @@ public class Config{
 	
 	public double[] mutationTypeChance = new double[5];
 	public double[] crossoverTypeChance = new double[4];
+	public double[] selectionTypeChance = new double[4];
 	
 	public void setMutationTypeChance(double insert, double swap, double invert, double scramble, double inverOver){
 		double probability = 0;
@@ -67,6 +68,22 @@ public class Config{
 	
 	public double[] getCrossoverTypeChance(){
 		return this.crossoverTypeChance;
+	}
+	
+	public void setSelectionTypeChance(double roulette, double tournament, double sus, double elitism){
+		double probability = 0;
+		
+		selectionTypeChance[0] = (probability+=roulette);
+		selectionTypeChance[1] = (probability+=tournament);
+		selectionTypeChance[2] = (probability+=sus);
+		selectionTypeChance[3] = (probability+=elitism);
+		if (Math.abs(1 - probability) >= 0.00001){
+			throw new IllegalArgumentException("Selection Chances arguments must add up to one");
+		}
+	}
+	
+	public double[] getSelectionTypeChance(){
+		return this.selectionTypeChance;
 	}
 	
 	private static Config instance = null;
