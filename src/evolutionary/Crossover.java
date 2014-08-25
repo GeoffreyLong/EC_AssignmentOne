@@ -95,28 +95,33 @@ public class Crossover {
 		// Generate random cut interval
 		int startCut = rand.nextInt(numChromosomes);
 		int endCut = rand.nextInt(numChromosomes);
+		/*
 		if (startCut > endCut) {
 			int tmp = startCut;
 			startCut = endCut;
 			endCut = tmp;
 		}
-		
+		*/
 		if (verbose) {
 			System.out.printf("startCut:%d, endCut:%d\n",startCut,endCut);
 			System.out.println("before copy");
 			System.out.println(offspringGenotype);
 		}
-		// Copy the cut sections to the new individuals
-		for (int i = startCut; i < endCut + 1; i++) {
+		// Copy the cut sections to the new individuals, wrapping over at end
+		int numCopied = 1;
+		offspringGenotype.set(endCut,a.genotype.get(endCut));
+		for (int i = startCut; i != endCut; i = (i + 1) % numChromosomes) {
 			offspringGenotype.set(i,a.genotype.get(i));
+			numCopied++;
 		}
+	
 		if (verbose) {
 			System.out.println("after copy");
 			System.out.println(offspringGenotype);
 		}
 		// Copy the remaining chromosomes
-		// TODO: contains in individual probably won't work, need to implement equals etc
-		int chromosomesRemaining = numChromosomes - (endCut - startCut) - 1;
+		// TODO: contains in individual probably won't work, need to implement equals etc\
+		int chromosomesRemaining = numChromosomes - numCopied;
 		int setIndex = (endCut + 2 > numChromosomes) ? 0 : endCut + 1;
 		int getIndex = setIndex;
 		while (chromosomesRemaining > 0) {
@@ -140,11 +145,6 @@ public class Crossover {
 		// Generate random cut interval
 		int startCut = rand.nextInt(numChromosomes);
 		int endCut = rand.nextInt(numChromosomes);
-		if (startCut > endCut) {
-			int tmp = startCut;
-			startCut = endCut;
-			endCut = tmp;
-		}
 		
 		if (verbose) {
 			System.out.printf("startCut:%d, endCut:%d\n",startCut,endCut);
@@ -152,9 +152,15 @@ public class Crossover {
 			System.out.println(offspringGenotype);
 		}
 		// Copy the cut sections to the new individuals
-		for (int i = startCut; i < endCut + 1; i++) {
+		List<Integer> copyIndex = new ArrayList<Integer>();
+		for (int i = startCut; i != endCut; i = (i + 1) % numChromosomes) {
+			copyIndex.add(i);
+		}
+		copyIndex.add(endCut);
+		for (Integer i : copyIndex) {
 			offspringGenotype.set(i,a.genotype.get(i));
 		}
+		
 		if (verbose) {
 			System.out.println("after copy");
 			System.out.println(offspringGenotype);
@@ -168,7 +174,7 @@ public class Crossover {
 			index++;
 		}}
 		
-		for (int i = startCut; i <= endCut; i++) {
+		for (Integer i : copyIndex) {
 			Object el1 = b.genotype.get(i);
 			if (!offspringGenotype.contains(el1)) {
 				boolean placeFound = false;
@@ -191,7 +197,7 @@ public class Crossover {
 		for (int i = 0; i < offspringGenotype.size(); i++) {
 			Object el = offspringGenotype.get(i);
 			boolean placeFilled = (el instanceof Integer) ? ((int)el != -1) : true;
-			System.out.printf("index: %d, placeFilled:%s, integer:%s\n", i, placeFilled, el instanceof Integer);
+			if (verbose) System.out.printf("index: %d, placeFilled:%s, integer:%s\n", i, placeFilled, el instanceof Integer);
 			if (!placeFilled) {
 				offspringGenotype.set(i, b.genotype.get(i));
 			}
