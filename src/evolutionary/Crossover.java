@@ -292,12 +292,11 @@ public class Crossover {
 		Object startEdge = a.genotype.get(0);
 		Set<Object> doneEdges = new HashSet<Object>();
 		while (doneEdges.size() < a.genotype.size()) {
-			System.out.println("ITERATION");
 			if (edgeTable.get(startEdge).size() <= 0) {
 				// TODO FIND NEW EDGE
 				boolean found = false;
 				for (Object edge : a.genotype) {
-					if (!doneEdges.contains(edge)) {
+					if (edgeTable.get(edge).size() > 0) {						
 						startEdge = edge;
 						found = true;
 						break;
