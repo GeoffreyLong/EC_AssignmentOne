@@ -15,7 +15,7 @@ import evolutionary.Selection.SelectionType;
 
 
 public class Crossover {
-	private static final boolean verbose = true;
+	private static final boolean verbose = false;
 	private static final Random rand = new Random(System.currentTimeMillis());
 	private CrossoverType crossoverType;
 	private Selection pSelect;
