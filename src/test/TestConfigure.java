@@ -124,7 +124,7 @@ public class TestConfigure {
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		config.setSelectionType(SelectionType.TOURNAMENT);
+		/*config.setSelectionType(SelectionType.TOURNAMENT);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(false);
 		config.setTournamentSize(4);
@@ -133,6 +133,17 @@ public class TestConfigure {
 		config.setSelectionTypeChance(0, 1, 0, 0);
 		config.setCrossoverTypeChance(1, 0, 0, 0);
 		config.setMutationTypeChance(1, 0, 0, 0, 0);
+		*/
+		config.setSelectionType(SelectionType.ROULETTE);
+		config.setSelectionType(SelectionType.ELITISM);
+ 		config.setParentSelectionType(SelectionType.TOURNAMENT);
+ 		config.setGenerationMix(true);
+ 		config.setTournamentSize(2);
+ 		config.setMutationChance(1);
+ 		config.setCrossoverChance(0.8);
+		config.setSelectionTypeChance(0, 1, 0, 0);
+		config.setCrossoverTypeChance(1, 0, 0, 0);
+		config.setMutationTypeChance(0, 1, 0, 0, 0);
 	}
 
 	
