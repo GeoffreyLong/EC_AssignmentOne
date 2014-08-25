@@ -34,6 +34,6 @@ public class TestRunner {
 		config.setIndividualLength(tsp.getNumberOfNodes());
 		
 		EvolutionDriver evolutionDriver = new EvolutionDriver();
-		evolutionDriver.masterTest();
+		evolutionDriver.evolve();
 	}
 }
