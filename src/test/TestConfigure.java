@@ -15,16 +15,16 @@ public class TestConfigure {
 	private final int LARGEST_GEN_SIZE = 100000;
 	
 	public enum TestOptions{
-		EIL51, 
-		EIL76, 
-		EIL101, 
-		ST70, 
-		KROA100, 
-		KROC100, 
-		KROD100, 
-		LIN105,
-		PCB442, 
-		PR2392,
+		EIL51, 		// 426
+		EIL76, 		// 528
+		EIL101, 	// 629
+		ST70, 		// 675
+		KROA100, 	// 21282
+		KROC100, 	// 20749
+		KROD100, 	// 21294
+		LIN105,		// 14379
+		PCB442, 	// 50778
+		PR2392,		// 378032
 		ALL_TESTS;
 		
 		public String getName(){
