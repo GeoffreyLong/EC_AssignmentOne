@@ -125,14 +125,14 @@ public class TestConfigure {
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
 		config.setSelectionType(SelectionType.TOURNAMENT);
-		config.setParentSelectionType(SelectionType.SUS);
+		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(false);
 		config.setTournamentSize(4);
-		config.setMutationChance(0.3);
-		config.setCrossoverChance(0.2);
-		config.setSelectionTypeChance(1, 0, 0, 0);
-		config.setCrossoverTypeChance(0.4, 0.25, 0.25, 0.1);
-		config.setMutationTypeChance(0.3, 0.1, 0.4, 0.2, 0);
+		config.setMutationChance(1);
+		config.setCrossoverChance(1);
+		config.setSelectionTypeChance(0, 1, 0, 0);
+		config.setCrossoverTypeChance(1, 0, 0, 0);
+		config.setMutationTypeChance(1, 0, 0, 0, 0);
 	}
 
 	
@@ -152,12 +152,25 @@ public class TestConfigure {
 		config.setSelectionType(SelectionType.ELITISM);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
-		config.setTournamentSize(2);
+		config.setTournamentSize(4);
 		config.setMutationChance(1);
-		config.setCrossoverChance(0.8);
+		config.setCrossoverChance(1);
+		config.setSelectionTypeChance(0, 0, 1, 0);
+		config.setCrossoverTypeChance(0, 1, 0, 0);
+		config.setMutationTypeChance(0, 0, 1, 0, 0);
 	}
 	private void setUpAlgThree(){
+		Config config = Config.getInstance();
 		System.out.println("Running Algorithm Three");
+		config.setSelectionType(SelectionType.ELITISM);
+		config.setParentSelectionType(SelectionType.TOURNAMENT);
+		config.setGenerationMix(true);
+		config.setTournamentSize(4);
+		config.setMutationChance(1);
+		config.setCrossoverChance(1);
+		config.setSelectionTypeChance(0, 1, 0, 0);
+		config.setCrossoverTypeChance(0, 0, 1, 0);
+		config.setMutationTypeChance(0, 0, 1, 0, 0);
 	}
 	private void setUpInverOver(){
 		Config config = Config.getInstance();
