@@ -6,16 +6,24 @@ import evolutionary.EvolutionDriver;
 
 // TODO rename to something better
 public class TestRunner {
+	public static int counter = 0;
+	
 	public static void main(String[] args){
 		TestConfigure test = new TestConfigure(args);
-		run(test.getTestOption());
+		while(true){
+			run(test.getTestOption());
+			counter ++;
+		}
 	}
 	
 	public static void run(TestOptions testOption){
 		if (testOption == TestOptions.ALL_TESTS){
 			for (TestOptions option : TestOptions.values()){
 				if (option != TestOptions.ALL_TESTS){
-					runTestingInstance(option);
+					if ((option != TestOptions.PCB442 || counter % 5 == 0)
+							&& (option != TestOptions.PR2392 || counter % 10 == 0)){
+						runTestingInstance(option);
+					}
 				}
 			}
 		}
@@ -30,6 +38,7 @@ public class TestRunner {
 		
 		Config config = Config.getInstance();
 		
+		config.setTestingInstance(test);
 		config.setAlleleMap(tsp.getNodes());
 		config.setIndividualLength(tsp.getNumberOfNodes());
 		

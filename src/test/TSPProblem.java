@@ -56,7 +56,7 @@ public class TSPProblem {
 	}
 	
 	public int getNumberOfNodes(){
-		String numberOfNodes = data.get(3).split(" : ")[1];
+		String numberOfNodes = data.get(3).split(": ")[1];
 		return Integer.valueOf(numberOfNodes);
 	}
 	

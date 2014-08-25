@@ -27,7 +27,12 @@ public class EvolutionDriver {
 	public void evolve(){
 		int numberOfGenerations = 0;
 		double bestSolution = Double.MAX_VALUE;
-		while (numberOfGenerations <= maxNumberOfGenerations){
+		double lastSolution = 0;
+		double numberOfRepeats = 0;
+		long startTime = System.currentTimeMillis();
+		System.out.println();
+		System.out.println(Config.getInstance().testingInstance);
+		while (numberOfGenerations <= 20000){
 			Population offspring = population.clone();
 			numberOfGenerations++;
 			
@@ -37,7 +42,17 @@ public class EvolutionDriver {
 			if (curVal < bestSolution){
 				bestSolution = curVal;
 			}
-			System.out.println (String.format("%-10.3f", curVal) + "    (" + String.format("%.3f", bestSolution) + ")");
+			if (bestSolution == lastSolution){
+				numberOfRepeats ++;
+			}
+			else{
+				numberOfRepeats = 0;
+			}
+			if (numberOfRepeats == 1000){
+				break;
+			}
+			lastSolution = bestSolution;
+			//System.out.println (String.format("%-10.3f", curVal) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
 			offspring = crossover.cross(offspring);
 			mutation.mutate(offspring);
@@ -50,9 +65,9 @@ public class EvolutionDriver {
 			}
 			population = selection.select(population);
 		}
-		for(Individual i : population.population){
-			System.out.println(i.genotype);
-			System.out.println(1/Config.getInstance().calculateFitness(i));
+		if (numberOfGenerations != 20001){
+			numberOfGenerations -= 1000;
 		}
+		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + ((System.currentTimeMillis() - startTime) / 1000));
 	}
 }

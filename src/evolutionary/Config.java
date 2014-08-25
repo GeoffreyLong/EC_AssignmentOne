@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import test.TestConfigure.TestOptions;
 import evolutionary.Crossover.CrossoverType;
 import evolutionary.Mutation.MutationType;
 import evolutionary.Selection.SelectionType;
@@ -36,6 +37,8 @@ public class Config{
 	public double[] mutationTypeChance = new double[5];
 	public double[] crossoverTypeChance = new double[4];
 	public double[] selectionTypeChance = new double[4];
+	
+	public TestOptions testingInstance;
 	
 	public void setMutationTypeChance(double insert, double swap, double invert, double scramble, double inverOver){
 		double probability = 0;
@@ -178,5 +181,9 @@ public class Config{
 	}
 	public SelectionType getParentSelectionType(){
 		return this.parentSelectionType;
+	}
+
+	public void setTestingInstance(TestOptions test) {
+		this.testingInstance = test;
 	}
 }
