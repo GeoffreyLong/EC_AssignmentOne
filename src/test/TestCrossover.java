@@ -13,9 +13,9 @@ public class TestCrossover {
 		Individual b = new Individual(5,5);
 		System.out.println("m8");
 		//runOrderCross(a, b);
-		//runPmxCross(a, b);
+		runPmxCross(a, b);
 		//runCycleCross(a,b);
-		runEdgeRecombination(a,b);
+		//runEdgeRecombination(a,b);
 	
 		
 	}
