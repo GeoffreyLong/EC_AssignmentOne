@@ -20,8 +20,6 @@ import evolutionary.Selection.SelectionType;
 public class Config{
 	public int individualLength = -1;
 	public Map possibleAlleles;
-	public MutationType mutationType;
-	public CrossoverType crossoverType;
 	public SelectionType selectionType;
 	public SelectionType parentSelectionType;
 	
@@ -115,8 +113,6 @@ public class Config{
 		return possibleAlleles;
 	}
 	
-	// Changed a line, now they are the same...
-	/*
 	public double calculateFitness(Individual individual){
 		double fitness = 0;
 		List<Object> chromosomes = individual.genotype;
@@ -133,45 +129,10 @@ public class Config{
 		}
 		
 		return 1/fitness;
-	}*/
-
-	
-	public double calculateFitness(Individual individual){
-		double fitness = 0;
-		List<Object> chromosomes = individual.genotype;
-		
-		for (int i=0; i<individual.genotype.size(); i++){
-			String chromosome = (String) chromosomes.get(i);
-			Point currentPoint = (Point) possibleAlleles.get(chromosome);
-			if(i==0){//finish to start case
-				String lastChromosome = (String) chromosomes.get(chromosomes.size() - 1);
-				Point lastPoint = (Point) possibleAlleles.get(lastChromosome);
-				fitness += currentPoint.distance(lastPoint);
-			}else{//other cases
-				String lastChromosome = (String) chromosomes.get(i - 1);
-				Point lastPoint = (Point) possibleAlleles.get(lastChromosome);
-				fitness += currentPoint.distance(lastPoint);
-			}
-		}		
-		return 1/fitness;
 	}
 	
 	public double calculateMeanPathlength(Population population){
 		return 1/population.calculateMeanFitness();
-	}
-	
-	public void setMutationType(MutationType type){
-		mutationType = type;
-	}
-	public MutationType getMutationType(){
-		return mutationType;
-	}
-	
-	public CrossoverType getCrossoverType() {
-		return this.crossoverType;
-	}
-	public void setCrossoverType(CrossoverType type){
-		crossoverType = type;
 	}
 	public void setGenerationMix(boolean mixGenerations){
 		this.generationMix = mixGenerations;
@@ -191,9 +152,6 @@ public class Config{
 	}
 	public void setCrossoverChance(double chance){
 		crossoverChance = chance;
-	}
-	public void setCrossingChance(double chance){
-		crossingChance = chance;
 	}
 	public void setInverOverProbability(double chance){
 		this.inverOverProbability = chance;
