@@ -17,12 +17,21 @@ public class TestMutation {
 		Config g = new Config();
 		g=g.getInstance();
 		
-		Mutation insert = new Mutation(MutationType.INSERT);
-		Mutation swap = new Mutation(MutationType.SWAP);
-		Mutation inversion = new Mutation(MutationType.INVERSION);
-		Mutation scramble = new Mutation(MutationType.SCRAMBLE);
+		double[] insertChances = {1,0,0,0,0};
+		Mutation insert = new Mutation(insertChances);
+		
+		double[] swapChances = {0,1,0,0,0};
+		Mutation swap = new Mutation(swapChances);
+		
+		double[] inversionChances = {0,0,1,0,0};
+		Mutation inversion = new Mutation(inversionChances);
+		
+		double[] scrambleChances = {0,0,0,1,0};
+		Mutation scramble = new Mutation(scrambleChances);
 
-		Mutation inver = new Mutation(MutationType.INVEROVER);
+		double[] inverChances = {0,0,0,0,1};
+		Mutation inver = new Mutation(inverChances);
+		
 		Map<String, Point> mapp = new HashMap<String, Point>();
 		
 		for(int i=1; i<=10; i++){
