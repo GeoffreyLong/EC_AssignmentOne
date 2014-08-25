@@ -64,7 +64,7 @@ public class Config{
 		crossoverTypeChance[1] = (probability+=pmx);
 		crossoverTypeChance[2] = (probability+=cycle);
 		crossoverTypeChance[3] = (probability+=edge);
-		if (Math.abs(1 - probability) >= 0.00001){
+		if (Math.abs(1 - probability) >= 0.00001 && probability != 0){
 			throw new IllegalArgumentException("Crossover Chances arguments must add up to one");
 		}
 	}

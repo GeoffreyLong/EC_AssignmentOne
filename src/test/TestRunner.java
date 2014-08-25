@@ -6,7 +6,7 @@ import evolutionary.EvolutionDriver;
 
 // TODO rename to something better
 public class TestRunner {
-	public static int counter = 0;
+	public static int counter = 1;
 	
 	public static void main(String[] args){
 		TestConfigure test = new TestConfigure(args);
@@ -20,8 +20,7 @@ public class TestRunner {
 		if (testOption == TestOptions.ALL_TESTS){
 			for (TestOptions option : TestOptions.values()){
 				if (option != TestOptions.ALL_TESTS){
-					if ((option != TestOptions.PCB442 || counter % 5 == 0)
-							&& (option != TestOptions.PR2392 || counter % 10 == 0)){
+					if (option != TestOptions.PCB442 && option != TestOptions.PR2392){
 						runTestingInstance(option);
 					}
 				}

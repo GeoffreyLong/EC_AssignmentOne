@@ -63,7 +63,7 @@ public class Mutation {
 				}
 				break;
 			case INVEROVER:
-				newInverOver(population);
+				population = newInverOver(population);
 				break;
 		}
 		return population;
@@ -273,7 +273,7 @@ public class Mutation {
 		return p;
 	}
 	
-	public void newInverOver(Population p){
+	public Population newInverOver(Population p){
 		for (int individualIndex = 0; individualIndex < p.size(); individualIndex++){
 			Individual originalIndividual = p.population.get(individualIndex);
 			Individual clonedIndividual = originalIndividual.clone();
@@ -328,6 +328,8 @@ public class Mutation {
 				p.population.set(individualIndex, clonedIndividual);
 			}
 		}
+		
+		return p;
 	}
 	
 	private int getIndexOfElement(Object element, List<Object> list){

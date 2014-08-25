@@ -173,22 +173,21 @@ public class TestConfigure {
 	private void setUpAlgThree(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm Three");
-		config.setSelectionType(SelectionType.ELITISM);
-		config.setParentSelectionType(SelectionType.TOURNAMENT);
+		config.setSelectionType(SelectionType.TOURNAMENT);
+		config.setParentSelectionType(SelectionType.SUS);
 		config.setGenerationMix(true);
-		config.setTournamentSize(4);
-		config.setMutationChance(1);
-		config.setCrossoverChance(1);
-		config.setSelectionTypeChance(0, 1, 0, 0);
-		config.setCrossoverTypeChance(0, 0, 1, 0);
-		config.setMutationTypeChance(0, 0, 1, 0, 0);
+		config.setTournamentSize(3);
+		config.setMutationChance(0.1);
+		config.setCrossoverChance(0.2);
+		config.setCrossoverTypeChance(0.25, 0.25, 0.25, 0.25);
+		config.setMutationTypeChance(0.3, 0.1, 0.4, 0.2, 0);
 	}
 	private void setUpInverOver(){
 		Config config = Config.getInstance();
 		System.out.println("Running Inver-over");
 		//config.setMutationType(MutationType.INVEROVER);
-		config.setMutationChance(1);
-		config.setCrossoverChance(0);
+		config.setCrossoverTypeChance(0, 0, 0, 0);
+		config.setMutationTypeChance(0, 0, 0, 0, 1);
 		config.setGenerationMix(false);
 		config.setInverOverProbability(0.02);
 	}

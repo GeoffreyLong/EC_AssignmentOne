@@ -39,7 +39,21 @@ public class Crossover {
 		
 		// Apply crossover to pairs
 		Population offspring = new Population();
+		
+		double random = rand.nextDouble();
+		
+		crossoverType = null;
+		for (int i = 0; i < CrossoverType.values().length; i++){
+			if (random < crossoverTypeChance[i]){
+				crossoverType = CrossoverType.values()[i];
+				break;
+			}
+		}
 
+		if (crossoverType == null){
+			return p;
+		}
+		
 		for (int i = 0; i < matingPool.size()/2; i++) {
 			Individual p1 = matingPool.population.get(i*2);
 			Individual p2 = matingPool.population.get(i*2+1);			
@@ -63,15 +77,6 @@ public class Crossover {
 	}
 	
 	public Individual cross(Individual a, Individual b) {
-		double random = rand.nextDouble();
-		
-		for (int i = 0; i < MutationType.values().length; i++){
-			if (random < crossoverTypeChance[i]){
-				crossoverType = CrossoverType.values()[i];
-				break;
-			}
-		}
-		
 		switch(crossoverType) {
 			case ORDER: 
 				return this.orderCross(a, b);
