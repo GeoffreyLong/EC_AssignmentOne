@@ -68,9 +68,9 @@ public class Population {
 		for (Individual i : population){
 			double indFitness = Config.getInstance().calculateFitness(i);
 			// Tempory check to see if the optimal value is ever hit for any ind, remember to remove this...
-			if (Math.abs(426 - indFitness) <= 1){
-				System.out.println("Success");
-				System.exit(0);
+			if (Math.abs(426 - indFitness) <= 2){
+				System.out.println("Success, got within 2 of 426 for an individual");
+				// System.exit(0);
 			}
 			totalFitness += indFitness;
 		}

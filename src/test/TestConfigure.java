@@ -106,22 +106,29 @@ public class TestConfigure {
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		config.setMutationType(MutationType.SWAP);
+		config.setMutationType(MutationType.INSERT);
 		config.setCrossoverType(CrossoverType.ORDER);
-		config.setSelectionType(SelectionType.ELITISM);
+		config.setSelectionType(SelectionType.ROULETTE);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setGenerationMix(true);
 		config.setTournamentSize(2);
 		config.setMutationChance(1);
 		config.setCrossoverChance(0.8);
 	}
+
 	
-	// This one converges rather quickly to around 470 - 540
+	
+	// With elitism, and tournament parent selection
+	// Cycle swap seems to converge around 540 to 600
+	// Inversion > Insert > Swap > scramble
+	// Scramble seems to be the slowest of these but may be the most likely to get out of a local optimum
+	
+	// This one converges rather quickly to around 440 - 540
 	// 470 - 480 seems to be rather average though
 	private void setUpAlgTwo(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm Two");
-		config.setMutationType(MutationType.SWAP);
+		config.setMutationType(MutationType.INSERT);
 		config.setCrossoverType(CrossoverType.ORDER);
 		config.setSelectionType(SelectionType.ELITISM);
 		config.setParentSelectionType(SelectionType.TOURNAMENT);

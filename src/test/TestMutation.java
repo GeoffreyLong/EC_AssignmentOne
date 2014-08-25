@@ -29,36 +29,36 @@ public class TestMutation {
 			mapp.put(Integer.toString(i), new Point(0,i));
 		}
 		
-		System.out.println("ORIGINAL POP");
+		//System.out.println("ORIGINAL POP");
 		g.setAlleleMap(mapp);
 		
 		for(int i=0; i<p.population.size(); i++){
-			System.out.println(p.population.get(i)+" .. F: "+g.calculateFitness(p.population.get(i)));
+			//System.out.println(p.population.get(i)+" .. F: "+g.calculateFitness(p.population.get(i)));
 		}
 		
 		/*
-		System.out.println("INSERT");
+		//System.out.println("INSERT");
 		p=insert.mutate(p);
-		System.out.println(p);
+		//System.out.println(p);
 		
-		System.out.println("SWAP");
+		//System.out.println("SWAP");
 		p=swap.mutate(p);
-		System.out.println(p);
+		//System.out.println(p);
 		
-		System.out.println("INVERSION");
+		//System.out.println("INVERSION");
 		p=inversion.mutate(p);
-		System.out.println(p);
+		//System.out.println(p);
 		
-		System.out.println("SCRAMBLE");
+		//System.out.println("SCRAMBLE");
 		p=scramble.mutate(p);
-		System.out.println(p);
+		//System.out.println(p);
 		*/
-		System.out.println("INVEROVER");
+		//System.out.println("INVEROVER");
 		p=inver.mutate(p);
 		for(int i=0; i<p.population.size(); i++){
-			System.out.println(p.population.get(i)+" .. F: "+g.calculateFitness(p.population.get(i)));
+			//System.out.println(p.population.get(i)+" .. F: "+g.calculateFitness(p.population.get(i)));
 		}
 		
-		System.out.println("------------------------------------------------------");
+		//System.out.println("------------------------------------------------------");
 	}
 }
