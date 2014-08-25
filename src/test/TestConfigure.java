@@ -106,14 +106,15 @@ public class TestConfigure {
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		config.setMutationType(MutationType.INSERT);
 		config.setCrossoverType(CrossoverType.ORDER);
-		config.setSelectionType(SelectionType.ROULETTE);
-		config.setParentSelectionType(SelectionType.TOURNAMENT);
+		config.setSelectionType(SelectionType.ELITISM);
+		config.setParentSelectionType(SelectionType.ELITISM);
 		config.setGenerationMix(true);
 		config.setTournamentSize(2);
-		config.setMutationChance(1);
+		config.setMutationChance(0.5);
 		config.setCrossoverChance(0.8);
+		config.setCrossoverTypeChance(0, 1, 0, 0);
+		config.setMutationTypeChance(0.25, 0.25, 0.25, 0.25, 0);
 	}
 
 	

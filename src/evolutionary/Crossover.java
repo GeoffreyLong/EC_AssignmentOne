@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import evolutionary.Mutation.MutationType;
 import evolutionary.Selection.SelectionType;
 
 
@@ -19,13 +20,14 @@ public class Crossover {
 	private static final Random rand = new Random(System.currentTimeMillis());
 	private CrossoverType crossoverType;
 	private Selection pSelect;
+	private double[] crossoverTypeChance;
 	
 	public enum CrossoverType{
 		ORDER, PMX, CYCLE, EDGE;
 	}
 	
-	public Crossover(CrossoverType crossoverType){
-		this.crossoverType = crossoverType;
+	public Crossover(double[] crossoverTypeChance){
+		this.crossoverTypeChance = crossoverTypeChance;
 		pSelect = new Selection(Config.getInstance().getParentSelectionType());
 	}
 	public Population cross(Population p){
@@ -61,6 +63,15 @@ public class Crossover {
 	}
 	
 	public Individual cross(Individual a, Individual b) {
+		double random = rand.nextDouble();
+		
+		for (int i = 0; i < MutationType.values().length; i++){
+			if (random < crossoverTypeChance[i]){
+				crossoverType = CrossoverType.values()[i];
+				break;
+			}
+		}
+		
 		switch(crossoverType) {
 			case ORDER: 
 				return this.orderCross(a, b);

@@ -11,17 +11,28 @@ import java.util.Set;
 public class Mutation {
 	private MutationType mutationType;
 	private static Random rand = new Random(System.currentTimeMillis());
+	private double[] mutationTypeChance;
 	
 	public enum MutationType{
 		INSERT,SWAP,INVERSION,SCRAMBLE,INVEROVER
 	}
 	
-	public Mutation(MutationType mutationType){
-		this.mutationType = mutationType;
+	public Mutation(double[] mutationTypeChance){
+		this.mutationTypeChance = mutationTypeChance;
 	}
 	
 	public Population mutate(Population population){
 		Config config = Config.getInstance();
+		MutationType mutationType = null;
+		double random = rand.nextDouble();
+		
+		for (int i = 0; i < MutationType.values().length; i++){
+			if (random < mutationTypeChance[i]){
+				mutationType = MutationType.values()[i];
+				break;
+			}
+		}
+
 		switch(mutationType){
 			case INSERT:
 				for (int i = 0; i<population.size();i++){

@@ -35,6 +35,42 @@ public class Config{
 	public double inverOverProbability = 0.02;
 	public boolean generationMix = true;
 	
+	public double[] mutationTypeChance = new double[5];
+	public double[] crossoverTypeChance = new double[4];
+	
+	public void setMutationTypeChance(double insert, double swap, double invert, double scramble, double inverOver){
+		double probability = 0;
+		
+		mutationTypeChance[0] = (probability+=insert);
+		mutationTypeChance[1] = (probability+=swap);
+		mutationTypeChance[2] = (probability+=invert);
+		mutationTypeChance[3] = (probability+=scramble);
+		mutationTypeChance[4] = (probability+=inverOver);
+		if (Math.abs(1 - probability) >= 0.00001){
+			throw new IllegalArgumentException("Mutation Chances arguments must add up to one");
+		}
+	}
+	
+	public double[] getMutationTypeChance(){
+		return this.mutationTypeChance;
+	}
+	
+	public void setCrossoverTypeChance(double order, double pmx, double cycle, double edge){
+		double probability = 0;
+		
+		crossoverTypeChance[0] = (probability+=order);
+		crossoverTypeChance[1] = (probability+=pmx);
+		crossoverTypeChance[2] = (probability+=cycle);
+		crossoverTypeChance[3] = (probability+=edge);
+		if (Math.abs(1 - probability) >= 0.00001){
+			throw new IllegalArgumentException("Crossover Chances arguments must add up to one");
+		}
+	}
+	
+	public double[] getCrossoverTypeChance(){
+		return this.crossoverTypeChance;
+	}
+	
 	private static Config instance = null;
 	public static Config getInstance(){
 		if(instance == null){
