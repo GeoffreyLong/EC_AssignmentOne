@@ -19,8 +19,8 @@ public class EvolutionDriver {
 		this.maxNumberOfGenerations = config.getNumberOfGenerations();
 		
 		population = new Population(config.getPopulationSize(), Config.getInstance().getIndividualLength());
-		mutation = new Mutation(config.getMutationType());
-		crossover = new Crossover(config.getCrossoverType());
+		mutation = new Mutation(config.getMutationTypeChance());
+		crossover = new Crossover(config.getCrossoverTypeChance());
 		selection = new Selection(config.getSelectionType());
 	}
 	

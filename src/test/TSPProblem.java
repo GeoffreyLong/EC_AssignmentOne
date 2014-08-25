@@ -75,8 +75,11 @@ public class TSPProblem {
 			
 			// Add in the data gotten by splitting the node line
 			String nodeName = nodeValues[0];
-			int xCoordinate = Integer.valueOf(nodeValues[1]);
-			int yCoordinate = Integer.valueOf(nodeValues[2]);
+			double xDoubleCoordinate = Double.valueOf(nodeValues[1]);
+			double yDoubleCoordinate = Double.valueOf(nodeValues[2]);
+			
+			int xCoordinate = (int) xDoubleCoordinate;
+			int yCoordinate = (int) yDoubleCoordinate;
 			
 			Point point = new Point(xCoordinate, yCoordinate);
 			

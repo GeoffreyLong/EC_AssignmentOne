@@ -44,7 +44,7 @@ public class Selection {
     	double populationFitness = pop.calculateTotalFitness();
     	
     	for (int i = 0; i<pop.population.size(); i++){
-    		maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/populationFitness;  		
+    		maxFitScores[i]=Config.getInstance().calculateFitness(pop.population.get(i))/populationFitness;
     	}
     	
     	int outCount=0;
