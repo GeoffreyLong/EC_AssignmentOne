@@ -61,7 +61,7 @@ public class EvolutionDriver {
 				}
 				lastSolution = bestSolution;
 			}
-			System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
+			// System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
 			offspring = crossover.cross(offspring);
 			mutation.mutate(offspring);
@@ -86,6 +86,6 @@ public class EvolutionDriver {
 			totalTime += times;
 		}
 		int avgTime = totalTime / allTimes.size();
-		System.out.println(avgTime);
+		// System.out.println(avgTime);
 	}
 }

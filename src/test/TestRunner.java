@@ -41,9 +41,7 @@ public class TestRunner {
 		config.setAlleleMap(tsp.getNodes());
 		config.setIndividualLength(tsp.getNumberOfNodes());
 		
-		while(true){
-			EvolutionDriver evolutionDriver = new EvolutionDriver();
-			evolutionDriver.evolve();
-		}
+		EvolutionDriver evolutionDriver = new EvolutionDriver();
+		evolutionDriver.evolve();
 	}
 }

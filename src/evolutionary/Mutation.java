@@ -196,21 +196,15 @@ public class Mutation {
 					break;
 				}
 				
-				//inversion mutation copied straight from other alg
-				int indexA = (firstCityIndex+1) % genotypeSize;
-				int indexB = secondCityIndex % genotypeSize;
-				if (indexA > indexB) {//make sure indexes in ascending order
-					int tmp = indexA;
-					indexA = indexB;
-					indexB = tmp;
-				}
-				
-				int swaps = (int) (Math.floor(indexB-indexA)/2);//how many swap operations
+				int swaps = (int) (Math.floor(Math.abs(secondCityIndex-firstCityIndex))/2);//how many swap operations
 				
 				for (int j = 0; j < swaps; j++) {
-					Object temp = clonedIndividual.genotype.get(indexA+j);//store temp
-					clonedIndividual.genotype.set(indexA+j, clonedIndividual.genotype.get(indexB-j));
-					clonedIndividual.genotype.set(indexB-j,temp);
+					int indexA = (firstCityIndex+j) % genotypeSize;
+					int indexB = (secondCityIndex-j + genotypeSize) % genotypeSize; 
+					
+					Object temp = clonedIndividual.genotype.get(indexA);//store temp
+					clonedIndividual.genotype.set(indexA, clonedIndividual.genotype.get(indexB));
+					clonedIndividual.genotype.set(indexB,temp);
 				}
 				
 				firstCity = secondCity;
