@@ -2,6 +2,8 @@
 
 package evolutionary;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -11,7 +13,7 @@ public class EvolutionDriver {
 	Mutation mutation;
 	Crossover crossover;
 	Selection selection;
-	
+	static List<Integer> allTimes = new LinkedList<Integer>();
 	
 	public EvolutionDriver(){
 		Config config = Config.getInstance();
@@ -30,28 +32,32 @@ public class EvolutionDriver {
 		double lastSolution = 0;
 		double numberOfRepeats = 0;
 		long startTime = System.currentTimeMillis();
-		System.out.println();
-		System.out.println(Config.getInstance().testingInstance);
-		while (numberOfGenerations <= 20000){
+		// System.out.println();
+		// System.out.println(Config.getInstance().testingInstance);
+		while (numberOfGenerations <= maxNumberOfGenerations){
 			Population offspring = population.clone();
 			numberOfGenerations++;
 			
 			Config config = Config.getInstance();
 			
-			double curVal = config.calculateMeanPathlength(population);
-			if (curVal < bestSolution){
-				bestSolution = curVal;
+			
+			// This will drop the time to compilation
+			if (numberOfGenerations % 100 == 0){
+				double curVal = config.calculateMeanPathlength(population);
+				if (curVal < bestSolution){
+					bestSolution = curVal;
+				}
+				if (bestSolution == lastSolution){
+					numberOfRepeats ++;
+				}
+				else{
+					numberOfRepeats = 0;
+				}
+				if (numberOfRepeats == 5){
+					break;
+				}
+				lastSolution = bestSolution;
 			}
-			if (bestSolution == lastSolution){
-				numberOfRepeats ++;
-			}
-			else{
-				numberOfRepeats = 0;
-			}
-			if (numberOfRepeats == 1000){
-				break;
-			}
-			lastSolution = bestSolution;
 			//System.out.println (String.format("%-10.3f", curVal) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
 			offspring = crossover.cross(offspring);
@@ -68,6 +74,14 @@ public class EvolutionDriver {
 		if (numberOfGenerations != 20001){
 			numberOfGenerations -= 1000;
 		}
-		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + ((System.currentTimeMillis() - startTime) / 1000));
+		int time = (int) ((System.currentTimeMillis() - startTime) / 1000);
+		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + (time));
+		allTimes.add(time);
+		int totalTime = 0;
+		for (int times : allTimes){
+			totalTime += times;
+		}
+		int avgTime = totalTime / allTimes.size();
+		System.out.println(avgTime);
 	}
 }
