@@ -123,51 +123,51 @@ public class TestConfigure {
 	// Set the mutation, crossover, and selection types and params
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
-		System.out.println("Running Algorithm One");
-		System.out.println("Parent Selection: Tournament (size 2, take best 1)");
+		System.out.println("::Running Algorithm One");
+		System.out.println("::Parent Selection: Tournament (size 2, take best 1)");
  		config.setParentSelectionType(SelectionType.TOURNAMENT);
  		config.setTournamentSize(2);
- 		System.out.println("Crossover Type (prob=0.8): Order (prob=1)");
+ 		System.out.println("::Crossover Type (prob=0.8): Order (prob=1)");
  		config.setCrossoverChance(0.8);
  		config.setCrossoverTypeChance(1, 0, 0, 0);
- 		System.out.println("Mutation Type: Swap (prob=1)");
+ 		System.out.println("::Mutation Type: Swap (prob=1)");
 		config.setMutationChance(1);
  		config.setMutationTypeChance(0, 1, 0, 0, 0);
- 		System.out.println("Survivor Selection: Elitism (Take best pop size from parents + children)");
+ 		System.out.println("::Survivor Selection: Elitism (Take best pop size from parents + children)");
  		config.setSelectionType(SelectionType.ELITISM);
  		//config.setSelectionTypeChance(0, 1, 0, 0);
  		config.setGenerationMix(true);
 	}
 	private void setUpAlgTwo(){
 		Config config = Config.getInstance();
-		System.out.println("Running Algorithm Two");
-		System.out.println("Parent Selection: Tournament (size 4, take best 1)");
+		System.out.println("::Running Algorithm Two");
+		System.out.println("::Parent Selection: Tournament (size 4, take best 1)");
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
 		config.setTournamentSize(4);
-		System.out.println("Crossover Type: PMX (prob=1)");
+		System.out.println("::Crossover Type: PMX (prob=1)");
 		config.setCrossoverChance(1);
 		config.setCrossoverTypeChance(0, 1, 0, 0);
-		System.out.println("Mutation Type: Insert (prob=0.1), Invert (prob=0.85), Scrmble (prob=0.05)");
+		System.out.println("::Mutation Type: Insert (prob=0.15), Invert (prob=0.8), Scarmble (prob=0.05)");
 		config.setMutationChance(1);
-		config.setMutationTypeChance(.1, 0, .85, .05, 0);
- 		System.out.println("Survivor Selection: Elitism (Take best pop size from parents + children)");
+		config.setMutationTypeChance(.15, 0, .8, .05, 0);
+ 		System.out.println("::Survivor Selection: Elitism (Take best pop size from parents + children)");
 		config.setSelectionType(SelectionType.ELITISM);
 		//config.setSelectionTypeChance(0, 0, 1, 0);
 		config.setGenerationMix(true);
 	}
 	private void setUpAlgThree(){
 		Config config = Config.getInstance();
-		System.out.println("Running Algorithm Three");
-		System.out.println("Parent Selection: Tournament (size 4, take best 1)");
+		System.out.println("::Running Algorithm Three");
+		System.out.println("::Parent Selection: Tournament (size 4, take best 1)");
 		config.setSelectionType(SelectionType.TOURNAMENT);
 		config.setTournamentSize(3);
-		System.out.println("Crossover Type (prob=0.2): Order (prob=0.25), PMX (prob=0.25), Cycle (prob=0.25), Edge (prob=0.25)");
+		System.out.println("::Crossover Type (prob=0.2): Order (prob=0.25), PMX (prob=0.25), Cycle (prob=0.25), Edge (prob=0.25)");
 		config.setCrossoverChance(0.2);
 		config.setCrossoverTypeChance(0.25, 0.25, 0.25, 0.25);
-		System.out.println("Mutation Type (prob=0.1): Insert (prob=0.3), Swap (prob=0.1), Invert (prob=0.4), Scrmble (prob=0.2)");
+		System.out.println("::Mutation Type (prob=0.1): Insert (prob=0.3), Swap (prob=0.1), Invert (prob=0.4), Scramble (prob=0.2)");
 		config.setMutationChance(0.1);
 		config.setMutationTypeChance(0.3, 0.1, 0.4, 0.2, 0);
- 		System.out.println("Survivor Selection: Elitism (Take best pop size from parents + children)");
+ 		System.out.println("::Survivor Selection: Elitism (Take best pop size from parents + children)");
 		config.setParentSelectionType(SelectionType.SUS);
 		//config.setSelectionTypeChance(0, 0, 1, 0);
 		config.setGenerationMix(true);
