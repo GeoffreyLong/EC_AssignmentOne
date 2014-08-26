@@ -124,69 +124,57 @@ public class TestConfigure {
 	private void setUpAlgOne(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm One");
-		/*config.setSelectionType(SelectionType.TOURNAMENT);
-		config.setParentSelectionType(SelectionType.TOURNAMENT);
-		config.setGenerationMix(false);
-		config.setTournamentSize(4);
-		config.setMutationChance(1);
-		config.setCrossoverChance(1);
-		config.setSelectionTypeChance(0, 1, 0, 0);
-		config.setCrossoverTypeChance(1, 0, 0, 0);
-		config.setMutationTypeChance(1, 0, 0, 0, 0);
-		*/
-		config.setSelectionType(SelectionType.ROULETTE);
-		config.setSelectionType(SelectionType.ELITISM);
+		System.out.println("Parent Selection: Tournament (size 2, take best 1)");
  		config.setParentSelectionType(SelectionType.TOURNAMENT);
- 		config.setGenerationMix(true);
  		config.setTournamentSize(2);
- 		config.setMutationChance(1);
+ 		System.out.println("Crossover Type (prob=0.8): Order (prob=1)");
  		config.setCrossoverChance(0.8);
-		config.setSelectionTypeChance(0, 1, 0, 0);
-		config.setCrossoverTypeChance(1, 0, 0, 0);
-		config.setMutationTypeChance(0, 1, 0, 0, 0);
+ 		config.setCrossoverTypeChance(1, 0, 0, 0);
+ 		System.out.println("Mutation Type: Swap (prob=1)");
+		config.setMutationChance(1);
+ 		config.setMutationTypeChance(0, 1, 0, 0, 0);
+ 		System.out.println("Survivor Selection: Elitism (Take best pop size from parents + children)");
+ 		config.setSelectionType(SelectionType.ELITISM);
+ 		//config.setSelectionTypeChance(0, 1, 0, 0);
+ 		config.setGenerationMix(true);
 	}
-
-	
-	
-	// With elitism, and tournament parent selection
-	// Cycle swap seems to converge around 540 to 600
-	// Inversion > Insert > Swap > scramble
-	// Scramble seems to be the slowest of these but may be the most likely to get out of a local optimum
-	
-	// This one converges rather quickly to around 440 - 540
-	// 470 - 480 seems to be rather average though
 	private void setUpAlgTwo(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm Two");
-		//config.setMutationType(MutationType.INSERT);
-		//config.setCrossoverType(CrossoverType.ORDER);
-		config.setSelectionType(SelectionType.ELITISM);
+		System.out.println("Parent Selection: Tournament (size 4, take best 1)");
 		config.setParentSelectionType(SelectionType.TOURNAMENT);
-		config.setGenerationMix(true);
 		config.setTournamentSize(4);
-		config.setMutationChance(1);
+		System.out.println("Crossover Type: PMX (prob=1)");
 		config.setCrossoverChance(1);
-		config.setSelectionTypeChance(0, 0, 1, 0);
 		config.setCrossoverTypeChance(0, 1, 0, 0);
+		System.out.println("Mutation Type: Insert (prob=0.1), Invert (prob=0.85), Scrmble (prob=0.05)");
+		config.setMutationChance(1);
 		config.setMutationTypeChance(.1, 0, .85, .05, 0);
+ 		System.out.println("Survivor Selection: Elitism (Take best pop size from parents + children)");
+		config.setSelectionType(SelectionType.ELITISM);
+		//config.setSelectionTypeChance(0, 0, 1, 0);
+		config.setGenerationMix(true);
 	}
 	private void setUpAlgThree(){
 		Config config = Config.getInstance();
 		System.out.println("Running Algorithm Three");
+		System.out.println("Parent Selection: Tournament (size 4, take best 1)");
 		config.setSelectionType(SelectionType.TOURNAMENT);
-		config.setParentSelectionType(SelectionType.SUS);
-		config.setGenerationMix(true);
 		config.setTournamentSize(3);
-		config.setMutationChance(0.1);
+		System.out.println("Crossover Type (prob=0.2): Order (prob=0.25), PMX (prob=0.25), Cycle (prob=0.25), Edge (prob=0.25)");
 		config.setCrossoverChance(0.2);
 		config.setCrossoverTypeChance(0.25, 0.25, 0.25, 0.25);
-		//insert,swap,invert,scrmable
+		System.out.println("Mutation Type (prob=0.1): Insert (prob=0.3), Swap (prob=0.1), Invert (prob=0.4), Scrmble (prob=0.2)");
+		config.setMutationChance(0.1);
 		config.setMutationTypeChance(0.3, 0.1, 0.4, 0.2, 0);
+ 		System.out.println("Survivor Selection: Elitism (Take best pop size from parents + children)");
+		config.setParentSelectionType(SelectionType.SUS);
+		//config.setSelectionTypeChance(0, 0, 1, 0);
+		config.setGenerationMix(true);
 	}
 	private void setUpInverOver(){
 		Config config = Config.getInstance();
 		System.out.println("Running Inver-over");
-		//config.setMutationType(MutationType.INVEROVER);
 		config.setCrossoverTypeChance(0, 0, 0, 0);
 		config.setMutationTypeChance(0, 0, 0, 0, 1);
 		config.setGenerationMix(false);
