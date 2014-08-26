@@ -173,8 +173,7 @@ public class Mutation {
 			
 			int genotypeSize = clonedIndividual.genotype.size();
 			
-			int firstCityIndex = rand.nextInt(genotypeSize);
-			Object firstCity = clonedIndividual.genotype.get(firstCityIndex);
+			Object firstCity = clonedIndividual.genotype.get(rand.nextInt(genotypeSize));
 			
 			while(true){
 				Object secondCity = firstCity;
@@ -190,9 +189,12 @@ public class Mutation {
 					secondCity = randomIndividual.genotype.get((index + 1) % genotypeSize);
 				}
 				
+				int firstCityIndex = getIndexOfElement(firstCity, clonedIndividual.genotype);
+				// Want one after the index
+				firstCityIndex++;
 				int secondCityIndex = getIndexOfElement(secondCity, clonedIndividual.genotype);
 				int indexDifference = Math.abs(firstCityIndex - secondCityIndex);
-				if (indexDifference == 1 || indexDifference == genotypeSize){
+				if (indexDifference <= 1 || indexDifference == genotypeSize-1){
 					break;
 				}
 				
@@ -204,11 +206,10 @@ public class Mutation {
 					
 					Object temp = clonedIndividual.genotype.get(indexA);//store temp
 					clonedIndividual.genotype.set(indexA, clonedIndividual.genotype.get(indexB));
-					clonedIndividual.genotype.set(indexB,temp);
+					clonedIndividual.genotype.set(indexB, temp);
 				}
 				
 				firstCity = secondCity;
-				firstCityIndex = secondCityIndex;
 			}
 			
 			if(Config.getInstance().calculateFitness(clonedIndividual)>=Config.getInstance().calculateFitness(originalIndividual)){//compare fitness'

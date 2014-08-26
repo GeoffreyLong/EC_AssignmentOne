@@ -177,6 +177,7 @@ public class TestConfigure {
 		//config.setMutationType(MutationType.INVEROVER);
 		config.setCrossoverTypeChance(0, 0, 0, 0);
 		config.setMutationTypeChance(0, 0, 0, 0, 1);
+		config.setSelectionType(null);
 		config.setGenerationMix(false);
 		config.setInverOverProbability(0.02);
 	}

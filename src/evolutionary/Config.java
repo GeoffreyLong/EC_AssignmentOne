@@ -21,8 +21,8 @@ import evolutionary.Selection.SelectionType;
 public class Config{
 	public int individualLength = -1;
 	public Map possibleAlleles;
-	public SelectionType selectionType;
-	public SelectionType parentSelectionType;
+	public SelectionType selectionType = null;
+	public SelectionType parentSelectionType = null;
 	
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
