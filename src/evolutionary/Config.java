@@ -5,18 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import test.TestConfigure.TestOptions;
-import evolutionary.Crossover.CrossoverType;
-import evolutionary.Mutation.MutationType;
 import evolutionary.Selection.SelectionType;
-
-// Make this immutable after instantiating each field
-// Needs to be globally accessible else we will be passing it to every class
-// Will be an object containing the functions for fitness,
-// the params for all the algorithms (cross, mutate, select)
-// And anything else we might need
-
-// If we don't want to use a globally accessible object we will have to find
-// Another way to instantiate the mutation, crossover
 
 public class Config{
 	public int individualLength = -1;
@@ -24,7 +13,6 @@ public class Config{
 	public SelectionType selectionType = null;
 	public SelectionType parentSelectionType = null;
 	
-	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
 	public int maxNumberOfGenerations = 10000;
 	public double crossoverChance = 1;
@@ -115,8 +103,6 @@ public class Config{
 		return populationSize;
 	}
 	
-	// Setter that insures field is only set once
-	// Don't really need if we have the alleleMap
 	public void setIndividualLength(int length) {
 		individualLength = length;
 	}

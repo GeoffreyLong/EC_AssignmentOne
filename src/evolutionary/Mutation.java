@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class Mutation {
-	private MutationType mutationType;
 	private static Random rand = new Random(System.currentTimeMillis());
 	private double[] mutationTypeChance;
 	

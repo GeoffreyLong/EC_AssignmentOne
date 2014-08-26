@@ -1,8 +1,5 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import evolutionary.Crossover;
 import evolutionary.Individual;
 

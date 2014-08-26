@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.util.Map;
 
 import evolutionary.Config;
-import evolutionary.Crossover.CrossoverType;
-import evolutionary.Mutation.MutationType;
 import evolutionary.Selection.SelectionType;
 
 // TODO rename class
@@ -216,12 +214,6 @@ public class TestConfigure {
 				System.out.println(nodeMap.get(String.valueOf(i)));
 			}
 		}
-	}
-	
-	// Print for each run
-	private void printData(TestOptions testName){
-		System.out.println("Running test:" + testName);
-		System.out.println("");
 	}
 	
 	TestOptions getTestOption(){

@@ -15,13 +15,6 @@
 package test;
 
 import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URI;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +31,6 @@ public class TSPProblem {
 	
 	public TSPProblem(TestOptions testName){
 		// Reads in the problem version to use, pipes out the necessary information
-		// How this information is returned is a good question
 		
 		try{
 			String fileName = getFileName(testName);

@@ -1,10 +1,7 @@
-// Perhaps this whole file should simply be removed and changed into the testing package then can call population.evolve from there
-
 package evolutionary;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 
 public class EvolutionDriver {
@@ -32,13 +29,11 @@ public class EvolutionDriver {
 	
 	public void evolve(){
 		int numberOfGenerations = 0;
-		int maxGenerations = Config.getInstance().getNumberOfGenerations();
 		double bestSolution = Double.MAX_VALUE;
 		double lastSolution = 0;
 		double numberOfRepeats = 0;
 		long startTime = System.currentTimeMillis();
-		// System.out.println();
-		// System.out.println(Config.getInstance().testingInstance);
+
 		while (numberOfGenerations <= maxNumberOfGenerations){
 
 			Population offspring = population.clone();

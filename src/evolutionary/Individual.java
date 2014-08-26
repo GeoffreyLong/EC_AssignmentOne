@@ -8,10 +8,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class Individual {
-	// Perhaps class object of fitness?
-	// Class method calculate fitness?
-	
-	// Make a generic linked list to hold the allele so that it can take many different types of arguments
 	private static final Random rand = new Random(System.currentTimeMillis());
 	public List<Object> genotype;
 	

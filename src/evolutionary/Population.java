@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Population {
-	// TODO change to a list
 	public List<Individual> population;
 	
 	public Population(){
 		population = new ArrayList<Individual>();
-		// Make a bunch of Individuals
-		// Need array of individuals that is the size of the pop size
 	}
 	
-	// OverLoad in case want a different setup? used in selection
 	public Population(List<Individual> individuals){
 		population = individuals;
 	}
@@ -25,25 +21,18 @@ public class Population {
 		}
 	}
 	
-	// OverLoad in case want a different setup?
 	public Population(int popSize){
-		// Should use a list type
 		population = new ArrayList<Individual>();
 		for (int i = 0; i < popSize; i++){
 			population.add(new Individual());
 		}
 	}
 	
-	// OverLoad in case want a different setup
 	public Population(int popSize, int indLength){
 		population = new ArrayList<Individual>();
 		for (int i = 0; i < popSize; i++){
 			population.add(new Individual(indLength,indLength));
 		}
-	}
-
-	public Population(int populationSize, Object object) {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int size(){
@@ -67,11 +56,6 @@ public class Population {
 		double totalFitness = 0;
 		for (Individual i : population){
 			double indFitness = Config.getInstance().calculateFitness(i);
-			// Tempory check to see if the optimal value is ever hit for any ind, remember to remove this...
-			if (Math.abs(426 - indFitness) <= 2){
-				System.out.println("Success, got within 2 of 426 for an individual");
-				// System.exit(0);
-			}
 			totalFitness += indFitness;
 		}
 		return totalFitness;

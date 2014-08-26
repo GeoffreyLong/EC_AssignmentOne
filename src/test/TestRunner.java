@@ -35,7 +35,6 @@ public class TestRunner {
 	}
 	
 	private static void runTestingInstance(TestOptions test){
-		// Do running stuff
 		TSPProblem tsp = new TSPProblem(test);
 		
 		Config config = Config.getInstance();
