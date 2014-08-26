@@ -147,7 +147,7 @@ public class TestConfigure {
 		System.out.println("::Crossover Type: PMX (prob=1)");
 		config.setCrossoverChance(1);
 		config.setCrossoverTypeChance(0, 1, 0, 0);
-		System.out.println("::Mutation Type: Insert (prob=0.15), Invert (prob=0.8), Scrmble (prob=0.05)");
+		System.out.println("::Mutation Type: Insert (prob=0.15), Invert (prob=0.8), Scarmble (prob=0.05)");
 		config.setMutationChance(1);
 		config.setMutationTypeChance(.15, 0, .8, .05, 0);
  		System.out.println("::Survivor Selection: Elitism (Take best pop size from parents + children)");
@@ -164,7 +164,7 @@ public class TestConfigure {
 		System.out.println("::Crossover Type (prob=0.2): Order (prob=0.25), PMX (prob=0.25), Cycle (prob=0.25), Edge (prob=0.25)");
 		config.setCrossoverChance(0.2);
 		config.setCrossoverTypeChance(0.25, 0.25, 0.25, 0.25);
-		System.out.println("::Mutation Type (prob=0.1): Insert (prob=0.3), Swap (prob=0.1), Invert (prob=0.4), Scrmble (prob=0.2)");
+		System.out.println("::Mutation Type (prob=0.1): Insert (prob=0.3), Swap (prob=0.1), Invert (prob=0.4), Scramble (prob=0.2)");
 		config.setMutationChance(0.1);
 		config.setMutationTypeChance(0.3, 0.1, 0.4, 0.2, 0);
  		System.out.println("::Survivor Selection: Elitism (Take best pop size from parents + children)");

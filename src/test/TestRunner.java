@@ -7,7 +7,7 @@ import evolutionary.EvolutionDriver;
 // TODO rename to something better
 public class TestRunner {
 	public static int counter = 1;
-	public static int iterations = 50;
+	public static int iterations = 20;
 	
 	public static void main(String[] args){
 		TestConfigure test = new TestConfigure(args);
