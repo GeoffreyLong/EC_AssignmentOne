@@ -14,6 +14,7 @@ public class EvolutionDriver {
 	Crossover crossover;
 	Selection selection;
 	static List<Integer> allTimes = new LinkedList<Integer>();
+	private final int GEN_CHECK_MOD = 25;
 	
 	public EvolutionDriver(){
 		Config config = Config.getInstance();
@@ -36,13 +37,15 @@ public class EvolutionDriver {
 		// System.out.println(Config.getInstance().testingInstance);
 		while (numberOfGenerations <= maxNumberOfGenerations){
 			Population offspring = population.clone();
-			numberOfGenerations++;
 			
 			Config config = Config.getInstance();
 			
 			
 			// This will drop the time to compilation
-			if (numberOfGenerations % 100 == 0){
+			// A little less accurate in calculating the best value
+			// Can make it better by reducing the value of GEN_CHECK_MOD
+			// Make this by adding this info into the config
+			if (numberOfGenerations % GEN_CHECK_MOD == 0){
 				double curVal = config.calculateMeanPathlength(population);
 				if (curVal < bestSolution){
 					bestSolution = curVal;
@@ -53,12 +56,12 @@ public class EvolutionDriver {
 				else{
 					numberOfRepeats = 0;
 				}
-				if (numberOfRepeats == 5){
+				if (numberOfRepeats == 15){
 					break;
 				}
 				lastSolution = bestSolution;
 			}
-			//System.out.println (String.format("%-10.3f", curVal) + "    (" + String.format("%.3f", bestSolution) + ")");
+			System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
 			offspring = crossover.cross(offspring);
 			mutation.mutate(offspring);
@@ -70,8 +73,9 @@ public class EvolutionDriver {
 				population.population = offspring.population;
 			}
 			population = selection.select(population);
+			numberOfGenerations++;
 		}
-		if (numberOfGenerations != 20001){
+		if (numberOfGenerations != maxNumberOfGenerations + 1){
 			numberOfGenerations -= 1000;
 		}
 		int time = (int) ((System.currentTimeMillis() - startTime) / 1000);
