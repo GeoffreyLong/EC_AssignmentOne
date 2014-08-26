@@ -212,7 +212,7 @@ public class Mutation {
 
 				firstCity = secondCity;
 				// The new index for secondCity should be right next to the first city due to the swap
-				firstCityIndex++;
+				firstCityIndex = (firstCityIndex+1) % genotypeSize;
 			}
 			
 			if(Config.getInstance().calculateFitness(clonedIndividual)>=Config.getInstance().calculateFitness(originalIndividual)){//compare fitness'
