@@ -198,17 +198,20 @@ public class Mutation {
 					break;
 				}
 				
-				int swaps = (int) (Math.floor(Math.abs(secondCityIndex-firstCityIndex))/2);//how many swap operations
-				
-				for (int j = 0; j < swaps; j++) {
+
+				int j=0;
+				while(true) {
 					int indexA = (firstCityIndex+j) % genotypeSize;
 					int indexB = (secondCityIndex-j + genotypeSize) % genotypeSize; 
-					
+
 					Object temp = clonedIndividual.genotype.get(indexA);//store temp
 					clonedIndividual.genotype.set(indexA, clonedIndividual.genotype.get(indexB));
 					clonedIndividual.genotype.set(indexB, temp);
+					if (Math.abs(indexA-indexB) <= 1 || Math.abs(indexA-indexB) >= genotypeSize-1) break;
+					
+					j++;
 				}
-				
+
 				firstCity = secondCity;
 			}
 			
