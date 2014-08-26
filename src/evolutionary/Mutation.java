@@ -172,6 +172,7 @@ public class Mutation {
 			Individual clonedIndividual = originalIndividual.clone();
 			
 			int genotypeSize = clonedIndividual.genotype.size();
+			int maxIndex = genotypeSize - 1;
 			
 			int firstCityIndex = rand.nextInt(genotypeSize);
 			Object firstCity = clonedIndividual.genotype.get(firstCityIndex);
@@ -192,7 +193,7 @@ public class Mutation {
 				
 				int secondCityIndex = getIndexOfElement(secondCity, clonedIndividual.genotype);
 				int indexDifference = Math.abs(firstCityIndex - secondCityIndex);
-				if (indexDifference == 1 || indexDifference > genotypeSize){
+				if (indexDifference == 1 || indexDifference == maxIndex){
 					break;
 				}
 				
@@ -204,7 +205,7 @@ public class Mutation {
 					Object temp = clonedIndividual.genotype.get(indexA);//store temp
 					clonedIndividual.genotype.set(indexA, clonedIndividual.genotype.get(indexB));
 					clonedIndividual.genotype.set(indexB, temp);
-					if (Math.abs(indexA-indexB) <= 1 || Math.abs(indexA-indexB) > genotypeSize) break;
+					if (Math.abs(indexA-indexB) <= 1 || Math.abs(indexA-indexB) >= maxIndex) break;
 					
 					j++;
 				}
