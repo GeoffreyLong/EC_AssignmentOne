@@ -88,7 +88,7 @@ public class EvolutionDriver {
 
 		//System.out.println(bestSolution + ", " + numberOfGenerations + ", " + (time));
 
-		System.out.println(String.format("%.3f", bestSolution) + ", " + numberOfGenerations + ", " + (time));
+		//System.out.println(String.format("%.3f", bestSolution) + ", " + numberOfGenerations + ", " + (time));
 
 		allTimes.add(time);
 		allScores.add(bestSolution);
