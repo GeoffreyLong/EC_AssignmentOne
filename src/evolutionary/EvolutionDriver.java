@@ -69,7 +69,7 @@ public class EvolutionDriver {
 			// System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
 			offspring = crossover.cross(offspring);
-			mutation.mutate(offspring);
+			offspring = mutation.mutate(offspring);
 			
 			if (config.generationMix){
 				population.population.addAll(offspring.population);
