@@ -179,7 +179,7 @@ public class TestConfigure {
 		config.setMutationTypeChance(0, 0, 0, 0, 1);
 		config.setSelectionType(null);
 		config.setGenerationMix(false);
-		config.setInverOverProbability(0.08);
+		config.setInverOverProbability(0.02);
 	}
 	
 	

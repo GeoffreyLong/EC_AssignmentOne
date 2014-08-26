@@ -173,7 +173,8 @@ public class Mutation {
 			
 			int genotypeSize = clonedIndividual.genotype.size();
 			
-			Object firstCity = clonedIndividual.genotype.get(rand.nextInt(genotypeSize));
+			int firstCityIndex = rand.nextInt(genotypeSize);
+			Object firstCity = clonedIndividual.genotype.get(firstCityIndex);
 			
 			while(true){
 				Object secondCity = firstCity;
@@ -184,15 +185,14 @@ public class Mutation {
 					}
 				}
 				else{
-					Individual randomIndividual = p.population.get(rand.nextInt(p.population.size()));
+					Individual randomIndividual = p.population.get(rand.nextInt(p.size()));
 					int index = getIndexOfElement(firstCity, randomIndividual.genotype);
 					secondCity = randomIndividual.genotype.get((index + 1) % genotypeSize);
 				}
 				
-				int firstCityIndex = getIndexOfElement(firstCity, clonedIndividual.genotype);
 				int secondCityIndex = getIndexOfElement(secondCity, clonedIndividual.genotype);
 				int indexDifference = Math.abs(firstCityIndex - secondCityIndex);
-				if (indexDifference <= 1 || indexDifference == genotypeSize-1){
+				if (indexDifference == 1 || indexDifference > genotypeSize){
 					break;
 				}
 				
@@ -204,12 +204,14 @@ public class Mutation {
 					Object temp = clonedIndividual.genotype.get(indexA);//store temp
 					clonedIndividual.genotype.set(indexA, clonedIndividual.genotype.get(indexB));
 					clonedIndividual.genotype.set(indexB, temp);
-					if (Math.abs(indexA-indexB) <= 1 || Math.abs(indexA-indexB) >= genotypeSize-1) break;
+					if (Math.abs(indexA-indexB) <= 1 || Math.abs(indexA-indexB) > genotypeSize) break;
 					
 					j++;
 				}
 
 				firstCity = secondCity;
+				// The new index for secondCity should be right next to the first city due to the swap
+				firstCityIndex++;
 			}
 			
 			if(Config.getInstance().calculateFitness(clonedIndividual)>=Config.getInstance().calculateFitness(originalIndividual)){//compare fitness'
