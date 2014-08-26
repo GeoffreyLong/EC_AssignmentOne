@@ -7,10 +7,13 @@ import evolutionary.EvolutionDriver;
 // TODO rename to something better
 public class TestRunner {
 	public static int counter = 1;
+	public static int iterations = 15;
 	
 	public static void main(String[] args){
 		TestConfigure test = new TestConfigure(args);
-		while(true){
+		while(true){ 
+			if(counter>iterations)break;
+			System.out.print("ITER "+ String.format("%03d",counter)+": ");
 			run(test.getTestOption());
 			counter ++;
 		}
