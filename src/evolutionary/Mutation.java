@@ -165,8 +165,8 @@ public class Mutation {
 		return i;	
 	}
 	
-	
 	public Population inverOver(Population p){
+
 		for (int individualIndex = 0; individualIndex < p.size(); individualIndex++){
 			Individual originalIndividual = p.population.get(individualIndex);
 			Individual clonedIndividual = originalIndividual.clone();
