@@ -147,9 +147,9 @@ public class TestConfigure {
 		System.out.println("::Crossover Type: PMX (prob=1)");
 		config.setCrossoverChance(1);
 		config.setCrossoverTypeChance(0, 1, 0, 0);
-		System.out.println("::Mutation Type: Insert (prob=0.1), Invert (prob=0.85), Scrmble (prob=0.05)");
+		System.out.println("::Mutation Type: Insert (prob=0.15), Invert (prob=0.8), Scrmble (prob=0.05)");
 		config.setMutationChance(1);
-		config.setMutationTypeChance(.1, 0, .85, .05, 0);
+		config.setMutationTypeChance(.15, 0, .8, .05, 0);
  		System.out.println("::Survivor Selection: Elitism (Take best pop size from parents + children)");
 		config.setSelectionType(SelectionType.ELITISM);
 		//config.setSelectionTypeChance(0, 0, 1, 0);
