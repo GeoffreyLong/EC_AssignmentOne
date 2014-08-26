@@ -112,6 +112,7 @@ public class EvolutionDriver {
 			totalGens += gens;
 		}
 		int avgGens = totalGens / allGenerations.size();
+		
 		System.out.println(String.format("%10.3f",bestSolution) + " ("+String.format("%10.2f",best)+", "+String.format("%10.2f",avgScore)+", "+String.format("%10.2f",stdDevScore)+"), "+String.format("%5d",numberOfGenerations)+" ("+String.format("%5d",avgGens)+"), "+time+" ("+String.format("%5d",avgTime)+", "+String.format("%5d",totalTime)+")");
 	}
 }
