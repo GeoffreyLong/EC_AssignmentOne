@@ -190,18 +190,15 @@ public class Mutation {
 				}
 				
 				int firstCityIndex = getIndexOfElement(firstCity, clonedIndividual.genotype);
-				// Want one after the index
-				firstCityIndex++;
 				int secondCityIndex = getIndexOfElement(secondCity, clonedIndividual.genotype);
 				int indexDifference = Math.abs(firstCityIndex - secondCityIndex);
 				if (indexDifference <= 1 || indexDifference == genotypeSize-1){
 					break;
 				}
 				
-
 				int j=0;
 				while(true) {
-					int indexA = (firstCityIndex+j) % genotypeSize;
+					int indexA = (firstCityIndex+1+j) % genotypeSize;
 					int indexB = (secondCityIndex-j + genotypeSize) % genotypeSize; 
 
 					Object temp = clonedIndividual.genotype.get(indexA);//store temp

@@ -82,7 +82,7 @@ public class EvolutionDriver {
 			numberOfGenerations -= 1000;
 		}
 		int time = (int) ((System.currentTimeMillis() - startTime) / 1000);
-		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + (time));
+		System.out.println(String.format("%.3f", bestSolution) + ", " + numberOfGenerations + ", " + (time));
 		allTimes.add(time);
 		int totalTime = 0;
 		for (int times : allTimes){
