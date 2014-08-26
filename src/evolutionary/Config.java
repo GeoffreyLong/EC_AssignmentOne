@@ -26,7 +26,7 @@ public class Config{
 	
 	// Need to instantiate in TestConfigure
 	public int populationSize = 100;
-	public int numberOfGenerations = 10000;
+	public int maxNumberOfGenerations = 10000;
 	public double crossoverChance = 1;
 	public double crossingChance = 1;
 	public double mutationChance = 0.02;
@@ -100,11 +100,11 @@ public class Config{
 	private void Config(){}
 	
 	public void setNumberOfGenerations(int generations){
-		numberOfGenerations = generations;
+		this.maxNumberOfGenerations=  generations;
 	}
 	
 	public int getNumberOfGenerations(){
-		return numberOfGenerations;
+		return this.maxNumberOfGenerations;
 	}
 	
 	public void setPopulationSize(int size){

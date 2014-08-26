@@ -194,10 +194,21 @@ public class TestConfigure {
 	}
 	
 	
-	
+	// Could instead make this a single "enter -h for help" then output this on -h
 	private void inputError(){
-		System.out.println("Lol, wrong arguments... sucks to suck");
-		// TODO tell the user how to enter information into the system
+		System.out.println();
+		System.out.println("CORRECT FORMAT");
+		System.out.println("program must be called programName x y z");
+		System.out.println("  x is the TEST CASE which can be any number between 1 and 11 inclusive");
+		for (int i = 0; i < TestOptions.values().length; i++){
+			System.out.println("    " + (i+1) + " : " + TestOptions.values()[i]);
+		}
+		System.out.println("  y is the MAXIMUM NUMBER OF GENERATIONS, which can be between " +
+				this.SMALLEST_GEN_SIZE + " and " + this.LARGEST_GEN_SIZE);
+		System.out.println("  z is the algorithm number which can be any of {1,2,3,4}");
+		System.out.println("    Numbers 1 through 3 are our implementations, 1 is the best of these ");
+		System.out.println("    number 4 is the InverOver implementation");
+		
 		System.exit(0);
 	}
 	

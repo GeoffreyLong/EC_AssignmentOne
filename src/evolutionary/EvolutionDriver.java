@@ -2,6 +2,8 @@
 
 package evolutionary;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -11,7 +13,8 @@ public class EvolutionDriver {
 	Mutation mutation;
 	Crossover crossover;
 	Selection selection;
-	
+	static List<Integer> allTimes = new LinkedList<Integer>();
+	private final int GEN_CHECK_MOD = 25;
 	
 	public EvolutionDriver(){
 		Config config = Config.getInstance();
@@ -31,29 +34,36 @@ public class EvolutionDriver {
 		double lastSolution = 0;
 		double numberOfRepeats = 0;
 		long startTime = System.currentTimeMillis();
-		System.out.println();
-		System.out.println(Config.getInstance().testingInstance);
-		while (numberOfGenerations <= maxGenerations){
+		// System.out.println();
+		// System.out.println(Config.getInstance().testingInstance);
+		while (numberOfGenerations <= maxNumberOfGenerations){
+
 			Population offspring = population.clone();
-			numberOfGenerations++;
 			
 			Config config = Config.getInstance();
 			
-			double curVal = config.calculateMeanPathlength(population);
-			if (curVal < bestSolution){
-				bestSolution = curVal;
+			
+			// This will drop the time to compilation
+			// A little less accurate in calculating the best value
+			// Can make it better by reducing the value of GEN_CHECK_MOD
+			// Make this by adding this info into the config
+			if (numberOfGenerations % GEN_CHECK_MOD == 0){
+				double curVal = config.calculateMeanPathlength(population);
+				if (curVal < bestSolution){
+					bestSolution = curVal;
+				}
+				if (bestSolution == lastSolution){
+					numberOfRepeats ++;
+				}
+				else{
+					numberOfRepeats = 0;
+				}
+				if (numberOfRepeats == 15){
+					break;
+				}
+				lastSolution = bestSolution;
 			}
-			if (bestSolution == lastSolution){
-				numberOfRepeats ++;
-			}
-			else{
-				numberOfRepeats = 0;
-			}
-			if (numberOfRepeats == 1000){
-				break;
-			}
-			lastSolution = bestSolution;
-			//System.out.println (String.format("%-10.3f", curVal) + "    (" + String.format("%.3f", bestSolution) + ")");
+			// System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
 			
 			offspring = crossover.cross(offspring);
 			mutation.mutate(offspring);
@@ -65,10 +75,20 @@ public class EvolutionDriver {
 				population.population = offspring.population;
 			}
 			population = selection.select(population);
+			numberOfGenerations++;
 		}
-		if (numberOfGenerations != maxGenerations+1){
+
+		if (numberOfGenerations != maxNumberOfGenerations + 1){
 			numberOfGenerations -= 1000;
 		}
-		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + ((System.currentTimeMillis() - startTime) / 1000));
+		int time = (int) ((System.currentTimeMillis() - startTime) / 1000);
+		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + (time));
+		allTimes.add(time);
+		int totalTime = 0;
+		for (int times : allTimes){
+			totalTime += times;
+		}
+		int avgTime = totalTime / allTimes.size();
+		// System.out.println(avgTime);
 	}
 }
