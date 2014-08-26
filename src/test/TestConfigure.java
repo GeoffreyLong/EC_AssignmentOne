@@ -168,7 +168,7 @@ public class TestConfigure {
 		config.setCrossoverChance(1);
 		config.setSelectionTypeChance(0, 0, 1, 0);
 		config.setCrossoverTypeChance(0, 1, 0, 0);
-		config.setMutationTypeChance(0, 0, 1, 0, 0);
+		config.setMutationTypeChance(.1, 0, .85, .05, 0);
 	}
 	private void setUpAlgThree(){
 		Config config = Config.getInstance();
@@ -180,6 +180,7 @@ public class TestConfigure {
 		config.setMutationChance(0.1);
 		config.setCrossoverChance(0.2);
 		config.setCrossoverTypeChance(0.25, 0.25, 0.25, 0.25);
+		//insert,swap,invert,scrmable
 		config.setMutationTypeChance(0.3, 0.1, 0.4, 0.2, 0);
 	}
 	private void setUpInverOver(){

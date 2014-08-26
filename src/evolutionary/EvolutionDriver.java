@@ -26,13 +26,14 @@ public class EvolutionDriver {
 	
 	public void evolve(){
 		int numberOfGenerations = 0;
+		int maxGenerations = Config.getInstance().getNumberOfGenerations();
 		double bestSolution = Double.MAX_VALUE;
 		double lastSolution = 0;
 		double numberOfRepeats = 0;
 		long startTime = System.currentTimeMillis();
 		System.out.println();
 		System.out.println(Config.getInstance().testingInstance);
-		while (numberOfGenerations <= 20000){
+		while (numberOfGenerations <= maxGenerations){
 			Population offspring = population.clone();
 			numberOfGenerations++;
 			
@@ -65,7 +66,7 @@ public class EvolutionDriver {
 			}
 			population = selection.select(population);
 		}
-		if (numberOfGenerations != 20001){
+		if (numberOfGenerations != maxGenerations+1){
 			numberOfGenerations -= 1000;
 		}
 		System.out.println(bestSolution + ", " + numberOfGenerations + ", " + ((System.currentTimeMillis() - startTime) / 1000));

@@ -63,7 +63,7 @@ public class Mutation {
 				}
 				break;
 			case INVEROVER:
-				population = newInverOver(population);
+				population = inverOver(population);
 				break;
 		}
 		return population;
@@ -165,115 +165,8 @@ public class Mutation {
 		return i;	
 	}
 	
-	public Population inverOver(Population p, double prob){
-		//System.out.println(p.population.toString());
-		for(int popInd = 0; popInd < p.population.size(); popInd++){
-			Individual i = p.population.get(popInd);
-			Individual iTemp = (Individual) i.clone();//deep clone of individual
-			
-			int numChromosomes=iTemp.genotype.size();
-			int cInd = rand.nextInt(numChromosomes); //c index (index of iTemp (S'))
-			String c = (String) iTemp.genotype.get(cInd);//c name
-			
-			//System.out.println("Individual (S'): " + i.toString());
-			//System.out.println("City (c): Index:" +cInd +"   ID: "+ c);
-			
-			while(true){
-				String cb="";
-				int cbInd=-1;
-				if(rand.nextDouble()<=prob){
-					cbInd=rand.nextInt(numChromosomes);
-					while (cbInd==cInd){//ensure non-duplicate choice
-						cbInd=rand.nextInt(numChromosomes);//c' index
-						cb=(String) iTemp.genotype.get(cbInd);//c' name
-					}
-					//System.out.println("Rand was less than prob, so get c' from S'");
-					//System.out.println("City 2 (c'): Index:" +cbInd +"   ID: "+ cb);
-				}else{
-					//System.out.println("Rand was NOT less than prob, so get c' from random individual");
-					int ibInd=rand.nextInt(p.population.size());//can be same individual?
-					String label = (String) iTemp.genotype.get(cInd);
-					//System.out.println("Individual 2: " + p.population.get(ibInd).toString());
-					for(int t=0; t<p.population.get(ibInd).genotype.size();t++){
-						String labelb = (String) p.population.get(ibInd).genotype.get(t);
-						if(label.equals(labelb)){
-							//System.out.println("c is at index " + t + " of individual 2");
-							cbInd=(t+1>=p.population.get(ibInd).genotype.size()) ? 0 : t+1;//c' index (index of p.population[ibInd] (separate individual))
-							cb=(String) p.population.get(ibInd).genotype.get(cbInd);//c' name
-							//System.out.println("City 2 (c'): Index:" +cbInd +"   ID: "+ cb);
-							break;
-						}
-					}
-				}
-				
-				if(cInd==0){
-					String next = (String)iTemp.genotype.get(cInd+1);
-					if(cb.equals(next)){
-						//System.out.println("Same so exit loop");
-						break;
-					}					
-				}else if(cInd==numChromosomes-1){
-					String previous = (String)iTemp.genotype.get(cInd-1);
-					if(cb.equals(previous)){
-						//System.out.println("Same so exit loop");
-						break;
-					}
-				}else{
-					String next = (String)iTemp.genotype.get(cInd+1);
-					String previous = (String)iTemp.genotype.get(cInd-1);
-					if(cb.equals(next)||cb.equals(previous)){
-						//System.out.println("Same so exit loop");
-						break;
-					}
-				}
-				
-				//fix index for c=c' from index of p.population[ibInd] (separate individual) back to S' (ie. find c' string in iTemp (S'))
-				for(int t=0; t<i.genotype.size();t++){
-					String label = (String) i.genotype.get(t);
-					if(cb.equals(label)){
-						cbInd=t;//c' index (index of c' in S')
-						//System.out.println("City c' is index " +t + " of individual 1: " + i.toString());
-						break;
-					}
-				}
-				
-				//inversion mutation
-				int indexA=(cInd+1)%(numChromosomes);
-				int indexB=cbInd%(numChromosomes);
-				if (indexA > indexB) {//make sure indexes in ascending order
-					int tmp = indexA;
-					indexA = indexB;
-					indexB = tmp;
-				}
-				
-				//System.out.println("Perform inverson on "+ i.toString()+" from index "+indexA+" to index"+indexB);
-				int swaps = (int) (Math.floor(indexB-indexA)/2);//how many swap operations
-				
-				for (int j = 0; j < swaps; j++) {
-					Object temp = iTemp.genotype.get(indexA+j);//store temp
-					iTemp.genotype.set(indexA+j,iTemp.genotype.get(indexB-j));
-					iTemp.genotype.set(indexB-j,temp);
-				}
-				
-				///c=c'
-				//System.out.println("c=c'");
-				c=cb;
-				cInd=cbInd;				
-			}
-			
-			if(Config.getInstance().calculateFitness(iTemp)>=Config.getInstance().calculateFitness(i)){//compare fitness'
-				//System.out.println(i.toString());
-				//System.out.println(iTemp.toString());
-				p.population.set(popInd, iTemp);
-				//System.out.println("Less than");
-			}
-			//System.out.println("-----------------------------------------------------");
-		}		
-		//System.out.println(p.population.toString());
-		return p;
-	}
-	
-	public Population newInverOver(Population p){
+	public Population inverOver(Population p){
+		Population pOld=p.clone();
 		for (int individualIndex = 0; individualIndex < p.size(); individualIndex++){
 			Individual originalIndividual = p.population.get(individualIndex);
 			Individual clonedIndividual = originalIndividual.clone();
