@@ -30,14 +30,16 @@ public class TestConfigure {
 		}
 	}
 	
-	public TestConfigure(String[] args){
-		if (args.length == 3){
+	public TestConfigure(String[] args){//changed number of arguments
+		if (args.length == 4){
 			readTestOption(args[0]);
 			readNumberOfGenerations(args[1]);
-			readAlgorithmNumber(args[2]);
+			readPopulationSize(args[2]);
+			readAlgorithmNumber(args[3]);
 		}
 		else{
 			System.out.println("Incorrect number of arguments");
+			System.out.println("DATASET #, # OF GENS, POP SIZE, ALG #");
 			inputError();
 		}
 	}
@@ -46,24 +48,34 @@ public class TestConfigure {
 		switch(readInt(arg)){
 			//TODO need to add all the extra cases
 			case 1: testOption = TestOptions.EIL51;
+					System.out.println("::DATASET: EIL51");
 					break;
 			case 2: testOption = TestOptions.EIL76;
+					System.out.println("::DATASET: EIL76");
 					break;
 			case 3: testOption = TestOptions.EIL101;
+					System.out.println("::DATASET: EIL101");
 					break;
 			case 4: testOption = TestOptions.ST70;
+					System.out.println("::DATASET: ST70");
 					break;
 			case 5: testOption = TestOptions.KROA100;
+					System.out.println("::DATASET: KROA100");
 					break;
 			case 6: testOption = TestOptions.KROC100;
+					System.out.println("::DATASET: KROC100");
 					break;
 			case 7: testOption = TestOptions.KROD100;
+					System.out.println("::DATASET: KROD100");
 					break;
 			case 8: testOption = TestOptions.LIN105;
+					System.out.println("::DATASET: LIN105");
 					break;
 			case 9: testOption = TestOptions.PCB442;
+					System.out.println("::DATASET: PCB442");
 					break;
 			case 10: testOption = TestOptions.PR2392;
+					System.out.println("::DATASET: PR2392");
 					break;
 			case 11: testOption = TestOptions.ALL_TESTS;
 					break;
@@ -81,9 +93,15 @@ public class TestConfigure {
 			System.out.println("Too many generations");
 			inputError();
 		}
-		
+		System.out.println("::MAX GENERATIONS: "+numberOfGenerations);
 		Config.getInstance().setNumberOfGenerations(numberOfGenerations);
 	}
+	
+	private void readPopulationSize(String arg){
+		System.out.println("::POPULATION SIZE: "+readInt(arg));
+		Config.getInstance().setPopulationSize(readInt(arg));
+	}
+	
 	private void readAlgorithmNumber(String arg){
 		switch(readInt(arg)){
 		case 1: setUpAlgOne();
@@ -172,7 +190,7 @@ public class TestConfigure {
 	}
 	private void setUpInverOver(){
 		Config config = Config.getInstance();
-		System.out.println("Running Inver-over");
+		System.out.println("::Running Inver-over");
 		config.setCrossoverTypeChance(0, 0, 0, 0);
 		config.setMutationTypeChance(0, 0, 0, 0, 1);
 		config.setSelectionType(null);

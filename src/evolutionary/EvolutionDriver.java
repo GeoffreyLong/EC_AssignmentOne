@@ -13,6 +13,7 @@ public class EvolutionDriver {
 	static List<Double> allAverages = new LinkedList<Double>();
 	static List<Integer> allTimes = new LinkedList<Integer>();
 	static double best = Double.MAX_VALUE;
+	static Individual bestInd = null;
 	private final int GEN_CHECK_MOD = 25;
 	
 	public EvolutionDriver(){
@@ -30,15 +31,15 @@ public class EvolutionDriver {
 		int numberOfGenerations = 0;
 		double bestSolution = Double.MAX_VALUE;
 		double worstSolution = Double.MIN_VALUE;
-		int bestFinalIndex=-1;
+		Individual bestSolInd=null;
+		int bestSolIndex=-1;
 		int worstFinalIndex=-1;//might not use
 		double lastSolution = 0;
 		double numberOfRepeats = 0;
 		long startTime = System.currentTimeMillis();
 
-		System.out.println("------------------ BEST: "+ String.format("%10.3f",best)+" ------------------");
-		System.out.println("------------------------------------------------------");
-		System.out.println("GEN #     ITER BEST( POP BEST,     POP AVG,  POP WORST), TIMES");
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.println("GEN #     ITER BEST (  POP BEST,    POP AVG,  POP WORST), TIME SINCE ITER START ( OVERALL TIME AVG, OVERALL TIME SUM)");
 		while (numberOfGenerations <= maxNumberOfGenerations){
 
 			Population offspring = population.clone();
@@ -87,10 +88,12 @@ public class EvolutionDriver {
 
 			if (data[0] < bestSolution){
 				bestSolution = data[0];
+				bestSolInd=population.population.get(data[3].intValue());
 			}
 			
 			if(bestSolution<best){
 				best=bestSolution;
+				bestInd=population.population.get(data[3].intValue());
 			}
 			
 			if (data[2] > worstSolution){
@@ -100,10 +103,6 @@ public class EvolutionDriver {
 			if (numberOfGenerations%100==0){
 				int time = (int) ((System.currentTimeMillis() - startTime) / 1000);
 
-				//System.out.println(bestSolution + ", " + numberOfGenerations + ", " + (time));
-
-				//System.out.println(String.format("%.3f", bestSolution) + ", " + numberOfGenerations + ", " + (time));
-
 				allTimes.add(time);
 				
 				int totalTime = 0;
@@ -112,14 +111,22 @@ public class EvolutionDriver {
 				}
 				int avgTime = totalTime / allTimes.size();
 				
-				System.out.println("G: "+String.format("%5d",numberOfGenerations)+String.format("%10.3f",bestSolution) + " ("+String.format("%10.2f",data[0])+", "+String.format("%10.2f",data[1])+", "+String.format("%10.2f",data[2])+"), "+time+" ("+String.format("%5d",avgTime)+", "+String.format("%5d",totalTime)+")");
+				System.out.println("G: "+String.format("%5d",numberOfGenerations)+" "+String.format("%10.3f",bestSolution) + " ("+String.format("%10.2f",data[0])+", "+String.format("%10.2f",data[1])+", "+String.format("%10.2f",data[2])+"), "+time+" ("+String.format("%5d",avgTime)+", "+String.format("%5d",totalTime)+")");
 			}
 		}
-
-		//if (numberOfGenerations != maxNumberOfGenerations + 1){
-		//	numberOfGenerations -= 1000;
-		//}
 		
-		//PUT IN PRINTS FOR OVERALL ITERATIONS DATA
+		System.out.println("--------------------------------------------------------------------------");
+		if (best!=Double.MAX_VALUE){
+			System.out.println("---------------------- ITERATTION BEST: "+ String.format("%10.3f",bestSolution)+" -----------------------");
+			System.out.println(bestSolInd);
+		}
+		
+		System.out.println("--------------------------------------------------------------------------");
+		if (best!=Double.MAX_VALUE){
+			System.out.println("------------------------ OVERALL BEST: "+ String.format("%10.3f",best)+" ------------------------");
+			System.out.println(bestInd);
+		}
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.println();
 	}
 }

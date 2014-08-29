@@ -6,15 +6,15 @@ import evolutionary.EvolutionDriver;
 
 // TODO rename to something better
 public class TestRunner {
-	public static int counter = 1;
-	public static int iterations = 5;
+	private static int counter = 1;
+	private static int iterations = 5;
 	
 	public static void main(String[] args){
 		TestConfigure test = new TestConfigure(args);
 		while(true){ 
 			if(counter>iterations)break;
-			System.out.println("------------------------------------------------------");
-			System.out.println("-------------------- ITERATION "+ String.format("%03d",counter)+" -------------------");
+			System.out.println("--------------------------------------------------------------------------");
+			System.out.println("------------------------------ ITERATION "+ String.format("%03d",counter)+" -----------------------------");
 			run(test.getTestOption());
 			counter ++;
 		}
