@@ -15,7 +15,6 @@ public class TestRunner {
 			if(counter>iterations)break;
 			System.out.println("------------------------------------------------------");
 			System.out.println("-------------------- ITERATION "+ String.format("%03d",counter)+" -------------------");
-			System.out.println("------------------------------------------------------");
 			run(test.getTestOption());
 			counter ++;
 		}

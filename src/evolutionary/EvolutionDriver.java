@@ -10,9 +10,9 @@ public class EvolutionDriver {
 	Mutation mutation;
 	Crossover crossover;
 	Selection selection;
-	static List<Double> allScores = new LinkedList<Double>();
+	static List<Double> allAverages = new LinkedList<Double>();
 	static List<Integer> allTimes = new LinkedList<Integer>();
-	static double best = -1;
+	static double best = Double.MAX_VALUE;
 	private final int GEN_CHECK_MOD = 25;
 	
 	public EvolutionDriver(){
@@ -29,23 +29,29 @@ public class EvolutionDriver {
 	public void evolve(){
 		int numberOfGenerations = 0;
 		double bestSolution = Double.MAX_VALUE;
+		double worstSolution = Double.MIN_VALUE;
+		int bestFinalIndex=-1;
+		int worstFinalIndex=-1;//might not use
 		double lastSolution = 0;
 		double numberOfRepeats = 0;
 		long startTime = System.currentTimeMillis();
 
+		System.out.println("------------------ BEST: "+ String.format("%10.3f",best)+" ------------------");
+		System.out.println("------------------------------------------------------");
+		System.out.println("GEN #     ITER BEST( POP BEST,     POP AVG,  POP WORST), TIMES");
 		while (numberOfGenerations <= maxNumberOfGenerations){
 
 			Population offspring = population.clone();
 			
 			Config config = Config.getInstance();
 			
-			
+			/*
 			// This will drop the time to compilation
 			// A little less accurate in calculating the best value
 			// Can make it better by reducing the value of GEN_CHECK_MOD
 			// Make this by adding this info into the config
 			if (numberOfGenerations % GEN_CHECK_MOD == 0){
-				double curVal = config.calculateMeanPathlength(population);//SHOULD WE BE CALCULATING MEANN!!!!!!!! NEED TO LOOK AT EVERY INDIVIDUAL IN A POPULATION AND TAKE MAXIMUM AND MINIMUM AND AVG!!!
+				//double curVal = config.calculateMeanPathlength(population);//SHOULD WE BE CALCULATING MEANN!!!!!!!! NEED TO LOOK AT EVERY INDIVIDUAL IN A POPULATION AND TAKE MAXIMUM AND MINIMUM AND AVG!!!
 				if (curVal < bestSolution){
 					bestSolution = curVal;
 				}
@@ -61,6 +67,7 @@ public class EvolutionDriver {
 				lastSolution = bestSolution;
 			}
 			// System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
+			*/
 			
 			offspring = crossover.cross(offspring);
 			offspring = mutation.mutate(offspring);
@@ -74,6 +81,22 @@ public class EvolutionDriver {
 			population = selection.select(population);
 			numberOfGenerations++;
 			
+			/// calc data store best worst and avg
+			//bestF,avgF,worstF,bestInd,worstInd
+			Double[] data = population.getStats();
+
+			if (data[0] < bestSolution){
+				bestSolution = data[0];
+			}
+			
+			if(bestSolution<best){
+				best=bestSolution;
+			}
+			
+			if (data[2] > worstSolution){
+				worstSolution = data[2];
+			}
+			
 			if (numberOfGenerations%100==0){
 				int time = (int) ((System.currentTimeMillis() - startTime) / 1000);
 
@@ -82,9 +105,6 @@ public class EvolutionDriver {
 				//System.out.println(String.format("%.3f", bestSolution) + ", " + numberOfGenerations + ", " + (time));
 
 				allTimes.add(time);
-				allScores.add(bestSolution);
-				if(best<0 || best>bestSolution)best=bestSolution;
-				if(best<0 || best>bestSolution)best=bestSolution;
 				
 				int totalTime = 0;
 				for (int times : allTimes){
@@ -92,18 +112,7 @@ public class EvolutionDriver {
 				}
 				int avgTime = totalTime / allTimes.size();
 				
-				double totalScore = 0;
-				for (double scores : allScores){
-					totalScore += scores;
-				}
-				double avgScore = totalScore / allScores.size();
-				double stdDevScore = 0;
-				for (double scores : allScores){
-					stdDevScore += (avgScore-scores)*(avgScore-scores);
-				}
-				stdDevScore=Math.sqrt(stdDevScore);
-				
-				System.out.println("G: "+String.format("%5d",numberOfGenerations)+String.format("%10.3f",bestSolution) + " ("+String.format("%10.2f",best)+", "+String.format("%10.2f",avgScore)+", "+String.format("%10.2f",stdDevScore)+"), "+time+" ("+String.format("%5d",avgTime)+", "+String.format("%5d",totalTime)+")");
+				System.out.println("G: "+String.format("%5d",numberOfGenerations)+String.format("%10.3f",bestSolution) + " ("+String.format("%10.2f",data[0])+", "+String.format("%10.2f",data[1])+", "+String.format("%10.2f",data[2])+"), "+time+" ("+String.format("%5d",avgTime)+", "+String.format("%5d",totalTime)+")");
 			}
 		}
 

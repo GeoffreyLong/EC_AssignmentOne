@@ -61,6 +61,64 @@ public class Population {
 		return totalFitness;
 	}
 	
+	public Individual getBest(){
+		
+		double bestFitness = Double.MIN_VALUE;
+		Individual bestI=null;
+		for (Individual i : population){
+			double indFitness = Config.getInstance().calculateFitness(i);
+			
+			if(indFitness>bestFitness){
+				bestI = i;
+			}
+		}
+		return bestI;
+	}
+	
+	public Individual getWorst(){
+		
+		double worstFitness = Double.MAX_VALUE;
+		Individual worstI=null;
+		for (Individual i : population){
+			double indFitness = Config.getInstance().calculateFitness(i);
+			
+			if(indFitness>worstFitness){
+				worstI = i;
+			}
+		}
+		return worstI;
+	}
+	
+	public Double[] getStats(){//might be ugly but only loop through population once to get all the stats
+		double bestFitness = Double.MIN_VALUE;
+		double worstFitness = Double.MAX_VALUE;
+		double averageFitness = 0;
+		int bestIndex = -1;
+		int worstIndex = -1;
+		
+		for (int i = 0; i<population.size(); i++){
+			double indFitness = Config.getInstance().calculateFitness(population.get(i));
+			
+			if(indFitness<worstFitness){
+				
+				worstIndex = i;
+				worstFitness = indFitness;
+			}
+			
+			if(indFitness>bestFitness){
+				bestIndex = i;
+				bestFitness = indFitness;
+			}
+			
+			averageFitness+=indFitness;
+		}
+		
+		averageFitness=averageFitness/population.size();
+		
+		Double[] stats = {1/bestFitness,1/averageFitness,1/worstFitness,(double) bestIndex, (double) worstIndex};
+		return stats;
+	}
+	
 	@Override
 	public Population clone() {
 		List<Individual> newPopList = new ArrayList<Individual>();
