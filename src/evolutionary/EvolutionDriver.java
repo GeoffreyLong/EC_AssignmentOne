@@ -46,30 +46,6 @@ public class EvolutionDriver {
 			
 			Config config = Config.getInstance();
 			
-			/*
-			// This will drop the time to compilation
-			// A little less accurate in calculating the best value
-			// Can make it better by reducing the value of GEN_CHECK_MOD
-			// Make this by adding this info into the config
-			if (numberOfGenerations % GEN_CHECK_MOD == 0){
-				//double curVal = config.calculateMeanPathlength(population);//SHOULD WE BE CALCULATING MEANN!!!!!!!! NEED TO LOOK AT EVERY INDIVIDUAL IN A POPULATION AND TAKE MAXIMUM AND MINIMUM AND AVG!!!
-				if (curVal < bestSolution){
-					bestSolution = curVal;
-				}
-				if (bestSolution == lastSolution){
-					numberOfRepeats ++;
-				}
-				else{
-					numberOfRepeats = 0;
-				}
-				if (numberOfRepeats == 15){
-					//break;
-				}
-				lastSolution = bestSolution;
-			}
-			// System.out.println (String.format("%-10.3f", config.calculateMeanPathlength(population)) + "    (" + String.format("%.3f", bestSolution) + ")");
-			*/
-			
 			offspring = crossover.cross(offspring);
 			offspring = mutation.mutate(offspring);
 			
